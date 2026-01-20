@@ -87,8 +87,6 @@ const OrderStatus = ({ order }: { order: Order }) => {
     }
   };
 
- 
-
   const currentStep = getStatusStep(order.orderStatus);
   console.log("currentStep ->", currentStep);
   const isTerminalStatus = ["CANCELED", "RETURNED", "REFUNDED"].includes(

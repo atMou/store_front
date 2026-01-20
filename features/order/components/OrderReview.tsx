@@ -64,13 +64,11 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
   const [createPaymentIntent, { isLoading: isCreatingIntent }] =
     useCreatePaymentIntentMutation();
 
-  const [changeDeliveryAddress] =
-    useChangeDeliveryAddressMutation();
+  const [changeDeliveryAddress] = useChangeDeliveryAddressMutation();
 
   const [addAddress] = useAddAddressMutation();
 
-  const [deleteAddress] =
-    useDeleteAddressMutation();
+  const [deleteAddress] = useDeleteAddressMutation();
 
   const [showNewAddressForm, setShowNewAddressForm] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
@@ -582,10 +580,10 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
                         </button>
                         <button
                           type="submit"
-                          disabled={isSubmitting }
+                          disabled={isSubmitting}
                           className="bg-slate-900 text-white px-4 py-2  font-medium hover:bg-slate-800 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center gap-2 text-sm"
                         >
-                          {isSubmitting  ? (
+                          {isSubmitting ? (
                             <span>Saving...</span>
                           ) : (
                             <>

@@ -3,7 +3,6 @@
 import { useNotifications } from "../hooks/useNotifications";
 import Image from "next/image";
 
-
 export function NewProductNotificationExample() {
   const { notifications, isConnected } = useNotifications();
 

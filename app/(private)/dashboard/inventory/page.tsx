@@ -1,24 +1,19 @@
 "use client";
 import Table from "@/components/molecules/Table";
 import type { InventoryResult } from "@/features/inventory";
-import {
-  useInfiniteInventory,
-} from "@/features/inventory";
+import { useInfiniteInventory } from "@/features/inventory";
 import { Edit, History, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const InventoryDashboard = () => {
   const router = useRouter();
-  const [, setSelectedInventory] =
-    useState<InventoryResult | null>(null);
+  const [, setSelectedInventory] = useState<InventoryResult | null>(null);
 
   const { inventory, pagination, isLoading, hasNextPage, loadMore } =
     useInfiniteInventory({
       pageSize: 20,
     });
-
-  
 
   const columns = [
     {
