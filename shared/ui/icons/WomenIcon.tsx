@@ -1,0 +1,25 @@
+type WomenProps = {
+  size?: string;
+};
+
+const WomenIcon = ({ size = "18" }: WomenProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+  >
+    <g fill="none">
+      <path
+        fill="#000000"
+        d="M9.5 17.75a.75.75 0 0 0 0 1.5v-1.5Zm5 1.5a.75.75 0 0 0 0-1.5v1.5ZM11.25 22a.75.75 0 1 0 1.5 0h-1.5Zm0-6v2.5h1.5V16h-1.5Zm.75 1.75H9.5v1.5H12v-1.5Zm2.5 0H12v1.5h2.5v-1.5Zm-3.25.75V22h1.5v-3.5h-1.5Z"
+      />
+      <path
+        stroke="#000000"
+        strokeWidth="1.5"
+        d="M19 9A7 7 0 1 1 5 9a7 7 0 0 1 14 0Z"
+      />
+    </g>
+  </svg>
+);
+export default WomenIcon;

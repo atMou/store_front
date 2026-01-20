@@ -1,26 +1,202 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes slideInSpin {
+  0% {
+    transform: translateX(-200px) rotate(0deg);
+    opacity: 0;
+  }
+  70% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0) rotate(360deg);
+    opacity: 1;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes fillUp {
+  0% {
+    clip-path: inset(100% 0 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@layer base {
+  html {
+    font-size: 18px;
+  }
+}
+
+/* Blue palette (default) */
+:root {
+  /* f3f4f5 */
+  --radius: 0.625rem;
+
+  /* Background / Foreground */
+  --background: #f3f4f5; /* lightest blue */
+  --foreground: #2f2f2f; /* darkest blue */
+  --DarkYellow: #f2bb3c;
+
+  /* Cards / Popovers */
+  --card: #99ccff;
+  --card-foreground: #2f2f2f;
+  --popover: #99ccff;
+  --popover-foreground: #3366ff;
+
+  /* Primary / Secondary / Accent */
+  --primary: #4a5565;
+  --primary-foreground: #ffffff;
+  --secondary: #77aaff;
+  --secondary-foreground: #3366ff;
+  --muted: #99ccff;
+  --muted-foreground: #4a5565;
+  --accent: #5588ff;
+  --accent-foreground: #ffffff;
+
+  /* Destructive / Border / Input / Ring */
+  --destructive: #ff3366; /* optional red-ish accent */
+  --border: #77aaff;
+  --input: #bbeeff;
+  --ring: #5588ff;
+
+  /* Chart colors */
+  --chart-1: #77aaff;
+  --chart-2: #99ccff;
+  --chart-3: #bbeeff;
+  --chart-4: #5588ff;
+  --chart-5: #3366ff;
+
+  /* Sidebar */
+  --sidebar: #bbeeff;
+  --sidebar-foreground: #3366ff;
+  --sidebar-primary: #5588ff;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #77aaff;
+  --sidebar-accent-foreground: #3366ff;
+  --sidebar-border: #99ccff;
+  --sidebar-ring: #5588ff;
+
+  --font-family-main: "Space Grotesk", sans-serif;
+  --font-size-xl: 32px;
+  --font-line-xl: 40px;
+  --font-xl: var(--font-size-xl) / var(--font-line-xl) var(--font-family-main);
+  --font-size-lg: 24px;
+  --font-line-lg: 32px;
+  --font-lg: var(--font-size-lg) / var(--font-line-lg) var(--font-family-main);
+  --font-size-base: 18px;
+  --font-line-base: 26px;
+  --font-base: var(--font-size-base) / var(--font-line-base)
+    var(--font-family-main);
+  --font-size-md: 16px;
+  --font-line-md: 24px;
+  --font-md: var(--font-size-md) / var(--font-line-md) var(--font-family-main);
+  --font-size-sm: 14px;
+  --font-line-sm: 20px;
+  --font-sm: var(--font-size-sm) / var(--font-line-sm) var(--font-family-main);
+  --font-size-xs: 12px;
+  --font-line-xs: 16px;
+  --font-xs: var(--font-size-xs) / var(--font-line-xs) var(--font-family-main);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-darkYellow: var(--DarkYellow);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply m-0 p-0 box-border;
+  }
+  body {
+    @apply bg-(--color-background) text-(--color-foreground);
+    font-family: var(--font-family-main);
+    font-size: var(--font-size-md);
+    line-height: var(--font-line-md);
+  }
+
+  /* Custom scrollbar styling */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #000000 transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border-radius: 4px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: #333333;
+  }
+}
+@layer base {
+  input {
+    background-color: var(--color-background);
+  }
+  input:focus,
+  textarea:focus,
+  select:focus,
+  button:focus {
+    @apply outline-none;
+  }
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  button:focus-visible {
+    @apply outline-none;
+  }
+}
+
+.react-tel-input .selected-flag {
+  width: 0 !important;
+  padding: 0 !important;
+  margin-left: 10px;
 }

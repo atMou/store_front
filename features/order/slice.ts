@@ -1,0 +1,66 @@
+import { RootState } from "@/store/store";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Order } from "./types";
+
+interface OrderState {
+  currentOrder: Order | null;
+  orders: Order[];
+  isLoading: boolean;
+  error: {
+    detail: string;
+    errors: string[];
+  } | null;
+}
+
+const initialState: OrderState = {
+  currentOrder: null,
+  orders: [],
+  isLoading: false,
+  error: null,
+};
+
+export const orderSlice = createSlice({
+  name: "order",
+  initialState,
+  reducers: {
+    setCurrentOrder: (state, action: PayloadAction<Order>) => {
+      state.currentOrder = action.payload;
+      state.error = null;
+    },
+    setOrders: (state, action: PayloadAction<Order[]>) => {
+      state.orders = action.payload;
+      state.error = null;
+    },
+    clearCurrentOrder: (state) => {
+      state.currentOrder = null;
+    },
+    clearOrders: (state) => {
+      state.orders = [];
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
+    setError: (
+      state,
+      action: PayloadAction<{ detail: string; errors: string[] }>
+    ) => {
+      state.error = action.payload;
+    },
+    clearError: (state) => {
+      state.error = null;
+    },
+  },
+});
+
+// Actions
+export const { actions: orderActions } = orderSlice;
+
+// Selectors
+export const selectCurrentOrder = (state: RootState) =>
+  state.order.currentOrder;
+export const selectOrders = (state: RootState) => state.order.orders;
+export const selectOrderLoading = (state: RootState) => state.order.isLoading;
+export const selectOrderError = (state: RootState) => state.order.error;
+
+// Reducer
+export const { reducer: orderReducer } = orderSlice;
