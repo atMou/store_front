@@ -41,6 +41,8 @@ export default function AuthProvider({
     };
 
     loadCart();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, user?.cartId]);
 
   return <>{children}</>;

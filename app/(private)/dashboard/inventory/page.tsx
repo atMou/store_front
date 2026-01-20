@@ -3,7 +3,6 @@ import Table from "@/components/molecules/Table";
 import type { InventoryResult } from "@/features/inventory";
 import {
   useInfiniteInventory,
-  useUpdateInventoryMutation,
 } from "@/features/inventory";
 import { Edit, History, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -11,7 +10,7 @@ import { useState } from "react";
 
 const InventoryDashboard = () => {
   const router = useRouter();
-  const [selectedInventory, setSelectedInventory] =
+  const [, setSelectedInventory] =
     useState<InventoryResult | null>(null);
 
   const { inventory, pagination, isLoading, hasNextPage, loadMore } =
@@ -19,8 +18,7 @@ const InventoryDashboard = () => {
       pageSize: 20,
     });
 
-  const [updateInventory, { isLoading: isUpdating }] =
-    useUpdateInventoryMutation();
+  
 
   const columns = [
     {

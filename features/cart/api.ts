@@ -1,4 +1,3 @@
-import { isApiError } from "./../../shared/lib/httpStatusCodes";
 import { getErrors } from "@/shared/lib/httpStatusCodes";
 import { baseApi } from "@/store";
 import { RootState } from "@/store/store";
@@ -7,11 +6,9 @@ import { cartActions } from "./slice";
 import {
   AddMultipleLineItemsRequest,
   Cart,
-  ChangeDeliveryAddressRequest,
   Coupon,
   CouponStatus,
   DeleteLineItemRequest,
-  GetCouponsByUserIdRequest,
   RemoveCouponFromCartRequest,
 } from "./types";
 import { userActions } from "../user";

@@ -177,6 +177,7 @@ export function parseApiError(error: unknown): ParsedApiError {
     if (messages.length === 0) {
       messages = ["An unexpected error occurred. Please try again."];
     }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     messages = ["An unexpected error occurred. Please try again."];
     title = "Parse Error";

@@ -1,6 +1,5 @@
 import { Address } from "@/types";
 import { Role } from "../auth/types";
-import { Coupon } from "../cart/types";
 
 export interface User {
   id: string;

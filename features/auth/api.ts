@@ -55,7 +55,7 @@ export const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: { email, code, rememberMe },
       }),
-      onQueryStarted: async (_, { dispatch, queryFulfilled, getState }) => {
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
 

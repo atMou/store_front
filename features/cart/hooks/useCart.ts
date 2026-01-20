@@ -1,6 +1,6 @@
 import { useAuth } from "@/hooks/state/useAuth";
 import { TryAsync } from "@/shared/lib/utils";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import {  useAppSelector } from "@/store/hooks";
 import { useCallback } from "react";
 import {
   useAddLineItemMutation,
@@ -20,7 +20,6 @@ import {
 import { CartItem } from "../types";
 
 export function useCart() {
-  const dispatch = useAppDispatch();
   const { isAuthenticated, user } = useAuth();
   const cart = useAppSelector(selectCart);
   const items = useAppSelector(selectCartItems);

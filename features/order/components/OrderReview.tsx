@@ -59,17 +59,17 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
   const { showToast } = useToast();
   const { user } = useAuth();
 
-  const { order, isLoading, refetch } = useOrderByCartId(cartId);
+  const { order, refetch } = useOrderByCartId(cartId);
 
   const [createPaymentIntent, { isLoading: isCreatingIntent }] =
     useCreatePaymentIntentMutation();
 
-  const [changeDeliveryAddress, { isLoading: isUpdatingAddress }] =
+  const [changeDeliveryAddress] =
     useChangeDeliveryAddressMutation();
 
-  const [addAddress, { isLoading: isAddingAddress }] = useAddAddressMutation();
+  const [addAddress] = useAddAddressMutation();
 
-  const [deleteAddress, { isLoading: isDeletingAddress }] =
+  const [deleteAddress] =
     useDeleteAddressMutation();
 
   const [showNewAddressForm, setShowNewAddressForm] = useState(false);
@@ -582,10 +582,10 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
                         </button>
                         <button
                           type="submit"
-                          disabled={isSubmitting || isUpdatingAddress}
+                          disabled={isSubmitting }
                           className="bg-slate-900 text-white px-4 py-2  font-medium hover:bg-slate-800 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center gap-2 text-sm"
                         >
-                          {isSubmitting || isUpdatingAddress ? (
+                          {isSubmitting  ? (
                             <span>Saving...</span>
                           ) : (
                             <>

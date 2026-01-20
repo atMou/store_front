@@ -71,6 +71,7 @@ export const userApi = baseApi.injectEndpoints({
           const { data } = await queryFulfilled;
           dispatch(userActions.setUser(data));
           dispatch(userActions.clearError());
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (err) {
           dispatch(userActions.setError("Failed to fetch user data"));
           dispatch(userActions.clearUser());

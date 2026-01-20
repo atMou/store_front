@@ -1,19 +1,12 @@
 "use client";
 
 import { useNotifications } from "../hooks/useNotifications";
+import Image from "next/image";
 
-/**
- * Example component showing how to receive and display new product notifications
- *
- * The backend sends notifications via:
- * await _hubContext.Clients.All.ReceiveNewProductNotification(notification);
- *
- * This component automatically receives and displays them in the notification bell
- */
+
 export function NewProductNotificationExample() {
   const { notifications, isConnected } = useNotifications();
 
-  // Filter for new product notifications
   const newProductNotifications = notifications.filter(
     (n) => n.type === "newProduct"
   );
@@ -47,10 +40,12 @@ export function NewProductNotificationExample() {
               >
                 <div className="flex items-center gap-3">
                   {productData?.imageUrl && (
-                    <img
+                    <Image
                       src={productData.imageUrl}
                       alt={productData.name}
                       className="w-16 h-16 object-cover rounded"
+                      width={64}
+                      height={64}
                     />
                   )}
                   <div>

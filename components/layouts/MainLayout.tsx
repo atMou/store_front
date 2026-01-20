@@ -10,7 +10,6 @@ import {
   useFilters,
   useFilterSync,
   useGetBrandsQuery,
-  useGetMarerialsQuery,
 } from "@/features/product";
 import ProductFilterBar from "@/features/product/components/ProductFilterBar";
 import { FilterValues } from "@/features/product/types";
@@ -32,13 +31,11 @@ export default function MainLayout({
   mainCategory,
   mainCategoryLink,
 }: CategoryLayoutProps) {
-  // const subCategory = useAppSelector(selectCarouselSubCategory);
   const dispatch = useAppDispatch();
   const pathname = usePathname();
 
   const { filters, setFilters, updateFilters } = useFilters();
   const { data: brands = [] } = useGetBrandsQuery();
-  const { data: materials = [] } = useGetMarerialsQuery();
 
   useFilterSync();
 

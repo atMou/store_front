@@ -64,7 +64,7 @@ const NumberInput = <T extends FieldValues>({
                 value={field.value ?? ""}
                 onChange={handleChange}
                 onFocus={() => setIsFocused(true)}
-                onBlur={(e) => {
+                onBlur={() => {
                   setIsFocused(false);
                   field.onBlur();
                 }}

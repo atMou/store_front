@@ -1,4 +1,3 @@
-import { Textarea } from "@/shared/ui/textarea";
 import { Button } from "./button";
 import {
   DropdownMenu,

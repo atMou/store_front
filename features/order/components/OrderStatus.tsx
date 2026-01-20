@@ -1,7 +1,6 @@
 "use client";
 
 import { Order } from "@/features/order/types";
-import { formatDate } from "@/shared/lib/dateUtils";
 import { motion } from "framer-motion";
 import {
   CheckCircle,
@@ -88,10 +87,7 @@ const OrderStatus = ({ order }: { order: Order }) => {
     }
   };
 
-  const getStatusDate = (status: string) => {
-    // Since Order type doesn't have these detailed fields, return a generic message
-    return "Date not available";
-  };
+ 
 
   const currentStep = getStatusStep(order.orderStatus);
   console.log("currentStep ->", currentStep);
@@ -158,9 +154,6 @@ const OrderStatus = ({ order }: { order: Order }) => {
               {getStatusIcon(status)}
             </div>
             <span className="text-sm font-medium">{getStatusText(status)}</span>
-            <span className="text-xs text-gray-500">
-              {getStatusDate(status)}
-            </span>
           </motion.div>
         ))}
       </div>

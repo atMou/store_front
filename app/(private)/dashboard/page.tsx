@@ -25,8 +25,15 @@ interface FormData {
   useCustomRange?: boolean;
 }
 
+interface ProductPerformance {
+  id: string;
+  name: string;
+  quantity: number;
+  revenue: number;
+}
+
 const Dashboard = () => {
-  const { control, watch } = useForm<FormData>({
+  const { control } = useForm<FormData>({
     defaultValues: {
       timePeriod: "allTime",
       useCustomRange: false,
@@ -60,21 +67,22 @@ const Dashboard = () => {
       totalUsers: 0,
       changes: { users: 0 },
     },
-    productPerformance: [],
+    productPerformance: [] as ProductPerformance[],
   };
 
   const topItems =
-    data?.productPerformance?.slice(0, 10).map((p: any) => ({
+    data?.productPerformance?.slice(0, 10).map((p) => ({
       id: p.id,
       name: p.name,
-      quantity: p.quantity,
-      revenue: formatPrice(p.revenue),
+      subtitle: "Product",
+      primaryInfo: formatPrice(p.revenue),
+      secondaryInfo: `${p.quantity} sold`,
+      image: "",
     })) || [];
 
   const salesByProduct = {
-    categories: data?.productPerformance?.map((p: any) => p.name) || [],
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data: data?.productPerformance?.map((p: any) => p.revenue) || [],
+    categories: data?.productPerformance?.map((p) => p.name) || [],
+    data: data?.productPerformance?.map((p) => p.revenue) || [],
   };
 
   if (loading) {

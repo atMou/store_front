@@ -37,7 +37,7 @@ const TextInput = <T extends FieldValues>({
               className="pl-8 pr-4 h-9 w-full border border-black rounded-none text-sm placeholder:text-sm caret-black focus:outline-none focus:bg-transparent disabled:bg-gray-50 disabled:cursor-not-allowed"
               placeholder={isFocused ? "" : placeholder}
               onFocus={() => setIsFocused(true)}
-              onBlur={(e) => {
+              onBlur={() => {
                 setIsFocused(false);
                 field.onBlur();
               }}

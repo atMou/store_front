@@ -91,12 +91,11 @@ const CheckoutForm = ({ paymentId, amount }: CheckoutFormProps) => {
             );
             router.push(`/success?orderId=${response.orderId}`);
             return;
-          } catch (backendError) {
+          } catch (err) {
             // If backend also confirms it's already processed, redirect anyway
-            logger.warn(
-              "Backend confirmation error for processed payment",
-              backendError
-            );
+            logger.warn("Backend confirmation error for processed payment", {
+              error: err,
+            });
             setErrorMessage("Payment was already processed. Redirecting...");
             setTimeout(() => router.push("/success"), 2000);
             return;
