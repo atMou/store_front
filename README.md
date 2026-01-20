@@ -1,36 +1,186 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Front Store - Modern E-Commerce Platform
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-16.0-black?style=for-the-badge&logo=next.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Redux Toolkit](https://img.shields.io/badge/Redux_Toolkit-2.0-purple?style=for-the-badge&logo=redux&logoColor=white)
+![Stripe](https://img.shields.io/badge/Stripe-Payments-635BFF?style=for-the-badge&logo=stripe&logoColor=white)
+![SignalR](https://img.shields.io/badge/SignalR-Realtime-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-First, run the development server:
+A production-grade, full-stack e-commerce application inspired by the **Zalando** user experience. Built with a focus on scalability, maintainability, and real-time responsiveness. This platform features dedicated localized storefronts, a comprehensive administration dashboard, and a seamless checkout experience powered by modern web technologies.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🌟 Key Features
+
+### 🛍️ Immersive Shopping Experience
+
+- **Personalized Storefronts**: Distinct "Data-Driven" homes for Men, Women, and Kids using dynamic routing.
+- **Advanced Filtering Engine**: Deep filtering capabilities (Brand, Color, Size, Price, Material) with URL synchronization.
+- **Optimistic UI**: Instant feedback on cart operations and wishlist toggles, backed by background synchronization.
+- **Smart Recommendations**: Client-side logic for "Trending" and "You Might Also Like" sections.
+
+### ⚡ Real-Time Architecture
+
+- **Live Inventory**: Real-time stock level updates via **SignalR** websockets (no page refresh required).
+- **Order Tracking**: Instant push notifications for order status changes (Processing → Shipped → Delivered).
+- **Interactive Notifications**: Toast alerts for system events, stock warnings, and payment confirmations.
+
+### 🛡️ Dashboard & Administration
+
+- **Role-Based Access Control (RBAC)**: Secure HOC-based route protection (`WithPermission`, `WithRole`).
+- **Data Visualization**: Interactive revenue and sales charts powered by **ApexCharts**.
+- **Product Management**: Complete CRUD operations with drag-and-drop image uploading.
+- **Audit Logs**: Comprehensive tracking of user actions and system changes.
+
+## 🏗️ Architecture
+
+This project follows a strict **Feature-Based Architecture** combined with **Atomic Design Principles** to ensure modularity and ease of maintenance.
+
+### 1. Feature-Based Organization
+
+Business logic is encapsulated within `features/` to keep related code together:
+
+```
+features/
+  ├── product/           # Feature Name
+  │   ├── api.ts         # RTK Query Endpoints (injected)
+  │   ├── slice.ts       # Redux State Slice
+  │   ├── components/    # Feature-specific components
+  │   ├── hooks/         # Custom hooks
+  │   └── types.ts       # Feature types
+  ├── auth/
+  ├── cart/
+  └── ...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Atomic Design System
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+UI components are organized by complexity in `components/`:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Atoms**: Basic building blocks (Buttons, Inputs, Badges).
+- **Molecules**: Simple groups of UI elements (SearchBars, FormGroups).
+- **Organisms**: Complex interaction zones (ProductCards, NavigationBars).
+- **Templates/Layouts**: Page structure wrappers.
 
-## Learn More
+### 3. State Management Strategy
 
-To learn more about Next.js, take a look at the following resources:
+- **Server State (Caching)**: Handled by **RTK Query** with automatic cache invalidation strategies using tags (`Product`, `Order`).
+- **Client State**: Managed by **Redux Toolkit** slices.
+- **Persistence**: Critical state (Cart, User Preferences) persisted to `localStorage` via **redux-persist**.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Tech Stack & Tools
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Frontend Core:**
 
-## Deploy on Vercel
+- **Framework:** Next.js 16 (App Router)
+- **Language:** TypeScript 5
+- **State:** Redux Toolkit + RTK Query
+- **Routing:** Next.js App Directory (Route Groups & Intercepting Routes)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**UI & styling:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **System:** Tailwind CSS
+- **Components:** Radix UI (Headless primitives)
+- **Animations:** Framer Motion (Page transitions & Micro-interactions)
+- **Icons:** Lucide React
+
+**Backend Integration:**
+
+- **API:** RESTful .NET Core API
+- **Real-time:** ASP.NET Core SignalR
+- **Payments:** Stripe API
+
+**DevOps & Quality:**
+
+- **Linting:** ESLint + Prettier
+- **CI/CD:** GitHub Actions
+- **Logging:** Custom Production Logger (no `console.log` in prod)
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 20.x+
+- npm 10.x+
+
+### Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/yourusername/front_store.git
+   cd front_store
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment**
+   Create a `.env.local` file:
+
+   ```env
+   # Backend API
+   NEXT_PUBLIC_BASE_API_URL=http://localhost:5046
+   NEXT_PUBLIC_SIGNALR_URL=http://localhost:5046/chatHub
+
+   # Payments
+   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
+
+   # Logging
+   NEXT_PUBLIC_LOG_LEVEL=info
+   ```
+
+4. **Start Development Server**
+   ```bash
+   npm run dev
+   ```
+
+### Production Build
+
+```bash
+# Run type checks and linting
+npm run check
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+```
+
+## 📂 Project Structure
+
+```bash
+front_store/
+├── app/                  # Next.js App Router
+│   ├── (auth)/           # Authentication routes (Login/Register)
+│   ├── (shop)/           # Public e-commerce pages
+│   └── (private)/        # Protected dashboard routes
+├── components/           # Atomic Design Components
+│   ├── atoms/
+│   ├── molecules/
+│   ├── organisms/
+│   └── feedback/         # Skeletons, Loaders, Errors
+├── features/             # Business Logic (Slice, API, Hooks)
+├── hooks/                # Global Hooks (useAuth, useDebounce)
+├── shared/               # Utilities, Logger, Providers
+├── store/                # Redux Configuration
+└── types/                # Global TypeScript Definitions
+```
+
+## 🤝 Contributing
+
+We welcome contributions! Please follow our [Contribution Guidelines](CONTRIBUTING.md).
+
+1. Fork the repo
+2. Create a feature branch (`git checkout -b feature/NewFeature`)
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
