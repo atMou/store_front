@@ -48,9 +48,9 @@ function TabPanelDropdown() {
           dispatch(subCategoryActions.setOpenState(false));
         }}
         className={`absolute w-full bg-gray-100 overflow-hidden transition-all duration-300 ease-in
-                    ${isOpen ? "h-60 border-b" : "h-0 border-b-0"}`}
+                    ${isOpen ? "h-67 border-b" : "h-0 border-b-0"}`}
       >
-        <div className="pt-2 max-w-5xl mx-auto">{getCurrentPanel()}</div>
+        <div className="pt-2 max-w-7xl mx-auto">{getCurrentPanel()}</div>
       </ul>
     </div>
   );

@@ -18,11 +18,12 @@ export default function StockAlertButton({
 
   const handleToggleAlert = async () => {
     if (isSubscribed) {
-      await unsubscribeFromProduct(productId);
+      // Use defaults for color/size if not provided, assuming generic subscription
+      await unsubscribeFromProduct(productId, "", "");
       setIsSubscribed(false);
       alert("You will no longer receive stock alerts for this product");
     } else {
-      await subscribeToProduct(productId);
+      await subscribeToProduct(productId, "", "");
       setIsSubscribed(true);
       alert(`You'll be notified when ${productName} is back in stock!`);
     }

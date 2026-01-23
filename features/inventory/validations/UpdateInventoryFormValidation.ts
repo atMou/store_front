@@ -3,7 +3,10 @@ import { z } from "zod";
 // Update Inventory Size Command schema - matches backend UpdateInventorySizeCommand
 const updateInventorySizeSchema = z
   .object({
-    sizeVariantId: z.string().uuid("Invalid size variant ID"),
+    sizeVariantId: z.union([
+      z.string().uuid("Invalid size variant ID"),
+      z.literal(""),
+    ]),
     size: z.string().min(1, "Size is required"),
     stock: z
       .number({ message: "Stock is required" })

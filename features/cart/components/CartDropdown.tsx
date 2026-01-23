@@ -95,7 +95,7 @@ function CartDropdown({ cart, isLoading }: CartDropdownProps) {
   const qualifiesForFreeShipping = cart.totalSub >= freeShippingThreshold;
 
   return (
-    <div className="absolute right-0 mt-0 w-[350px] opacity-0 bg-white border-2 border-gray-800 shadow-xl  -translate-y-0.5 pointer-events-none group-hover:opacity-100  group-hover:pointer-events-auto transition-all duration-200 ease-in-out z-50">
+    <div className="absolute right-0 mt-0 w-[450px] opacity-0 bg-white border-2 border-gray-800 shadow-xl  -translate-y-0.5 pointer-events-none group-hover:opacity-100  group-hover:pointer-events-auto transition-all duration-200 ease-in-out z-50">
       {/* Header */}
       <div className="border-b border-gray-200 px-6 py-4">
         <h2 className="text-xl font-bold text-center">Your bag</h2>

@@ -221,15 +221,24 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     if (!notificationHub || !isConnected) return;
 
     const handleStockAlert = (notification: StockAlertNotification) => {
-      logger.debug("Stock alert received", {
-        productId: notification.productId,
-        isAvailable: notification.isAvailable,
+      logger.debug("Stock alert received in hook", {
+        notification,
+        hasProductId: !!notification?.productId,
       });
+
+      if (!notification) {
+        logger.warn("Received empty stock notification");
+        return;
+      }
+
       addNotification({
-        id: `stock-${notification.productId}-${Date.now()}`,
+        id: `stock-${notification.productId || "unknown"}-${Date.now()}`,
         title: "Stock Alert",
-        message: notification.message,
-        type: NotificationType.Stock,
+        message: (notification.message || "Product is back in stock!").replace(
+          /^\?\?\s*/,
+          ""
+        ),
+        type: NotificationType.Alert,
         timestamp: new Date(),
         read: false,
         data: notification,
@@ -239,7 +248,7 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     notificationHub.onStockAlert(handleStockAlert);
 
     return () => {
-      notificationHub.offStockAlert();
+      // notificationHub.offStockAlert();
     };
   }, [notificationHub, isConnected, addNotification]);
 

@@ -16,10 +16,14 @@ export interface OrderStatusNotification {
 
 export interface StockAlertNotification {
   productId: string;
-  variantId: string;
-  productName: string;
+  color: string;
+  size: string;
+  slug: string;
+  brand: string;
   message: string;
+  stock: number;
   isAvailable: boolean;
+  imageUrl?: string;
 }
 
 export interface PaymentStatusNotification {
@@ -42,6 +46,7 @@ export interface NewProductNotification {
 
 export enum NotificationType {
   Info = "info",
+  Alert = "alert",
   Success = "success",
   Warning = "warning",
   Error = "error",

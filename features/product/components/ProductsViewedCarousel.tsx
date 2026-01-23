@@ -1,5 +1,9 @@
 "use client";
-import { FilterValues } from "@/features/product";
+import {
+  FilterValues,
+  Product,
+  selectViewedProducts,
+} from "@/features/product";
 import { ProductCard } from "@/features/product/components";
 import { useInfiniteProducts } from "@/features/product/hooks/useInfiniteProducts";
 import {
@@ -12,18 +16,20 @@ import {
   type CarouselApi,
 } from "@/shared/ui";
 import { PlusIcon } from "@/shared/ui/icons";
+import { useAppSelector } from "@/store";
 import React from "react";
-type ProductCarouselProps = {
-  filters?: FilterValues;
+type ProductsViewedCarouselProps = {
+  currentProductId: string;
 };
-function ProductCarousel({ filters }: ProductCarouselProps) {
-  const { products, isLoading } = useInfiniteProducts({
-    additionalFilters: filters,
-    pageSize: 20,
-  });
+
+function ProductsViewedCarousel({
+  currentProductId,
+}: ProductsViewedCarouselProps) {
   const [api, setApi] = React.useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
   const [canScrollNext, setCanScrollNext] = React.useState(false);
+
+  const products = useAppSelector(selectViewedProducts);
 
   React.useEffect(() => {
     if (!api) return;
@@ -43,14 +49,6 @@ function ProductCarousel({ filters }: ProductCarouselProps) {
     };
   }, [api]);
 
-  if (isLoading) {
-    return <div>Loading products...</div>;
-  }
-
-  if (!products || products.length === 0) {
-    return <div>No products available</div>;
-  }
-
   return (
     <div className=" mx-auto px-4 sm:px-6 lg:px-8 w-full select-none ">
       <div className="w-full ">
@@ -59,7 +57,7 @@ function ProductCarousel({ filters }: ProductCarouselProps) {
             align: "end",
             containScroll: false,
             dragFree: true,
-            slidesToScroll:4,
+            slidesToScroll: 4,
           }}
           setApi={setApi}
           className="w-full"
@@ -67,12 +65,14 @@ function ProductCarousel({ filters }: ProductCarouselProps) {
           <CarouselContent className="gap-2 md:gap-4 -ml-2 md:-ml-4">
             {products?.map((p) => {
               return (
-                <CarouselItem
-                  key={p.id}
-                  className="basis-auto min-w-[180px] md:min-w-[220px] pl-2 md:pl-2"
-                >
-                  <ProductCard product={p} isLoading={isLoading} />
-                </CarouselItem>
+                p.id != currentProductId && (
+                  <CarouselItem
+                    key={p.id}
+                    className="basis-auto min-w-[180px] md:min-w-[220px] pl-2 md:pl-2"
+                  >
+                    <ProductCard product={p} isLoading={false} />
+                  </CarouselItem>
+                )
               );
             })}
           </CarouselContent>
@@ -97,4 +97,4 @@ function ProductCarousel({ filters }: ProductCarouselProps) {
   );
 }
 
-export default ProductCarousel;
+export default ProductsViewedCarousel;

@@ -25,6 +25,10 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60,
     qualities: [75, 95],
   },
+  compiler: {
+    // Remove console.log in production to keep code clean and product-grade
+    removeConsole: process.env.NODE_ENV === "production",
+  },
 };
 
 export default nextConfig;

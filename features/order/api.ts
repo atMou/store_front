@@ -36,7 +36,7 @@ export const orderApi = baseApi.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          dispatch(orderActions.setOrders(data.items));
+          dispatch(orderActions.setAllOrders(data.items));
         } catch (error: unknown) {
           dispatch(orderActions.setError(getErrors(error)));
         }
@@ -81,13 +81,13 @@ export const orderApi = baseApi.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          dispatch(orderActions.setOrders(data.items));
+          dispatch(orderActions.setMyOrders(data.items));
         } catch (error: unknown) {
           dispatch(orderActions.setError(getErrors(error)));
         }
       },
     }),
-
+   
     getOrderByCartId: builder.query<Order, GetOrderByCartIdRequest>({
       query: ({ cartId }) => ({
         url: `/orders/${cartId}/cart`,
@@ -104,6 +104,18 @@ export const orderApi = baseApi.injectEndpoints({
         }
       },
     }),
+
+    cancelOrder: builder.mutation<void, { orderId: string }>({
+      query: ({ orderId }) => ({
+        url: `/orders/${orderId}/cancel`,
+        method: "PUT",
+        credentials: "include",
+      }),
+      invalidatesTags: (result, error, { orderId }) => [
+        { type: "Order", id: orderId },
+        { type: "Order", id: "LIST" },
+      ],
+    }),
   }),
 });
 
@@ -112,5 +124,7 @@ export const {
   useLazyGetAllOrdersQuery,
   useGetOrderByIdQuery,
   useGetOrdersByUserIdQuery,
+  useLazyGetOrdersByUserIdQuery,
   useGetOrderByCartIdQuery,
+  useCancelOrderMutation,
 } = orderApi;

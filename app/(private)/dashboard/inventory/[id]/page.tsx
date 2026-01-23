@@ -9,6 +9,7 @@ import useToast from "@/hooks/ui/useToast";
 import { TryAsync } from "@/shared";
 import { ArrowLeft } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const UpdateInventoryPage = () => {
   const router = useRouter();
@@ -26,6 +27,10 @@ const UpdateInventoryPage = () => {
 
   const [updateInventory, { isLoading: isUpdating }] =
     useUpdateInventoryMutation();
+
+    useEffect(() => {
+      console.log("Fetched inventory:", inventory);
+    }, [inventory]);
 
   const handleSubmit = async (data: UpdateInventoryFormSchema) => {
     if (!inventory) return;

@@ -10,13 +10,13 @@ import {
   selectCurrentOrder,
   selectOrderError,
   selectOrderLoading,
-  selectOrders,
+  selectMyOrders,
 } from "../slice";
 
 export function useOrder() {
   const dispatch = useAppDispatch();
   const currentOrder = useAppSelector(selectCurrentOrder);
-  const orders = useAppSelector(selectOrders);
+  const orders = useAppSelector(selectMyOrders);
   const isLoading = useAppSelector(selectOrderLoading);
   const error = useAppSelector(selectOrderError);
 
@@ -63,9 +63,7 @@ export function useOrderById(orderId: string | null, skip = false) {
   };
 }
 
-/**
- * Hook to fetch all orders for a user
- */
+
 export function useOrdersByUserId(userId: string | null, skip = false) {
   const { data, isLoading, error, refetch } = useGetOrdersByUserIdQuery(
     { userId: userId! },

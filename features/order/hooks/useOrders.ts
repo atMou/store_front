@@ -1,4 +1,6 @@
+import { useAppSelector } from "@/store/hooks";
 import { useGetAllOrdersQuery } from "../api";
+import { selectAllOrders } from "../slice";
 import { GetAllOrdersRequest } from "../types";
 
 interface UseOrdersParams {
@@ -22,6 +24,8 @@ export const useOrders = ({
   endDate,
   searchTerm,
 }: UseOrdersParams = {}) => {
+  const allOrders = useAppSelector(selectAllOrders);
+  
   const queryParams: GetAllOrdersRequest = {
     pageNumber,
     pageSize,
@@ -37,7 +41,7 @@ export const useOrders = ({
     useGetAllOrdersQuery(queryParams);
 
   return {
-    orders: data?.items || [],
+    orders: allOrders,
     pagination: {
       currentPage: data?.currentPage || 1,
       pageSize: data?.pageSize || 10,

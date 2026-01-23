@@ -7,7 +7,7 @@ type CategorySectionProps = {
 
 const SubCategoryList = ({ title, items }: CategorySectionProps) => (
   <div className="py-1">
-    <h2 className="font-semibold mb-2  text-sm">{title}</h2>
+    <h2 className="font-semibold mb-2">{title}</h2>
     <ul className="space-y-2">
       {items.map((item, index) => (
         <SubCategoryItem

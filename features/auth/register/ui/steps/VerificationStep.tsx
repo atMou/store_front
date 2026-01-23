@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { useForm } from "react-hook-form";
 
-import { ApiErrorDisplay } from "@/components/feedback/ApiErrorDisplay";
+import ApiErrorDisplay from "@/components/feedback/ApiErrorDisplay";
 import {
   useResendVerificationCodeMutation,
   useVerifyEmailMutation,

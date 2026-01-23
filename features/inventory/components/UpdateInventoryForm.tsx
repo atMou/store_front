@@ -19,19 +19,8 @@ import {
   type UpdateInventorySizeSchema,
 } from "../validations/UpdateInventoryFormValidation";
 
-// Helper to generate UUIDs safely in all environments (fallback for non-secure contexts)
-const generateUUID = () => {
-  if (typeof crypto !== "undefined" && crypto.randomUUID) {
-    return crypto.randomUUID();
-  }
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-    const r = (Math.random() * 16) | 0;
-    const v = c === "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-};
+const EMPTY_GUID = "00000000-0000-0000-0000-000000000000";
 
-// Color Variant Section Component
 interface ColorVariantSectionProps {
   colorVariant?: ColorVariantResult;
   colorIndex: number;
@@ -62,7 +51,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
 
   const addSizeVariant = () => {
     appendSizeVariant({
-      sizeVariantId: generateUUID(),
+      sizeVariantId: EMPTY_GUID,
       size: "",
       stock: 0,
       low: 10,

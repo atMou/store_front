@@ -39,8 +39,8 @@ export class NotificationHubClient {
       })
       .configureLogging(
         process.env.NODE_ENV === "development"
-          ? signalR.LogLevel.None
-          : signalR.LogLevel.None
+          ? signalR.LogLevel.Information
+          : signalR.LogLevel.Error
       )
       .build();
 
@@ -164,7 +164,36 @@ export class NotificationHubClient {
   }
 
   onStockAlert(callback: (notification: StockAlertNotification) => void): void {
-    this.connection.on("ReceiveStockAlert", callback);
+    logger.debug("Registering onStockAlert listener");
+    const handler = (rawNotification: any) => {
+      logger.info("🔔 RAW Stock Alert Received from Hub:", rawNotification);
+
+      // Normalize keys to camelCase to handle PascalCase from backend
+      const notification: StockAlertNotification = {
+        productId: rawNotification.productId || rawNotification.ProductId,
+        slug: rawNotification.slug || rawNotification.Slug,
+        brand: rawNotification.brand || rawNotification.Brand,
+        color: rawNotification.color || rawNotification.Color,
+        size: rawNotification.size || rawNotification.Size,
+        message: rawNotification.message || rawNotification.Message,
+        stock:
+          rawNotification.stock !== undefined
+            ? rawNotification.stock
+            : rawNotification.Stock,
+        isAvailable:
+          rawNotification.isAvailable !== undefined
+            ? rawNotification.isAvailable
+            : rawNotification.IsAvailable,
+        imageUrl: rawNotification.imageUrl || rawNotification.ImageUrl,
+      };
+
+      callback(notification);
+    };
+
+    // Register for multiple event names
+    this.connection.on("ReceiveStockAlert", handler);
+    this.connection.on("StockAlert", handler);
+    this.connection.on("ReceiveStockUpdate", handler);
   }
 
   onPaymentUpdate(
@@ -196,6 +225,8 @@ export class NotificationHubClient {
 
   offStockAlert(): void {
     this.connection.off("ReceiveStockAlert");
+    this.connection.off("StockAlert");
+    this.connection.off("ReceiveStockUpdate");
   }
 
   offPaymentUpdate(): void {
@@ -237,6 +268,8 @@ export class NotificationHubClient {
     sizeCode: string
   ): Promise<void> {
     await this.ensureConnected();
+    const args = [productId, colorCode, sizeCode];
+    logger.debug("Invoking SubscribeToProduct", { args });
     await this.connection.invoke(
       "SubscribeToProduct",
       productId,

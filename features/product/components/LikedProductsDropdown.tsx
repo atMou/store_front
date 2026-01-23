@@ -42,7 +42,7 @@ function LikedProductsDropdown({
 
   if (likedProducts.length === 0) {
     return (
-      <div className="absolute right-0 -translate-y-0.5 w-[320px] bg-white border-2 border-black p-6 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-50 ease-in z-10">
+      <div className="absolute right-0 -translate-y-0.5 w-[450px] bg-white border-2 border-black p-6 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-50 ease-in z-10">
         <div className="flex flex-col items-center space-y-2 mb-4">
           <p className="text-sm font-bold">Your wish list is empty</p>
           <p className="text-gray-600 text-center text-xs">
@@ -63,7 +63,7 @@ function LikedProductsDropdown({
   }
 
   return (
-    <div className="absolute right-0 -mt-[1.8px] w-[350px] bg-white border-2 border-gray-800 shadow-xl opacity-0 -translate-y-0.5 pointer-events-none group-hover:opacity-100 group-hover:-translate-y-0 group-hover:pointer-events-auto transition-all duration-50 ease-in z-50">
+    <div className="absolute right-0 -mt-[1.8px] w-[450px] bg-white border-2 border-gray-800 shadow-xl opacity-0 -translate-y-0.5 pointer-events-none group-hover:opacity-100 group-hover:-translate-y-0 group-hover:pointer-events-auto transition-all duration-50 ease-in z-50">
       {/* Header */}
       <div className="border-b border-gray-200 px-6 py-4">
         <h2 className="text-xl font-bold text-center">Your wish list</h2>
@@ -74,8 +74,7 @@ function LikedProductsDropdown({
         {likedProducts.map((item) => (
           <div
             key={item.id}
-            className="flex gap-3 mb-4 pb-4 border-b border-gray-100 last:border-b-0"
-          >
+            className="flex gap-3 mb-4 pb-4 border-b border-gray-100 last:border-b-0" >
             {/* Product Image */}
             <div className="relative w-20 h-24 shrink-0 bg-gray-100">
               <Image

@@ -32,7 +32,7 @@ const SubCategoryItem = ({
   };
 
   return (
-    <li className="flex text-xs items-center space-x-2 tracking-wide hover:text-gray-600 hover:underline  ">
+    <li className="flex  items-center space-x-2 tracking-wide hover:text-gray-600 hover:underline  ">
       <div
         onClick={handleClick}
         className="flex items-center text-nowrap space-x-2 cursor-pointer"

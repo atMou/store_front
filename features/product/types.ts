@@ -114,6 +114,10 @@ export interface Review {
   rating: number;
   ratingDescription: string;
   userId: string;
+  user?: {
+    name: string;
+    avatar?: string;
+  };
   createdAt: string;
   productId: string;
 }

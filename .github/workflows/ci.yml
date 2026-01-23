@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
 
     strategy:
       matrix:
@@ -32,6 +33,5 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          # these are needed if your build process requires them
           NEXT_PUBLIC_BASE_API_URL: ${{ vars.NEXT_PUBLIC_BASE_API_URL || 'http://localhost:5046' }}
           NEXT_PUBLIC_SIGNALR_URL: ${{ vars.NEXT_PUBLIC_SIGNALR_URL || 'http://localhost:5046/chatHub' }}

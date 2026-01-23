@@ -4,7 +4,8 @@ import { Order } from "./types";
 
 interface OrderState {
   currentOrder: Order | null;
-  orders: Order[];
+  myOrders: Order[];
+  allOrders: Order[];
   isLoading: boolean;
   error: {
     detail: string;
@@ -14,7 +15,8 @@ interface OrderState {
 
 const initialState: OrderState = {
   currentOrder: null,
-  orders: [],
+  myOrders: [],
+  allOrders: [],
   isLoading: false,
   error: null,
 };
@@ -27,15 +29,20 @@ export const orderSlice = createSlice({
       state.currentOrder = action.payload;
       state.error = null;
     },
-    setOrders: (state, action: PayloadAction<Order[]>) => {
-      state.orders = action.payload;
+    setMyOrders: (state, action: PayloadAction<Order[]>) => {
+      state.myOrders = action.payload;
+      state.error = null;
+    },
+    setAllOrders: (state, action: PayloadAction<Order[]>) => {
+      state.allOrders = action.payload;
       state.error = null;
     },
     clearCurrentOrder: (state) => {
       state.currentOrder = null;
     },
     clearOrders: (state) => {
-      state.orders = [];
+      state.myOrders = [];
+      state.allOrders = [];
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
@@ -58,7 +65,8 @@ export const { actions: orderActions } = orderSlice;
 // Selectors
 export const selectCurrentOrder = (state: RootState) =>
   state.order.currentOrder;
-export const selectOrders = (state: RootState) => state.order.orders;
+export const selectMyOrders = (state: RootState) => state.order.myOrders;
+export const selectAllOrders = (state: RootState) => state.order.allOrders;
 export const selectOrderLoading = (state: RootState) => state.order.isLoading;
 export const selectOrderError = (state: RootState) => state.order.error;
 

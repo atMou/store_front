@@ -6,8 +6,12 @@ import LandingLayout from "@/components/layouts/LandingLayout";
 import { SIZES } from "@/constants";
 import { SubscribeButton } from "@/features";
 import { useCart } from "@/features/cart/hooks";
+import { ProductsViewedCarousel } from "@/features/product";
 import { useGetProductByIdQuery } from "@/features/product/api";
-import { addViewedProduct } from "@/features/product/slice";
+import ProductReviews from "@/features/product/components/ProductReviews";
+import {
+  addViewedProduct,
+} from "@/features/product/slice";
 import useToast from "@/hooks/ui/useToast";
 import { logger } from "@/shared/lib/logger";
 import { FavoriteIconButton } from "@/shared/ui";
@@ -22,18 +26,18 @@ export default function ProductPage() {
   const id = params.id as string;
   const { showToast } = useToast();
   const dispatch = useAppDispatch();
-
+ 
   const { data: product, isLoading } = useGetProductByIdQuery({
     id,
     include: "variants,reviews",
   });
 
-  // Add product to viewed products when loaded
   useEffect(() => {
     if (product) {
       dispatch(addViewedProduct(product));
     }
   }, [product, dispatch]);
+
 
   const { addItem, updateItem, items, isAdding, isUpdating } = useCart();
 
@@ -58,7 +62,6 @@ export default function ProductPage() {
       return;
     }
 
-    // Find the specific size variant to get the correct size variant ID
     const sizeVariant = selectedVariant.sizeVariants?.find(
       (sv) => sv.size.code === size
     );
@@ -72,7 +75,6 @@ export default function ProductPage() {
     }
 
     try {
-      // Check if this exact variant+size combo already exists in cart
       const existingItem = items.find(
         (item) =>
           item.productId === product!.id &&
@@ -344,11 +346,6 @@ export default function ProductPage() {
                     {variants[selectedColor]?.color?.name || "-"}
                   </span>
                 </div>
-                {/* {variants[selectedColor]?.id && (
-                  <span className="text-xs text-gray-500">
-                    SKU: {variants[selectedColor].sku || product.id}
-                  </span>
-                )} */}
               </div>
 
               <div className="flex gap-3 flex-wrap mb-4">
@@ -365,9 +362,9 @@ export default function ProductPage() {
                           setSelectedImage(0);
                           setSize(""); // Reset size when changing color
                         }}
-                        className={`group relative w-16 h-20 rounded-md overflow-hidden transition-all duration-200 ${
+                        className={`group relative w-16 h-20  overflow-hidden transition-all duration-200 ${
                           selectedColor === idx
-                            ? "ring-2 ring-black ring-offset-2"
+                            ? "ring-2 ring-black "
                             : "ring-1 ring-gray-200 hover:ring-gray-400"
                         }`}
                         title={variant.color?.name}
@@ -452,9 +449,6 @@ export default function ProductPage() {
                         </div>
                       ) : (
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-medium text-gray-500">
-                            Notify me
-                          </span>
                           <SubscribeButton
                             productId={product.id}
                             colorCode={
@@ -503,12 +497,14 @@ export default function ProductPage() {
             </div>
 
             {/* Popular Item Notice */}
-            <div className="flex items-center  gap-2 text-sm text-gray-600 mb-6 p-3 bg-gray-50 rounded">
-              <Heart size={16} />
-              <span>
-                This is one of our most popular and least returned items
-              </span>
-            </div>
+            {product.status.isBestSeller && (
+              <div className="flex items-center  gap-2 text-sm text-gray-600 mb-6 p-3 bg-gray-50 rounded">
+                <Heart size={16} />
+                <span>
+                  This is one of our most popular and least returned items
+                </span>
+              </div>
+            )}
 
             {/* Rating */}
             <div className="mb-6">
@@ -519,6 +515,22 @@ export default function ProductPage() {
                   {product.totalReviews || 0} reviews)
                 </span>
               </div>
+              {/* {isLoadingCanWriteReview && (
+                <div className="mt-2 text-sm text-gray-500">Checking...</div>
+              )}
+              {canWriteReview && !isLoadingCanWriteReview && (
+                <a
+                  href={`#write-review`}
+                  className="text-sm underline mt-2 inline-block hover:no-underline"
+                >
+                  Write a review
+                </a>
+              )}
+              {canWriteReviewError && !isLoadingCanWriteReview && (
+                <div className="mt-2 text-sm text-gray-500">
+                  Unable to determine review eligibility.
+                </div>
+              )} */}
             </div>
 
             {/* Delivery Info */}
@@ -621,6 +633,12 @@ export default function ProductPage() {
             </div>
           </div>
         </div>
+      </div>
+      <ProductsViewedCarousel
+        currentProductId={product.id}
+      ></ProductsViewedCarousel>
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <ProductReviews product={product} />
       </div>
     </LandingLayout>
   );

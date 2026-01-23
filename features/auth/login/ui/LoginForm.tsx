@@ -1,6 +1,6 @@
 "use client";
 
-import { ApiErrorDisplay } from "@/components/feedback/ApiErrorDisplay";
+import ApiErrorDisplay from "@/components/feedback/ApiErrorDisplay";
 import { AppRoutes } from "@/constants";
 import GoogleIcon from "@/public/assets/icons/Google.svg";
 import {

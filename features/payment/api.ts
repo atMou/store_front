@@ -57,7 +57,7 @@ export const paymentApi = baseApi.injectEndpoints({
         method: "POST",
         credentials: "include",
       }),
-      invalidatesTags: ["Payment", "Cart"],
+      invalidatesTags: ["Payment", "Cart", "Order"],
     }),
 
     paymentFailed: builder.mutation({

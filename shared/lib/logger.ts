@@ -40,7 +40,6 @@ class Logger {
     const prefix = `[${timestamp}] [${level.toUpperCase()}]`;
 
     if (this.config.isDevelopment) {
-      // Development: Use native console with colors
       switch (level) {
         case "debug":
           console.log(`${prefix} ${message}`, metadata || "");
