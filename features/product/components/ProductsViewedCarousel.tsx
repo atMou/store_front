@@ -1,11 +1,6 @@
 "use client";
-import {
-  FilterValues,
-  Product,
-  selectViewedProducts,
-} from "@/features/product";
+import { selectViewedProducts } from "@/features/product";
 import { ProductCard } from "@/features/product/components";
-import { useInfiniteProducts } from "@/features/product/hooks/useInfiniteProducts";
 import {
   Button,
   Carousel,

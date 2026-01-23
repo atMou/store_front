@@ -28,23 +28,20 @@ import {
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-
-
 interface ProductReviewsProps {
   product: Product;
 }
 
 const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
   const { reviews = [], id: productId } = product;
-  const {user} = useAuth ();
+  const { user } = useAuth();
   const [createReview, { isLoading: isSubmitting }] = useCreateReviewMutation();
   const [deleteReview, { isLoading: isDeleting }] = useDeleteReviewMutation();
- const orders = useAppSelector(selectMyOrders)
+  const orders = useAppSelector(selectMyOrders);
 
   const [expandedReviews, setExpandedReviews] = useState<
     Record<string, boolean>
   >({});
-
 
   const {
     control,
@@ -61,11 +58,9 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
     },
   });
 
-  const canWriteReview = orders.some(order =>
-    order.orderItems.some(item => item.productId === productId)
+  const canWriteReview = orders.some((order) =>
+    order.orderItems.some((item) => item.productId === productId)
   );
-  
-
 
   const onSubmit = async (values: ReviewFormValues) => {
     try {
@@ -119,12 +114,11 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
               Based on {reviews.length} reviews
             </p>
           </div>
-
         </div>
       )}
 
       {/* Review Form */}
-      {user  && canWriteReview && (
+      {user && canWriteReview && (
         <div className="mb-10 bg-gray-50/50 p-6 rounded-xl border border-gray-100">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">
             Write a Review
@@ -142,7 +136,11 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
                     onClick={() =>
                       setValue("rating", star, { shouldValidate: true })
                     }
-                    disabled={isSubmitting || errors.rating !== undefined || errors.comment !== undefined}
+                    disabled={
+                      isSubmitting ||
+                      errors.rating !== undefined ||
+                      errors.comment !== undefined
+                    }
                     className="focus:outline-none transition-transform hover:scale-110"
                   >
                     <Star
@@ -184,7 +182,7 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
             </div>
           </form>
         </div>
-      ) }
+      )}
 
       {/* Reviews List */}
       <div className="space-y-6">
@@ -226,7 +224,8 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
                   </div>
                 </div>
 
-                {(user?.roles.some(role => role.name === "ADMIN") || user?.id === review.userId) && (
+                {(user?.roles.some((role) => role.name === "ADMIN") ||
+                  user?.id === review.userId) && (
                   <Button
                     variant="ghost"
                     size="icon"

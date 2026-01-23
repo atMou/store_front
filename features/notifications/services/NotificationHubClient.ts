@@ -165,6 +165,7 @@ export class NotificationHubClient {
 
   onStockAlert(callback: (notification: StockAlertNotification) => void): void {
     logger.debug("Registering onStockAlert listener");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handler = (rawNotification: any) => {
       logger.info("🔔 RAW Stock Alert Received from Hub:", rawNotification);
 

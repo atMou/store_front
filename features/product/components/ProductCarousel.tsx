@@ -59,7 +59,7 @@ function ProductCarousel({ filters }: ProductCarouselProps) {
             align: "end",
             containScroll: false,
             dragFree: true,
-            slidesToScroll:4,
+            slidesToScroll: 4,
           }}
           setApi={setApi}
           className="w-full"

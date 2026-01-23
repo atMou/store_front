@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useRouter } from "next/navigation";
 import { useGetProductByIdQuery } from "@/features/product";
 import {
@@ -44,7 +45,7 @@ const NotificationItem = ({
   onMarkAsRead: (id: string) => void;
   onClear: (id: string) => void;
   getNotificationColor: (type: NotificationType) => string;
-  getNotificationIcon: (type: NotificationType) => JSX.Element;
+  getNotificationIcon: (type: NotificationType) => React.JSX.Element;
 }) => {
   const router = useRouter();
   const isStockAlert =
@@ -54,14 +55,6 @@ const NotificationItem = ({
     ? (notification.data as StockAlertNotification)
     : null;
 
-  console.log("NotificationItem Render:", {
-    id: notification.id,
-    type: notification.type,
-    isStockAlert,
-    stockData,
-    productId: stockData?.productId,
-  });
-
   const {
     data: product,
     isLoading,
@@ -70,13 +63,6 @@ const NotificationItem = ({
     { id: stockData?.productId ?? "", include: "images" },
     { skip: !isStockAlert || !stockData?.productId }
   );
-
-  console.log("Product Fetch:", {
-    productId: stockData?.productId,
-    product,
-    isLoading,
-    error,
-  });
 
   // Determine image: Priority 1: Notification Data, Priority 2: Fetched Product
   // Product images are an array of objects { url: string }, so we access [0]?.url

@@ -26,4 +26,3 @@ export { default as ProductSummary } from "./ProductSummary";
 export { default as SizeDropdown } from "./SizeDropdown";
 export { default as UpdateProductForm } from "./UpdateProductForm";
 export { default as ProductsViewedCarousel } from "./ProductsViewedCarousel";
-

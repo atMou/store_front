@@ -74,7 +74,8 @@ function LikedProductsDropdown({
         {likedProducts.map((item) => (
           <div
             key={item.id}
-            className="flex gap-3 mb-4 pb-4 border-b border-gray-100 last:border-b-0" >
+            className="flex gap-3 mb-4 pb-4 border-b border-gray-100 last:border-b-0"
+          >
             {/* Product Image */}
             <div className="relative w-20 h-24 shrink-0 bg-gray-100">
               <Image

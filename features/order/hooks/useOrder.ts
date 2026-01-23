@@ -63,7 +63,6 @@ export function useOrderById(orderId: string | null, skip = false) {
   };
 }
 
-
 export function useOrdersByUserId(userId: string | null, skip = false) {
   const { data, isLoading, error, refetch } = useGetOrdersByUserIdQuery(
     { userId: userId! },

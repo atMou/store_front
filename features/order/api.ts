@@ -87,7 +87,7 @@ export const orderApi = baseApi.injectEndpoints({
         }
       },
     }),
-   
+
     getOrderByCartId: builder.query<Order, GetOrderByCartIdRequest>({
       query: ({ cartId }) => ({
         url: `/orders/${cartId}/cart`,

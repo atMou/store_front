@@ -25,7 +25,7 @@ export const useOrders = ({
   searchTerm,
 }: UseOrdersParams = {}) => {
   const allOrders = useAppSelector(selectAllOrders);
-  
+
   const queryParams: GetAllOrdersRequest = {
     pageNumber,
     pageSize,

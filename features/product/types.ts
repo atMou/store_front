@@ -1,3 +1,5 @@
+import { PaginatedResult } from "@/types";
+
 export interface FilterValues {
   category?: string;
   brand?: string;

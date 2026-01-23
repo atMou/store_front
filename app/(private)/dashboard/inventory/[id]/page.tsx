@@ -28,9 +28,9 @@ const UpdateInventoryPage = () => {
   const [updateInventory, { isLoading: isUpdating }] =
     useUpdateInventoryMutation();
 
-    useEffect(() => {
-      console.log("Fetched inventory:", inventory);
-    }, [inventory]);
+  useEffect(() => {
+    console.log("Fetched inventory:", inventory);
+  }, [inventory]);
 
   const handleSubmit = async (data: UpdateInventoryFormSchema) => {
     if (!inventory) return;

@@ -9,9 +9,7 @@ import { useCart } from "@/features/cart/hooks";
 import { ProductsViewedCarousel } from "@/features/product";
 import { useGetProductByIdQuery } from "@/features/product/api";
 import ProductReviews from "@/features/product/components/ProductReviews";
-import {
-  addViewedProduct,
-} from "@/features/product/slice";
+import { addViewedProduct } from "@/features/product/slice";
 import useToast from "@/hooks/ui/useToast";
 import { logger } from "@/shared/lib/logger";
 import { FavoriteIconButton } from "@/shared/ui";
@@ -26,7 +24,7 @@ export default function ProductPage() {
   const id = params.id as string;
   const { showToast } = useToast();
   const dispatch = useAppDispatch();
- 
+
   const { data: product, isLoading } = useGetProductByIdQuery({
     id,
     include: "variants,reviews",
@@ -37,7 +35,6 @@ export default function ProductPage() {
       dispatch(addViewedProduct(product));
     }
   }, [product, dispatch]);
-
 
   const { addItem, updateItem, items, isAdding, isUpdating } = useCart();
 

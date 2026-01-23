@@ -75,7 +75,7 @@ export const productApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Materials"],
     }),
-    
+
     getProductById: builder.query<Product, { id: string; include?: string }>({
       query: ({ id, include }) => ({
         url: `/products/${id}`,
