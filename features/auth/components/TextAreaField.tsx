@@ -11,7 +11,7 @@ import { Control, Controller, FieldValues, Path } from "react-hook-form";
 
 interface TextAreaFieldProps<T extends FieldValues> {
   control: Control<T>;
-  onExtraChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onExtraChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   label: string;
   defaultRows?: number;
   maxAllowdChars?: number;
@@ -33,19 +33,19 @@ function TextAreaField<T extends FieldValues>({
       control={control}
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid}>
-          <FieldLabel htmlFor="extraDetails" className="text-xs -mb-2">
+          <FieldLabel htmlFor={name} className="text-xs -mb-2">
             {label}
           </FieldLabel>
           <InputGroup className="w-full  py-2 text-sm border border-black rounded-none">
             <InputGroupTextarea
-              id="extraDetails"
+              id={name}
               placeholder={placeholder}
               rows={defaultRows}
               {...field}
               className="placeholder:text-sm caret-black resize-none"
               onChange={(e) => {
                 field.onChange(e);
-                onExtraChange(e);
+                onExtraChange?.(e);
               }}
             />
             <InputGroupAddon align="block-end">

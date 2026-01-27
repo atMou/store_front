@@ -2,17 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "@/store";
 import { useGetAllProductsQuery } from "../api";
-import {
-  selectAllProducts,
-  selectProductsFilters,
-  selectProductsPagination,
-  setError,
-  setLoading,
-  setProducts,
-} from "../slice";
-import { FilterValues } from "../types";
+import { FilterValues, Product } from "../types";
 
 interface UseInfiniteProductsOptions {
   pageSize?: number;
@@ -25,23 +16,22 @@ export function useInfiniteProducts({
   skip = false,
   additionalFilters,
 }: UseInfiniteProductsOptions = {}) {
-  const dispatch = useAppDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+  const [items, setItems] = useState<Product[]>([]);
+  const [pagination, setPagination] = useState({
+    totalCount: 0,
+    currentPage: 1,
+    pageSize,
+    hasNextPage: false,
+  });
 
-  // Selectors
-  const products = useAppSelector(selectAllProducts);
-  const pagination = useAppSelector(selectProductsPagination);
-  const filters = useAppSelector(selectProductsFilters);
-
-  // Memoize filters to detect changes
-  const filtersKey = JSON.stringify({ ...filters, ...additionalFilters });
+  const filtersKey = JSON.stringify({ ...additionalFilters });
   /* eslint-disable react-hooks/exhaustive-deps */
   const memoizedFilters = useMemo(
-    () => ({ ...filters, ...additionalFilters }),
+    () => ({ ...additionalFilters }),
     [filtersKey]
   );
 
-  // RTK Query with current page and Redux filters
   const { data, error, isLoading, isFetching } = useGetAllProductsQuery(
     {
       ...memoizedFilters,
@@ -55,48 +45,36 @@ export function useInfiniteProducts({
 
   // Handle data updates
   useEffect(() => {
-    if (data) {
-      dispatch(
-        setProducts({
-          products: data.items,
-          totalCount: data.totalCount,
-          pageNumber: data.pageNumber,
-          pageSize: data.pageSize,
-          filters: memoizedFilters,
-        })
-      );
-    }
-  }, [data, dispatch, memoizedFilters]);
+    if (!data) return;
 
-  // Handle loading state
-  useEffect(() => {
-    dispatch(setLoading(isLoading || isFetching));
-  }, [dispatch, isLoading, isFetching]);
+    setItems((prev) =>
+      data.pageNumber === 1 ? data.items : [...prev, ...data.items]
+    );
+    setPagination({
+      totalCount: data.totalCount,
+      currentPage: data.pageNumber,
+      pageSize: data.pageSize,
+      hasNextPage: data.pageNumber * data.pageSize < data.totalCount,
+    });
+  }, [data]);
 
-  // Handle error state
-  useEffect(() => {
-    dispatch(setError(error ? "Failed to load products" : null));
-  }, [dispatch, error]);
+  // useEffect(() => {
+  //   setCurrentPage(1);
+  //   setItems([]);
+  // }, [memoizedFilters]);
 
-  // Reset current page when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [memoizedFilters]);
-
-  // Load next page function
   const loadNextPage = useCallback(() => {
     if (pagination.hasNextPage && !isLoading && !isFetching) {
       setCurrentPage((prev) => prev + 1);
     }
   }, [pagination.hasNextPage, isLoading, isFetching]);
 
-  // Load more function for infinite scroll (alias for loadNextPage)
   const loadMore = useCallback(() => {
     loadNextPage();
   }, [loadNextPage]);
 
   return {
-    products,
+    products: items,
     pagination,
     isLoading,
     isFetching,

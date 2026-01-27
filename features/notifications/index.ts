@@ -15,7 +15,7 @@ export * from "./types";
 export { useNotifications } from "./hooks/useNotifications";
 
 // Component exports
-export { default as NotificationBell } from "./components/NotificationBell";
+export { default as NotificationIcon } from "./components/NotificationIcon";
 export {
   default as NotificationProvider,
   useNotificationContext,

@@ -3,41 +3,43 @@
 import { useCallback, useEffect, useState } from "react";
 import { useGetProductsByIdsQuery } from "../api";
 import { Product } from "../types";
+import { useAppSelector } from "@/store";
+import { selectUserLikedProductIds } from "@/features/user";
 
 interface UseInfiniteLikedProductsOptions {
-  productIds: string[];
   pageSize?: number;
   include?: string;
 }
 
 export function useInfiniteLikedProducts({
-  productIds,
   pageSize = 20,
   include = "variants",
 }: UseInfiniteLikedProductsOptions) {
-  const productIdsKey = productIds.join(",");
+
+  const likedProductIds = useAppSelector(selectUserLikedProductIds);
+
+  const productIdsKey = likedProductIds.join(",");
   const [pageState, setPageState] = useState({
     currentPage: 1,
     idsKey: productIdsKey,
   });
-
-  // Reset page when productIds change
   useEffect(() => {
     if (pageState.idsKey !== productIdsKey) {
       setPageState({ currentPage: 1, idsKey: productIdsKey });
+      setAccumulatedProducts([]); // Reset products immediately when IDs change
     }
   }, [productIdsKey, pageState.idsKey]);
 
-  // RTK Query with current page
   const { data, error, isLoading, isFetching } = useGetProductsByIdsQuery(
     {
-      productIds,
+      productIds: likedProductIds,
       pageNumber: pageState.currentPage,
       pageSize,
       include,
     },
     {
-      skip: productIds.length === 0,
+      skip: likedProductIds.length === 0,
+      refetchOnMountOrArgChange: true,
     }
   );
 
@@ -47,20 +49,15 @@ export function useInfiniteLikedProducts({
   useEffect(() => {
     if (!data?.items) return;
 
-    if (
-      pageState.currentPage === 1 &&
-      accumulatedProducts.length > 0 &&
-      accumulatedProducts[0]?.id !== data.items[0]?.id
-    ) {
+    if (pageState.currentPage === 1) {
+      // Always update on first page to reflect removals/changes
       setAccumulatedProducts(data.items);
-    } else if (pageState.currentPage > 1) {
+    } else {
       const existingIds = new Set(accumulatedProducts.map((p) => p.id));
       const newProducts = data.items.filter((p) => !existingIds.has(p.id));
       if (newProducts.length > 0) {
         setAccumulatedProducts((prev) => [...prev, ...newProducts]);
       }
-    } else if (accumulatedProducts.length === 0) {
-      setAccumulatedProducts(data.items);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, pageState.currentPage]);

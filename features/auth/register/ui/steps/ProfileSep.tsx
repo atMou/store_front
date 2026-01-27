@@ -64,7 +64,6 @@ function ProfileSep() {
   const onSubmit = async (_data: ProfileFormSchemaType) => {
     const formData = new FormData();
 
-    // Required fields
     formData.append("Email", email!);
     formData.append("Password", password!);
     formData.append("FirstName", _data.firstName || "");
@@ -88,11 +87,7 @@ function ProfileSep() {
     if (_data.avatar instanceof File) {
       formData.append("Avatar", _data.avatar);
     }
-    // Phone field - add if you have it in the form
-    // if (phone) {
-    //   formData.append("Phone", phone);
-    // }
-
+  
     const { data, error } = await TryAsync(async () => {
       return await register(formData).unwrap();
     });
@@ -151,7 +146,6 @@ function ProfileSep() {
 
           <div className="flex gap-4">
             <NumberField
-              id="age"
               control={form.control}
               name="age"
               onExtraChange={(e) => {
@@ -254,7 +248,6 @@ function ProfileSep() {
           </div>
           <div className="flex gap-4">
             <NumberField
-              id="postalCode"
               control={form.control}
               name="postalCode"
               onExtraChange={(e) => {
@@ -263,7 +256,6 @@ function ProfileSep() {
               label="Postal Code"
             />
             <NumberField
-              id="houseNumber"
               control={form.control}
               name="houseNumber"
               onExtraChange={(e) => {
@@ -371,4 +363,3 @@ function ProfileSep() {
 
 export default ProfileSep;
 
-export default ProfileSep;

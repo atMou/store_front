@@ -142,11 +142,20 @@ export function useCart() {
       }
 
       const { error } = await TryAsync(() =>
-        deleteLineItemMutation({
+
+        {
+           console.log("Removing from cart:", {
+          colorVariantId,
+          sizeVariantId,
+        });
+         return deleteLineItemMutation({
           cartId: cart.cartId,
           colorVariantId,
           sizeVariantId,
         }).unwrap()
+        }
+       
+      
       );
 
       if (error) {

@@ -86,7 +86,7 @@ function DropdownControl<T extends FieldValues>({
         const defaultRenderValue = () => {
           if (multiSelect && selectedOptions.length > 0) {
             return (
-              <div className="flex flex-wrap gap-1 flex-1">
+              <div className="flex flex-wrap gap-1 flex-1 z-50">
                 {selectedOptions.map((opt) => (
                   <span
                     key={opt.value}

@@ -3,7 +3,7 @@
 import CategoryBreadcrumb from "@/components/feedback/CategoryBreadcrumb";
 import Header from "@/components/layouts/header/Header";
 import { COLORS, SIZES } from "@/constants";
-import { mainCategoryActions } from "@/features/category";
+import { mainCategoryActions, selectSidebarSubCategory } from "@/features/category";
 import CategorySidebar from "@/features/category/components/CategorySidebar";
 import TabPanelDropdown from "@/features/category/components/TabPanelDropdown";
 import {
@@ -13,10 +13,8 @@ import {
 } from "@/features/product";
 import ProductFilterBar from "@/features/product/components/ProductFilterBar";
 import { FilterValues } from "@/features/product/types";
-import { Capitalize } from "@/shared";
-import { useAppDispatch } from "@/store/hooks";
-import { usePathname } from "next/navigation";
-import { useCallback, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import {  useEffect } from "react";
 import { SubHeader } from "./header";
 
 interface CategoryLayoutProps {
@@ -32,27 +30,22 @@ export default function MainLayout({
   mainCategoryLink,
 }: CategoryLayoutProps) {
   const dispatch = useAppDispatch();
-  const pathname = usePathname();
+
+ const subCategory = useAppSelector(selectSidebarSubCategory);
 
   const { filters, setFilters, updateFilters } = useFilters();
   const { data: brands = [] } = useGetBrandsQuery();
 
   useFilterSync();
 
-  const subcategoryFromPath = useCallback(() => {
-    const parts = pathname.split("-");
-
-    return parts.length > 1 ? Capitalize(parts[1]) : null;
-  }, [pathname]);
-
   useEffect(() => {
     dispatch(mainCategoryActions.setMainCategory(mainCategory));
 
     setFilters({
       category: mainCategory,
-      sub: subcategoryFromPath() || undefined,
+      sub: subCategory || undefined,
     });
-  }, [dispatch, mainCategory, setFilters, subcategoryFromPath]);
+  }, [dispatch, mainCategory, setFilters, subCategory]);
 
   return (
     <>
@@ -60,11 +53,11 @@ export default function MainLayout({
       <SubHeader />
       <TabPanelDropdown />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
-        {subcategoryFromPath && (
+        {subCategory && (
           <div className="py-4">
             <CategoryBreadcrumb
               mainCategory={mainCategory}
-              category={subcategoryFromPath() || ""}
+              category={subCategory || ""}
               mainCategoryLink={mainCategoryLink}
             />
           </div>

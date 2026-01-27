@@ -1,27 +1,43 @@
 "use client";
 
-import { Product } from "@/features/product/types";
+import { useToggleLikedProductMutation } from "@/features/user";
+import useToast from "@/hooks/ui/useToast";
+import { TryAsync } from "@/shared";
 import { Button } from "@/shared/ui";
 import { X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useInfiniteLikedProducts } from "../hooks/useInfiniteLikedProducts";
 
-interface LikedProductsDropdownProps {
-  likedProducts: Product[];
-  isLoading: boolean;
-  onRemove?: (productId: string) => void;
-  onMoveToCart?: (productId: string) => void;
-}
+function LikedProductsDropdown() {
+  const { products: likedProducts, isLoading } = useInfiniteLikedProducts({
+    include: "variants",
+  });
+  const { showToast } = useToast();
+  const [toggleLikedProduct] = useToggleLikedProductMutation();
+  const router = useRouter();
 
-function LikedProductsDropdown({
-  likedProducts,
-  isLoading,
-  onRemove,
-  onMoveToCart,
-}: LikedProductsDropdownProps) {
+  const handleRemove = async (productId: string) => {
+    const { error } = await TryAsync(async () =>
+      toggleLikedProduct({ productIds: [productId] }).unwrap()
+    );
+
+    if (error) {
+      showToast({
+        message: error.detail || "Failed to remove form wishlist",
+        type: "error",
+      });
+    }
+  };
+
+  const handleMoveToCart = async (productId: string) => {
+    router.push(`/product/${productId}`);
+  };
+
   if (isLoading) {
     return (
-      <div className="absolute right-0  w-[320px] bg-white border-2 border-black shadow-lg p-3 opacity-0 -translate-y-0.5 pointer-events-none group-hover:opacity-100  group-hover:pointer-events-auto transition-all duration-50 ease-in z-50">
+      <div className="absolute right-0  w-[400px] bg-white border-2 border-black shadow-lg p-3 opacity-0 -translate-y-0.5 pointer-events-none group-hover:opacity-100  group-hover:pointer-events-auto transition-all duration-50 ease-in z-50">
         <div className="animate-pulse">
           <div className="h-6 bg-gray-200 rounded w-24 mb-4" />
           <div className="space-y-4">
@@ -42,7 +58,7 @@ function LikedProductsDropdown({
 
   if (likedProducts.length === 0) {
     return (
-      <div className="absolute right-0 -translate-y-0.5 w-[450px] bg-white border-2 border-black p-6 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-50 ease-in z-10">
+      <div className="absolute right-0 -translate-y-0.5 w-[400px] bg-white border-2 border-black p-6 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-50 ease-in z-10">
         <div className="flex flex-col items-center space-y-2 mb-4">
           <p className="text-sm font-bold">Your wish list is empty</p>
           <p className="text-gray-600 text-center text-xs">
@@ -63,14 +79,14 @@ function LikedProductsDropdown({
   }
 
   return (
-    <div className="absolute right-0 -mt-[1.8px] w-[450px] bg-white border-2 border-gray-800 shadow-xl opacity-0 -translate-y-0.5 pointer-events-none group-hover:opacity-100 group-hover:-translate-y-0 group-hover:pointer-events-auto transition-all duration-50 ease-in z-50">
+    <div className="absolute right-0 -mt-[1.8px] w-[350px] bg-white border-2 border-gray-800 shadow-xl opacity-0 -translate-y-0.5 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-50 ease-in z-50">
       {/* Header */}
       <div className="border-b border-gray-200 px-6 py-4">
         <h2 className="text-xl font-bold text-center">Your wish list</h2>
       </div>
 
       {/* Liked Items */}
-      <div className="max-h-[400px] overflow-y-auto px-6 py-4">
+      <div className="max-h-[400px] overflow-y-auto px-4 py-4">
         {likedProducts.map((item) => (
           <div
             key={item.id}
@@ -82,6 +98,7 @@ function LikedProductsDropdown({
                 src={item.images?.[0]?.url || "/placeholder.png"}
                 alt={item.slug}
                 fill
+                sizes="80px"
                 className="object-cover"
               />
             </div>
@@ -113,11 +130,11 @@ function LikedProductsDropdown({
                   )}
                 </div>
                 <button
-                  className="text-gray-400 hover:text-black transition-colors p-1 -mt-1"
+                  className="text-gray-400 hover:text-black transition-colors  -mt-1"
                   aria-label="Remove item"
-                  onClick={() => onRemove?.(item.id)}
+                  onClick={() => handleRemove(item.id)}
                 >
-                  <X size={24} strokeWidth={2} />
+                  <X size={20} strokeWidth={2} />
                 </button>
               </div>
 
@@ -132,7 +149,7 @@ function LikedProductsDropdown({
               {/* Move to bag */}
               <button
                 className="text-sm underline hover:no-underline text-gray-900 font-normal cursor-pointer"
-                onClick={() => onMoveToCart?.(item.id)}
+                onClick={() => handleMoveToCart(item.id)}
               >
                 Move to bag
               </button>

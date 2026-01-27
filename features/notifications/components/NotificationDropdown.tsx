@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-import { useRouter } from "next/navigation";
 import { useGetProductByIdQuery } from "@/features/product";
 import {
   AlertTriangle,
@@ -19,13 +17,15 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React from "react";
 import {
   Notification,
   NotificationType,
   StockAlertNotification,
 } from "../types";
 
-interface NotificationBellDropdownProps {
+interface NotificationDropdownProps {
   notifications: Notification[];
   unreadCount: number;
   onMarkAsRead: (id: string) => void;
@@ -55,11 +55,7 @@ const NotificationItem = ({
     ? (notification.data as StockAlertNotification)
     : null;
 
-  const {
-    data: product,
-    isLoading,
-    error,
-  } = useGetProductByIdQuery(
+  const { data: product } = useGetProductByIdQuery(
     { id: stockData?.productId ?? "", include: "images" },
     { skip: !isStockAlert || !stockData?.productId }
   );
@@ -152,7 +148,7 @@ const NotificationItem = ({
   );
 };
 
-const NotificationBellDropdown: React.FC<NotificationBellDropdownProps> = ({
+const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
   notifications,
   unreadCount,
   onMarkAsRead,
@@ -212,7 +208,7 @@ const NotificationBellDropdown: React.FC<NotificationBellDropdownProps> = ({
   };
 
   return (
-    <div className="absolute right-0  w-[350px] bg-white border-2 border-black  opacity-0  pointer-events-none group-hover:opacity-100 -translate-y-0.5 group-hover:pointer-events-auto transition-all duration-100 ease-in-out z-50">
+    <div className="absolute right-0  w-[450px] bg-white border-2 border-black  opacity-0  pointer-events-none group-hover:opacity-100 -translate-y-0.5 group-hover:pointer-events-auto transition-all duration-100 ease-in-out z-50">
       <div className="border-b border-gray-200 px-6 py-3 flex items-center justify-between">
         <div>
           <h2 className=" font-bold text-center">Notifications</h2>
@@ -267,4 +263,4 @@ const NotificationBellDropdown: React.FC<NotificationBellDropdownProps> = ({
   );
 };
 
-export default NotificationBellDropdown;
+export default NotificationDropdown;

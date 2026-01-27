@@ -215,6 +215,7 @@ export const {
   useGetAllProductsQuery,
   useGetProductByIdQuery,
   useGetProductsByIdsQuery,
+  useLazyGetProductsByIdsQuery,
   useCreateProductMutation,
   useUpdateProductMutation,
   useDeleteProductMutation,

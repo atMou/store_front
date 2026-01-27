@@ -26,10 +26,8 @@ const OrderDetailPage = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <div className="text-center">
           <ErrorDisplay
-            error={{
-              detail: "Failed to load order details",
-              errors: ["Unable to fetch order information. Please try again."],
-            }}
+            title="Failed to load order details"
+            message="Unable to fetch order information. Please try again."
           />
           <button
             onClick={() => refetch()}

@@ -5,13 +5,10 @@ import { withAuth } from "@/components/HOC";
 import { LandingLayout } from "@/components/layouts";
 import { useNotificationContext } from "@/features/notifications";
 import { useGetOrderByIdQuery } from "@/features/order";
+import { OrderTrackingDetails } from "@/features/order/components";
 import { Bell, BellOff } from "lucide-react";
 import { useParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import OrderItems from "../../../../../features/order/components/OrderItems";
-import OrderStatus from "../../../../../features/order/components/OrderStatus";
-import OrderSummary from "../../../../../features/order/components/OrderSummary";
-import ShippingAddressCard from "../../../../../features/order/components/ShippingAddressCard";
 
 const OrderTrackingContent = () => {
   const params = useParams();
@@ -114,16 +111,7 @@ const OrderTrackingContent = () => {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <OrderItems order={order} />
-
-        <div className="col-span-2 space-y-6">
-          <OrderStatus order={order} />
-          <OrderSummary order={order} />
-        </div>
-
-        <ShippingAddressCard order={order} />
-      </div>
+      <OrderTrackingDetails order={order} />
     </div>
   );
 };

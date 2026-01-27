@@ -116,10 +116,8 @@ export interface Review {
   rating: number;
   ratingDescription: string;
   userId: string;
-  user?: {
-    name: string;
-    avatar?: string;
-  };
+  userName: string;
+  avatarUrl: string;
   createdAt: string;
   productId: string;
 }

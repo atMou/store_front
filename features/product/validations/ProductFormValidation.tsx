@@ -52,14 +52,26 @@ export const productFormSchema = z
       .min(1, "At least one product image is required")
       .max(7, "Maximum 7 images allowed"),
     isMain: z.array(z.boolean()),
-    price: z.number().positive("Price must be greater than 0"),
+    price: z
+      .union([z.string(), z.number()])
+      .transform((val) => (typeof val === "string" ? parseFloat(val) : val))
+      .refine((val) => !isNaN(val) && val > 0, {
+        message: "Price must be greater than 0",
+      }),
     newPrice: z
-      .union([
-        z.number().positive("Sale price must be greater than 0"),
-        z.nan(),
-      ])
-      .transform((val) => (isNaN(val) ? undefined : val))
-      .optional(),
+      .union([z.string(), z.number(), z.undefined()])
+      .optional()
+      .transform((val) => {
+        if (val === "" || val === null || val === undefined) return undefined;
+        const num = typeof val === "string" ? parseFloat(val) : val;
+        return isNaN(num) ? undefined : num;
+      })
+      .refine(
+        (val) => val === undefined || (typeof val === "number" && val > 0),
+        {
+          message: "Sale price must be greater than 0",
+        }
+      ),
     brand: z.string().min(1, "Brand is required"),
     category: z.string().min(1, "Category is required"),
     subCategory: z.string().min(1, "Sub-category is required"),
@@ -167,7 +179,8 @@ export const productFormSchema = z
   );
 
 // Infer the type from the schema
-export type ProductFormSchema = z.infer<typeof productFormSchema>;
+export type ProductFormSchema = z.output<typeof productFormSchema>;
+export type ProductFormInput = z.input<typeof productFormSchema>;
 export type VariantFormSchema = z.infer<typeof variantSchema>;
 // export type SizeVariantFormSchema = z.infer<typeof sizeVariantSchema>;
 export type AttributeFormSchema = z.infer<typeof attributeSchema>;

@@ -16,7 +16,7 @@ interface FieldProps<T extends FieldValues> {
   control: Control<T>;
   name: Path<T>;
   placeholder?: string;
-  onExtraChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onExtraChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   Icon?: React.ComponentType<{ color?: string; size?: number }>;
   IconToopTipText?: string;
   type: HTMLInputTypeAttribute | undefined;
@@ -56,7 +56,7 @@ function TextField<T extends FieldValues>({
               className="placeholder:text-sm caret-black"
               onChange={(e) => {
                 field.onChange(e);
-                onExtraChange(e);
+                onExtraChange?.(e);
               }}
               onFocus={() => setIsFocused(true)}
               onBlur={() => {

@@ -36,6 +36,7 @@ interface SponsorCarouselProps {
   carouselClassName?: string;
   imageClassName?: string;
   maxHeight?: string;
+  padding?: "top" | "bottom" | "both" | "none";
 }
 
 function SponsorCarousel({
@@ -54,6 +55,7 @@ function SponsorCarousel({
   carouselClassName = "",
   imageClassName = "object-cover object-center w-full",
   maxHeight = "590px",
+  padding = "both",
 }: SponsorCarouselProps) {
   const [api, setApi] = React.useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
@@ -81,8 +83,17 @@ function SponsorCarousel({
     };
   }, [api]);
 
+  const paddingClass =
+    padding === "top"
+      ? "pt-8"
+      : padding === "bottom"
+        ? "pb-8"
+        : padding === "both"
+          ? "pt-8 pb-8"
+          : "";
+
   const CarouselSection = (
-    <div className="relative md:w-1/2">
+    <div className={`relative md:w-1/2 `}>
       <Carousel
         opts={{
           align: "center",
@@ -164,7 +175,7 @@ function SponsorCarousel({
 
   return (
     <div
-      className={`flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 items-stretch ${reverse ? "flex-row-reverse" : ""}`}
+      className={`flex max-w-5xl mx-auto px-4 sm:px-6 lg:px-8   ${reverse ? "flex-row-reverse" : ""} ${paddingClass}`}
     >
       {reverse ? (
         <>

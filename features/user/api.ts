@@ -52,6 +52,7 @@ export const userApi = baseApi.injectEndpoints({
         params: { email },
       }),
     }),
+
     updateUser: builder.mutation({
       query: ({ id, data }) => ({
         url: `/users/${id}`,

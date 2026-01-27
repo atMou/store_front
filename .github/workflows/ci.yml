@@ -33,5 +33,5 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          NEXT_PUBLIC_BASE_API_URL: ${{ vars.NEXT_PUBLIC_BASE_API_URL || 'http://localhost:5046' }}
-          NEXT_PUBLIC_SIGNALR_URL: ${{ vars.NEXT_PUBLIC_SIGNALR_URL || 'http://localhost:5046/chatHub' }}
+          NEXT_PUBLIC_BASE_API_URL: ${{ vars.NEXT_PUBLIC_BASE_API_URL || 'http://localhost:5000' }}
+          NEXT_PUBLIC_SIGNALR_URL: ${{ vars.NEXT_PUBLIC_SIGNALR_URL || 'http://localhost:5000/chatHub' }}

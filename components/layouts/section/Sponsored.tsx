@@ -13,12 +13,14 @@ interface BannerProps {
   subtitle?: string;
   subtitleClassName?: string;
   buttonText: string;
-  clickAction?: () => void;
   href?: string;
   sponsored?: boolean;
   reverse?: boolean;
   buttonClassName?: string;
   backgroundColor?: string;
+  align?: "left" | "center" | "right";
+  textColor?: string;
+  padding: "top" | "bottom" | "both" | "none";
 }
 
 const Sponsored: React.FC<BannerProps> = ({
@@ -27,7 +29,6 @@ const Sponsored: React.FC<BannerProps> = ({
   title,
   subtitle,
   buttonText,
-  clickAction,
   href,
   sponsored = true,
   reverse = false,
@@ -35,37 +36,72 @@ const Sponsored: React.FC<BannerProps> = ({
   titleClassName,
   subtitleClassName,
   backgroundColor = "bg-gray-200",
+  align = "left",
+  textColor,
   children,
+  padding = "none",
+
 }) => {
+  const backgroundClassName = backgroundColor?.startsWith("bg-")
+    ? backgroundColor
+    : "";
+  const backgroundStyle = backgroundColor?.startsWith("bg-")
+    ? undefined
+    : { backgroundColor };
+
+  const alignmentClass =
+    align === "center"
+      ? "text-center"
+      : align === "right"
+        ? "text-right"
+        : "text-left";
+  const justifyClass =
+    align === "center"
+      ? "justify-center"
+      : align === "right"
+        ? "justify-end"
+        : "justify-start";
+  const textColorClass = textColor?.startsWith("text-") ? textColor : "";
+  const textColorStyle = textColor?.startsWith("text-")
+    ? undefined
+    : textColor
+      ? { color: textColor }
+      : undefined;
+
   return (
-    <div className={`${backgroundColor}`}>
+    <div className={backgroundClassName} style={backgroundStyle}>
       <div
-        className={`flex flex-col max-w-7xl mx-auto  ${
+        className={`flex flex-col max-w-7xl mx-auto  px-4 sm:px-6 lg:px-8 mt-5 mb-5 ${
           reverse ? "md:flex-row-reverse" : "md:flex-row"
-        }   `}
+        }
+        ${
+          padding === "top"
+            ? "pt-8"
+            : padding === "bottom"
+              ? "pb-8"
+              : padding === "both"
+                ? "pt-10 pb-10"
+                : ""
+        }`}
       >
-        <div className="md:w-1/2  relative h-[300px]">
+        <div className="md:w-1/2  relative ">
           <Image
             src={imageSrc}
             alt={imageAlt}
-            className="object-contain object-bottom"
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            priority
+            className="w-full h-auto object-cover"
+            width={600}
+            height={600}
           />
         </div>
         <div
-          className={`md:w-1/2 pl-4 self-center ${
-            reverse ? "text-center" : "text-left"
-          } `}
+          className={`md:w-1/2 pl-4 self-center ${alignmentClass} ${textColorClass}`}
+          style={textColorStyle}
         >
           {sponsored && (
             <p
-              className={`text-xs  mb-2 flex items-center space-x-1.5 ${
-                reverse ? "justify-center pb-2" : "justify-start text-left"
-              }`}
+              className={`text-xs mb-2 flex items-center space-x-1.5 ${textColorClass} ${justifyClass}`}
             >
-              <span>Sponsored</span> <InfoIcon size="10" />
+              <span  >Sponsored</span> <InfoIcon size="10" />
             </p>
           )}
           {title && (
@@ -77,7 +113,7 @@ const Sponsored: React.FC<BannerProps> = ({
             </h3>
           )}
           {children}
-          {href ? (
+          {href && (
             <Link href={href}>
               <Button
                 variant="outline"
@@ -86,14 +122,6 @@ const Sponsored: React.FC<BannerProps> = ({
                 {buttonText}
               </Button>
             </Link>
-          ) : (
-            <Button
-              variant="outline"
-              onClick={clickAction}
-              className={`px-14 bg-transparent hover:bg-black hover:text-white border-2 ${buttonClassName}`}
-            >
-              {buttonText}
-            </Button>
           )}
         </div>
       </div>

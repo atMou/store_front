@@ -3,14 +3,17 @@
 import { Trash2 } from "lucide-react";
 import { Control, FieldErrors, Path, UseFormSetValue } from "react-hook-form";
 import ImageUploader from "../../../components/atoms/ImageUploader";
-import { ProductFormSchema } from "../validations/ProductFormValidation";
+import {
+  ProductFormInput,
+  ProductFormSchema,
+} from "../validations/ProductFormValidation";
 import ColorDropdown from "./ColorDropdown";
 
 interface VariantFieldsetProps {
   variantIndex: number;
-  control: Control<ProductFormSchema>;
-  errors: FieldErrors<ProductFormSchema>;
-  setValue: UseFormSetValue<ProductFormSchema>;
+  control: Control<ProductFormInput>;
+  errors: FieldErrors<ProductFormInput>;
+  setValue: UseFormSetValue<ProductFormInput>;
   onRemove: () => void;
 }
 

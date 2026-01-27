@@ -2,6 +2,7 @@ import { LayoutDashboard } from "lucide-react";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
+import { WithPermission } from "@/components/HOC";
 
 function DashboradIcon() {
   const router = useRouter();
@@ -21,4 +22,4 @@ function DashboradIcon() {
   );
 }
 
-export default DashboradIcon;
+export default WithPermission(DashboradIcon, ["ViewDashboard"]);

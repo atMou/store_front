@@ -1,8 +1,9 @@
 "use client";
+import { SectionHeader } from "@/components/molecules";
 import { selectViewedProducts } from "@/features/product";
 import { ProductCard } from "@/features/product/components";
+import { cn } from "@/shared/lib/utils";
 import {
-  Button,
   Carousel,
   CarouselContent,
   CarouselItem,
@@ -10,15 +11,26 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/shared/ui";
-import { PlusIcon } from "@/shared/ui/icons";
 import { useAppSelector } from "@/store";
+import { Sparkles } from "lucide-react";
 import React from "react";
+
 type ProductsViewedCarouselProps = {
   currentProductId: string;
+  itemSize?: "small" | "medium" | "large";
+  direction?: "rtl" | "ltr";
+};
+
+const sizeClasses = {
+  small: "basis-1/3 md:basis-1/6 lg:basis-1/8 xl:basis-[10%] 2xl:basis-1/12",
+  medium: "basis-1/3 md:basis-1/5 lg:basis-1/6 xl:basis-[14.28%] 2xl:basis-1/8",
+  large: "basis-1/2 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 2xl:basis-[14.28%]",
 };
 
 function ProductsViewedCarousel({
   currentProductId,
+  itemSize = "small",
+  direction = "ltr",
 }: ProductsViewedCarouselProps) {
   const [api, setApi] = React.useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
@@ -44,30 +56,47 @@ function ProductsViewedCarousel({
     };
   }, [api]);
 
+  const filteredProducts = products?.filter((p) => p.id != currentProductId);
+
+  if (!filteredProducts || filteredProducts.length === 0) {
+    return null;
+  }
+
   return (
-    <div className=" mx-auto px-4 sm:px-6 lg:px-8 w-full select-none ">
+    <div className=" mx-auto w-full select-none">
+      <SectionHeader
+        icon={<Sparkles className="w-5 h-5 text-yellow-500" />}
+        title="Continue where you left off"
+        direction={direction}
+      />
       <div className="w-full ">
         <Carousel
           opts={{
-            align: "end",
+            align: "start",
+            direction: direction,
             containScroll: false,
             dragFree: true,
             slidesToScroll: 4,
           }}
           setApi={setApi}
           className="w-full"
+          dir={direction}
         >
-          <CarouselContent className="gap-2 md:gap-4 -ml-2 md:-ml-4">
-            {products?.map((p) => {
+          <CarouselContent
+            className={cn(direction === "rtl" ? "ml-0 -mr-2" : "-ml-2")}
+          >
+            {filteredProducts.map((p) => {
               return (
-                p.id != currentProductId && (
-                  <CarouselItem
-                    key={p.id}
-                    className="basis-auto min-w-[180px] md:min-w-[220px] pl-2 md:pl-2"
-                  >
-                    <ProductCard product={p} isLoading={false} />
-                  </CarouselItem>
-                )
+                <CarouselItem
+                  key={p.id}
+                  className={cn(
+                    "basis-auto",
+                    direction === "rtl" ? "pl-0 pr-2" : "pl-2",
+                    sizeClasses[itemSize]
+                  )}
+                >
+                  <ProductCard product={p} isLoading={false} size={itemSize} />
+                </CarouselItem>
               );
             })}
           </CarouselContent>
@@ -78,15 +107,6 @@ function ProductsViewedCarousel({
             className={`right-[305px] ${!canScrollNext && "hidden"}`}
           />
         </Carousel>
-        <div className="w-full pl-5 mt-4">
-          <Button
-            variant="plain"
-            className="group relative gap-2 border px-2 py-5 overflow-hidden hover:bg-slate-600 hover:text-white rounded-none"
-          >
-            <PlusIcon size="20" />
-            Follow
-          </Button>
-        </div>
       </div>
     </div>
   );

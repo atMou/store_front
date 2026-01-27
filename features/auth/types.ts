@@ -99,6 +99,7 @@ export enum PermissionCode {
   RespondToTickets = 18,
   ResolveDisputes = 19,
   CreateCoupon = 20,
+  ViewDashboard = 21,
 }
 
 // export type Permission = {

@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks";
 import useToast from "@/hooks/ui/useToast";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { Heart } from "lucide-react";
-import { getErrors } from "../lib/httpStatusCodes";
+import { getErrors } from "../../../shared/lib/httpStatusCodes";
 
 type FavoriteIconButtonProps = {
   className?: string;

@@ -4,14 +4,14 @@ export interface ShipmentStatusNotification {
   status: string;
   trackingCode: string;
   message: string;
-  updatedAt: Date;
+  updatedAt: string;
 }
 
 export interface OrderStatusNotification {
   orderId: string;
   status: string;
   message: string;
-  updatedAt: Date;
+  updatedAt: string;
 }
 
 export interface StockAlertNotification {
@@ -31,7 +31,7 @@ export interface PaymentStatusNotification {
   paymentId: string;
   status: string;
   message: string;
-  updatedAt: Date;
+  updatedAt: string;
 }
 
 export interface NewProductNotification {
@@ -62,7 +62,7 @@ export interface Notification {
   title: string;
   message: string;
   type: NotificationType;
-  timestamp: Date;
+  timestamp: string;
   read: boolean;
   data?: unknown;
 }

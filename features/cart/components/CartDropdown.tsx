@@ -27,6 +27,10 @@ function CartDropdown({ cart, isLoading }: CartDropdownProps) {
   const freeShippingThreshold = 29.9;
 
   const handleRemoveItem = (colorVariantId: string, sizeVariantId: string) => {
+    console.log("Removing from cart:", {
+      colorVariantId,
+      sizeVariantId,
+    });
     removeItem(colorVariantId, sizeVariantId);
   };
 
@@ -44,7 +48,7 @@ function CartDropdown({ cart, isLoading }: CartDropdownProps) {
       await toggleLikedProduct({ productIds: [productId] }).unwrap();
     });
 
-    removeItem(colorVariantId, sizeVariantId);
+         removeItem(colorVariantId, sizeVariantId);
   };
 
   if (isLoading) {

@@ -16,6 +16,11 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     "node_modules/**",
     "dist/**",
+    // Custom ignores merged from .eslintignore
+    "*.config.js",
+    "*.config.ts",
+    "public/**",
+    ".vercel/**",
   ]),
 ]);
 

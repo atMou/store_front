@@ -387,7 +387,7 @@ const ProductFilterBar: React.FC<FilterBarProps> = ({
         isSingleSelect
       />
 
-      {sizeOptions.length > 0 && (
+      { subCategory === "Clothing" &&  sizeOptions.length > 0 && (
         <FilterDropdown
           placeholder="Size"
           options={sizeOptions}
@@ -418,7 +418,7 @@ const ProductFilterBar: React.FC<FilterBarProps> = ({
         />
       )}
 
-      {materialOptions.length > 0 && (
+      {subCategory === "Clothing" &&   materialOptions.length > 0 && (
         <FilterDropdown
           placeholder="Material"
           options={materialOptions}

@@ -13,18 +13,14 @@ import {
   reviewSchema,
 } from "@/features/product/validations/ReviewValidation";
 import { useAuth } from "@/hooks";
-import { logger } from "@/shared/lib/logger";
+import { logger } from "@/shared/lib/logger"; // Keep existing imports
+import { generatePlaceholderImage } from "@/shared/lib/placeholderImage";
 import { cn, formatRelativeTime } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import { useAppSelector } from "@/store";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Clock,
-  MessageSquare,
-  Star,
-  Trash2,
-  User as UserIcon,
-} from "lucide-react";
+import { Clock, MessageSquare, Star, Trash2 } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -202,15 +198,22 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
             >
               <div className="flex justify-between items-start mb-3">
                 <div className="flex gap-3">
-                  <div className="h-10 w-10 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center font-bold text-sm ring-2 ring-white">
-                    {review.user?.name?.charAt(0).toUpperCase() || (
-                      <UserIcon size={16} />
-                    )}
+                  <div className="h-10 w-10 relative rounded-full bg-gray-100 text-gray-600 flex items-center justify-center font-bold text-sm ring-2 ring-white overflow-hidden shrink-0">
+                    <Image
+                      src={
+                        review.avatarUrl ||
+                        generatePlaceholderImage(review.userName || "User")
+                      }
+                      alt={review.userName || "User Avatar"}
+                      fill
+                      sizes="40px"
+                      className="object-cover"
+                    />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="font-semibold text-gray-900 text-sm">
-                        {review.user?.name || "Anonymous User"}
+                        {review.userName || "Anonymous User"}
                       </span>
                       <span className="text-gray-300 text-xs">•</span>
                       <span className="text-gray-500 text-xs flex items-center">

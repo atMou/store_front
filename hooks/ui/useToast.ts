@@ -5,7 +5,7 @@ const useToast = () => {
   const dispatch = useAppDispatch();
 
   const showToast = (toast: Omit<Toast, "id">) => {
-    dispatch(toastActions.addToast({ duration: 100000, ...toast }));
+    dispatch(toastActions.addToast({ duration: 5000, ...toast }));
   };
 
   const dismissToast = (id: string) => {

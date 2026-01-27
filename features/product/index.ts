@@ -6,8 +6,9 @@ export * from "./types";
 // Hooks
 export { useFilters } from "./hooks/useFilters";
 export { useFilterSync } from "./hooks/useFilterSync";
-export { useProducts } from "./hooks/useProducts";
 export { useInfiniteLikedProducts } from "./hooks/useInfiniteLikedProducts";
+export { useInfiniteProducts } from "./hooks/useInfiniteProducts";
+export { useProducts } from "./hooks/useProducts";
 
 // Components
 export * from "./components";

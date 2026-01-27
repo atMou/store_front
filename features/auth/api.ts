@@ -24,7 +24,6 @@ export const authApi = baseApi.injectEndpoints({
             dispatch(userActions.setAccessToken(data.accessToken));
             dispatch(userActions.setUser(data.user));
 
-            // Merge guest liked products with user account
             dispatch(userActions.mergeLikedProducts());
           }
         } catch {}

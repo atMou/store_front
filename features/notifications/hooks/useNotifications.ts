@@ -4,7 +4,6 @@ import { selectAccessToken } from "@/features/user/slice";
 import { logger } from "@/shared/lib/logger";
 import { TryAsync } from "@/shared/lib/utils";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { store } from "@/store/store";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { NotificationHubClient } from "../services/NotificationHubClient";
 import {
@@ -12,6 +11,7 @@ import {
   selectNotifications,
   selectUnreadCount,
 } from "../slice";
+
 import {
   NewProductNotification,
   Notification,
@@ -91,14 +91,10 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     });
 
     const newNotificationHub = new NotificationHubClient(baseUrl, () => {
-      const currentState = store.getState();
-      const currentToken = selectAccessToken(currentState);
-
-      if (!currentToken) {
+      if (!accessToken) {
         logger.warn("Access token not available in Redux store");
       }
-
-      return currentToken || "";
+      return accessToken || "";
     });
     notificationHubRef.current = newNotificationHub;
     isConnectingRef.current = true;
@@ -176,7 +172,10 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
         title: "Shipment Update",
         message: notification.message,
         type: NotificationType.Shipment,
-        timestamp: notification.updatedAt,
+        timestamp:
+          typeof notification.updatedAt === "string"
+            ? notification.updatedAt
+            : new Date(notification.updatedAt).toISOString(),
         read: false,
         data: notification,
       });
@@ -203,7 +202,10 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
         title: "Order Update",
         message: notification.message,
         type: NotificationType.Order,
-        timestamp: notification.updatedAt,
+        timestamp:
+          typeof notification.updatedAt === "string"
+            ? notification.updatedAt
+            : new Date(notification.updatedAt).toISOString(),
         read: false,
         data: notification,
       });
@@ -239,7 +241,7 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
           ""
         ),
         type: NotificationType.Alert,
-        timestamp: new Date(),
+        timestamp: new Date().toISOString(),
         read: false,
         data: notification,
       });
@@ -266,7 +268,10 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
         title: "Payment Update",
         message: notification.message,
         type: NotificationType.Payment,
-        timestamp: notification.updatedAt,
+        timestamp:
+          typeof notification.updatedAt === "string"
+            ? notification.updatedAt
+            : new Date(notification.updatedAt).toISOString(),
         read: false,
         data: notification,
       });
@@ -294,7 +299,7 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
         title,
         message,
         type: (type as NotificationType) || NotificationType.Info,
-        timestamp: new Date(),
+        timestamp: new Date().toISOString(),
         read: false,
       });
     };
@@ -322,7 +327,7 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
         title: "🎉 New Arrival!",
         message: notification.message || `Check out ${notification.name}`,
         type: NotificationType.NewProduct,
-        timestamp: new Date(),
+        timestamp: new Date().toISOString(),
         read: false,
         data: notification,
       });

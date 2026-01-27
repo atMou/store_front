@@ -1,7 +1,7 @@
 "use client";
 
 import { withAuth } from "@/components/HOC";
-import { LandingPageLayout } from "@/components/layouts";
+import { LandingLayout } from "@/components/layouts";
 import { OrderReview } from "@/features/order/components";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
@@ -10,7 +10,7 @@ const OrderReviewPage = () => {
   const searchParams = useSearchParams();
   const cartId = searchParams.get("cartId");
   return (
-    <LandingPageLayout>
+    <LandingLayout>
       <Suspense
         fallback={
           <div className="min-h-screen flex items-center justify-center">
@@ -19,7 +19,7 @@ const OrderReviewPage = () => {
         }
       ></Suspense>
       <OrderReview cartId={cartId} />
-    </LandingPageLayout>
+    </LandingLayout>
   );
 };
 

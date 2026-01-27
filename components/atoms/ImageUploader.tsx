@@ -24,6 +24,7 @@ interface ImageUploaderProps<T extends FieldValues = FieldValues> {
   multiple?: boolean;
   showMainSelector?: boolean; // New prop to enable main image selection
   isMainFieldName?: Path<T>; // Field name for isMain array
+  variant?: "default" | "compact";
 }
 
 const ImageUploader = <T extends FieldValues = FieldValues>({
@@ -37,6 +38,7 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
   multiple = true,
   showMainSelector = false,
   isMainFieldName = "isMain" as Path<T>,
+  variant = "default",
 }: ImageUploaderProps<T>) => {
   const [previews, setPreviews] = useState<ImagePreviewItem[]>([]);
   const [dragActive, setDragActive] = useState(false);
@@ -350,7 +352,7 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
               onDragOver={handleDrag}
               onDrop={handleDrop}
               className={`
-                flex flex-col items-center justify-center w-full p-6 border-2 border-dashed rounded-lg cursor-pointer transition-all
+                flex flex-col items-center justify-center w-full ${variant === "compact" ? "p-3" : "p-6"} border-2 border-dashed rounded-lg cursor-pointer transition-all
                 ${
                   disabled || !canAddMore
                     ? "border-gray-200 bg-gray-50 cursor-not-allowed"

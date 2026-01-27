@@ -1,9 +1,10 @@
 "use client";
+import SectionHeader from "@/components/molecules/SectionHeader";
 import { FilterValues } from "@/features/product";
 import { ProductCard } from "@/features/product/components";
 import { useInfiniteProducts } from "@/features/product/hooks/useInfiniteProducts";
+import { cn } from "@/shared/lib/utils";
 import {
-  Button,
   Carousel,
   CarouselContent,
   CarouselItem,
@@ -11,12 +12,37 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/shared/ui";
-import { PlusIcon } from "@/shared/ui/icons";
+import { Plus } from "lucide-react";
 import React from "react";
+import ProductCarouselSkeleton from "./ProductCarouselSkeleton";
+
 type ProductCarouselProps = {
   filters?: FilterValues;
+  title?: string;
+  icon?: React.ReactNode;
+  itemSize?: "small" | "medium" | "large";
+  direction?: "rtl" | "ltr";
+  showFollowButton?: boolean;
+  isFollowing?: boolean;
+  bgColor?: string;
 };
-function ProductCarousel({ filters }: ProductCarouselProps) {
+
+const sizeClasses = {
+  small: "basis-1/3 md:basis-1/6 lg:basis-1/8 xl:basis-[10%] 2xl:basis-1/12",
+  medium: "basis-1/3 md:basis-1/5 lg:basis-1/6 xl:basis-[14.28%] 2xl:basis-1/8",
+  large: "basis-1/2 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 2xl:basis-[14.28%]",
+};
+
+function ProductCarousel({
+  filters,
+  title,
+  icon,
+  itemSize = "small",
+  direction = "ltr",
+  showFollowButton = false,
+  bgColor,
+  isFollowing = false,
+}: ProductCarouselProps) {
   const { products, isLoading } = useInfiniteProducts({
     additionalFilters: filters,
     pageSize: 20,
@@ -24,6 +50,10 @@ function ProductCarousel({ filters }: ProductCarouselProps) {
   const [api, setApi] = React.useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
   const [canScrollNext, setCanScrollNext] = React.useState(false);
+
+  const isCentered = !canScrollPrev && !canScrollNext && !!api;
+
+  const followButtonPosition = direction === "ltr" ? "left" : "right";
 
   React.useEffect(() => {
     if (!api) return;
@@ -44,34 +74,65 @@ function ProductCarousel({ filters }: ProductCarouselProps) {
   }, [api]);
 
   if (isLoading) {
-    return <div>Loading products...</div>;
-  }
-
-  if (!products || products.length === 0) {
-    return <div>No products available</div>;
+    return (
+      <ProductCarouselSkeleton
+        title={title}
+        icon={icon}
+        itemSize={itemSize}
+        direction={direction}
+      />
+    );
   }
 
   return (
-    <div className=" mx-auto px-4 sm:px-6 lg:px-8 w-full select-none ">
-      <div className="w-full ">
+    <div
+      className={cn("mx-auto w-full pt-3 pb-3 select-none")}
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
+    >
+      {title && (
+        <SectionHeader
+          title={title}
+          icon={icon}
+          direction={direction}
+          containerClassName={bgColor ? "text-white" : ""}
+          titleClassName={bgColor ? "text-white" : ""}
+        />
+      )}
+      <div className="w-full">
         <Carousel
           opts={{
-            align: "end",
+            align: "start",
+            direction: direction,
             containScroll: false,
             dragFree: true,
             slidesToScroll: 4,
           }}
           setApi={setApi}
           className="w-full"
+          dir={direction}
         >
-          <CarouselContent className="gap-2 md:gap-4 -ml-2 md:-ml-4">
+          <CarouselContent
+            className={cn(
+              direction === "rtl" ? "ml-0 -mr-2" : "-ml-2",
+              isCentered && "justify-center"
+            )}
+          >
             {products?.map((p) => {
               return (
                 <CarouselItem
                   key={p.id}
-                  className="basis-auto min-w-[180px] md:min-w-[220px] pl-2 md:pl-2"
+                  className={cn(
+                    "basis-auto",
+                    direction === "rtl" ? "pl-0 pr-2" : "pl-2",
+                    sizeClasses[itemSize]
+                  )}
                 >
-                  <ProductCard product={p} isLoading={isLoading} />
+                  <ProductCard
+                    product={p}
+                    isLoading={isLoading}
+                    size={itemSize}
+                    hasBackground={bgColor != ""}
+                  />
                 </CarouselItem>
               );
             })}
@@ -83,16 +144,34 @@ function ProductCarousel({ filters }: ProductCarouselProps) {
             className={`right-[305px] ${!canScrollNext && "hidden"}`}
           />
         </Carousel>
-        <div className="w-full pl-5 mt-4">
-          <Button
-            variant="plain"
-            className="group relative gap-2 border px-2 py-5 overflow-hidden hover:bg-slate-600 hover:text-white rounded-none"
-          >
-            <PlusIcon size="20" />
-            Follow
-          </Button>
-        </div>
       </div>
+      {showFollowButton && (
+        <div
+          className={cn(
+            "flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4",
+            followButtonPosition === "right" ? "justify-start" : "justify-end"
+          )}
+        >
+          <button
+            className={cn(
+              "flex  items-center gap-1 px-4 py-2 border-2 text-sm leading-2.5 tracking-wide font-semibold transition-colors cursor-pointer group",
+              bgColor
+                ? "border-white text-white hover:bg-white hover:text-black"
+                : "border-black text-black hover:bg-black hover:text-white"
+            )}
+          >
+            {isFollowing ? "Following" : "Follow"}
+            <Plus
+              size={16}
+              className={cn(
+                bgColor
+                  ? "text-white group-hover:text-black"
+                  : "text-black group-hover:text-white"
+              )}
+            />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -11,6 +11,7 @@ import TextAreaInput from "../../../components/atoms/TextAreaInput";
 import TextInput from "../../../components/atoms/TextInput";
 import { buildProductFormData } from "../utils";
 import {
+  ProductFormInput,
   ProductFormSchema,
   productFormSchema,
 } from "../validations/ProductFormValidation";
@@ -33,13 +34,13 @@ const ProductForm: React.FC<ProductFormProps> = ({
   error,
   submitLabel = "Save",
 }) => {
-  const form = useForm<ProductFormSchema>({
+  const form = useForm<ProductFormInput, undefined, ProductFormSchema>({
     resolver: zodResolver(productFormSchema),
     defaultValues: {
       slug: "",
       images: [],
       isMain: [],
-      price: undefined,
+      price: "",
       newPrice: undefined,
       brand: "",
       category: "",

@@ -22,7 +22,6 @@ export class NotificationHubClient {
     this.connection = new signalR.HubConnectionBuilder()
       .withUrl(`${baseUrl}/hubs/notifications`, {
         accessTokenFactory: () => this.getAccessToken(),
-        // Prefer WebSockets, fallback to SSE (avoid slow LongPolling)
         transport:
           signalR.HttpTransportType.WebSockets |
           signalR.HttpTransportType.ServerSentEvents,
@@ -69,7 +68,6 @@ export class NotificationHubClient {
 
   async start(): Promise<void> {
     try {
-      // Check if already connected or connecting
       if (
         this.connection.state === signalR.HubConnectionState.Connected ||
         this.connection.state === signalR.HubConnectionState.Connecting
@@ -85,7 +83,6 @@ export class NotificationHubClient {
     } catch (error) {
       const errorMessage = (error as Error)?.message || "Unknown error";
 
-      // Only log specific errors, not negotiation failures when backend is offline
       if (
         !errorMessage.includes("connection was stopped during negotiation") &&
         !errorMessage.includes("Failed to start the connection")

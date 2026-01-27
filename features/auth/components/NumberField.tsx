@@ -3,15 +3,13 @@ import React from "react";
 import { Control, Controller, FieldValues, Path } from "react-hook-form";
 
 interface NumberFieldProps<T extends FieldValues> {
-  id: string;
   control: Control<T>;
   name: Path<T>;
   placeholder?: string;
-  onExtraChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onExtraChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
 }
 function NumberField<T extends FieldValues>({
-  id,
   control,
   label,
   name,
@@ -24,12 +22,12 @@ function NumberField<T extends FieldValues>({
       control={control}
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid} className="flex-1">
-          <FieldLabel htmlFor="age" className="text-xs -mb-2">
+          <FieldLabel htmlFor={name} className="text-xs -mb-2">
             {label}
           </FieldLabel>
           <InputGroup className="w-full h-10 px-1.5  text-sm border border-black rounded-none">
             <InputGroupInput
-              id={id}
+              id={name}
               placeholder={placeholder}
               type="number"
               inputMode="numeric"
@@ -40,7 +38,7 @@ function NumberField<T extends FieldValues>({
               onChange={(e) => {
                 const value = e.target.valueAsNumber;
                 field.onChange(isNaN(value) ? undefined : value);
-                onExtraChange(e);
+                onExtraChange?.(e);
               }}
             />
           </InputGroup>

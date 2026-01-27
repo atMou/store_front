@@ -346,7 +346,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
           currency={currency}
           variant="small"
         />
-        {cart?.discount && cart.discount > 0 && (
+        {cart?.discount && cart.discount > 0 ? (
           <PriceDisplay
             label="Discount"
             amount={-cart.discount}
@@ -355,7 +355,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
             labelClassName="text-green-700"
             amountClassName="text-green-700"
           />
-        )}
+        ): null}
         <PriceDisplay
           label="Tax"
           amount={cart?.tax ?? 0}

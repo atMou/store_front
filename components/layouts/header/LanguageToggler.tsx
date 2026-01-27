@@ -18,7 +18,6 @@ function LanguageToggler() {
   const [selectedLang, setSelectedLang] = useState("en");
 
   const changeLanguage = () => {
-    // TODO: Implement language change
     console.log("Change language to:", selectedLang);
     setOpen(false);
   };
@@ -26,7 +25,7 @@ function LanguageToggler() {
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <div className="group relative inline-flex items-center gap-1 cursor-pointer py-1  transition-colors duration-200">
+          <div className="group relative inline-flex items-center gap-1 cursor-pointer py-1 mr-2  transition-colors duration-200">
             <span
               className="
             text-gray-500 

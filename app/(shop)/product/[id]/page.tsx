@@ -10,10 +10,14 @@ import { ProductsViewedCarousel } from "@/features/product";
 import { useGetProductByIdQuery } from "@/features/product/api";
 import ProductReviews from "@/features/product/components/ProductReviews";
 import { addViewedProduct } from "@/features/product/slice";
+import {
+  selectUserLikedProductIds,
+  useToggleLikedProductMutation,
+} from "@/features/user";
 import useToast from "@/hooks/ui/useToast";
 import { logger } from "@/shared/lib/logger";
 import { FavoriteIconButton } from "@/shared/ui";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { ChevronDown, Heart, Package, RotateCcw, Truck } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -24,6 +28,9 @@ export default function ProductPage() {
   const id = params.id as string;
   const { showToast } = useToast();
   const dispatch = useAppDispatch();
+
+  const likedProductIds = useAppSelector(selectUserLikedProductIds);
+  const [toggleLikedProduct] = useToggleLikedProductMutation();
 
   const { data: product, isLoading } = useGetProductByIdQuery({
     id,
@@ -44,7 +51,6 @@ export default function ProductPage() {
   const [expandedSections, setExpandedSections] = useState<string[]>([]);
   const [showAllColors, setShowAllColors] = useState(false);
 
-  // Derive selectedVariantId from the selected color
   const selectedColorVariantId =
     product?.colorVariants?.[selectedColor]?.id || null;
 
@@ -93,6 +99,9 @@ export default function ProductPage() {
             message: "Item quantity updated in cart",
             type: "success",
           });
+          if (likedProductIds.includes(product!.id)) {
+            toggleLikedProduct({ productIds: [product!.id] });
+          }
         } else {
           showToast({
             message: result.error?.detail || "Failed to update cart",
@@ -124,7 +133,9 @@ export default function ProductPage() {
             message: "Item added to cart successfully",
             type: "success",
           });
-          // Reset selections after successful add
+          if (likedProductIds.includes(product!.id)) {
+            toggleLikedProduct({ productIds: [product!.id] });
+          }
           setSize("");
         } else {
           showToast({
@@ -248,8 +259,8 @@ export default function ProductPage() {
 
   return (
     <LandingLayout>
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 ">
+        <div className="flex flex-col md:flex-row ">
           {/* Left: Image Gallery */}
           <div className="flex gap-4 md:w-1/2">
             {/* Thumbnails */}
@@ -258,7 +269,7 @@ export default function ProductPage() {
                 <button
                   key={img.id}
                   onClick={() => setSelectedImage(idx)}
-                  className={`w-16 h-20 border-2 overflow-hidden ${
+                  className={`w-20 h-25 border-2 overflow-hidden ${
                     selectedImage === idx
                       ? "border-black"
                       : "border-gray-200 hover:border-gray-400"
@@ -267,23 +278,21 @@ export default function ProductPage() {
                   <Image
                     src={img.url}
                     alt={img.altText || product.brand}
-                    width={64}
-                    height={80}
-                    className="w-full h-full  object-cover"
-                    // fill
-                    quality={95}
+                    width={100}
+                    height={100}
+                    className="w-full h-full object-cover"
                   />
                 </button>
               ))}
             </div>
 
             {/* Main Image */}
-            <div className="relative flex-1 max-w-[420px] max-h-[500px] bg-gray-50">
+            <div className="relative flex-1 max-w-[500px] max-h-[700px] bg-gray-50">
               {images[selectedImage] && (
                 <Image
                   src={images[selectedImage].url}
                   alt={images[selectedImage].altText || product.brand}
-                  className="w-full h-full  object-center object-contain"
+                  className="w-full h-full  object-center object-cover"
                   fill
                   sizes="(max-width: 768px) 100vw, 420px"
                   quality={95}
@@ -309,7 +318,7 @@ export default function ProductPage() {
               {product.brand}
             </a>
             <h1 className="text-xl font-bold mt-1 mb-2">
-              {product.description?.slice(0, 60)}
+              {product.slug}
             </h1>
 
             {/* Price */}
@@ -328,7 +337,7 @@ export default function ProductPage() {
             )}
 
             <div className="flex items-center gap-2 mb-4 text-sm">
-              <span className="text-gray-600">Overall availability:</span>
+              <span className="text-gray-600">Availability:</span>
               <span className={`font-medium ${overallStock.color}`}>
                 {overallStock.label}
               </span>
@@ -633,6 +642,7 @@ export default function ProductPage() {
       </div>
       <ProductsViewedCarousel
         currentProductId={product.id}
+        itemSize="medium"
       ></ProductsViewedCarousel>
       <div className="max-w-7xl mx-auto px-4 py-8">
         <ProductReviews product={product} />

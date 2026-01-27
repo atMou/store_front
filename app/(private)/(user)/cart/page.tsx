@@ -1,5 +1,6 @@
 "use client";
 import { Dropdown } from "@/components/atoms";
+import { ApiErrorDisplay } from "@/components/feedback";
 import BreadCrumb from "@/components/feedback/BreadCrumb";
 import CartSkeletonLoader from "@/components/feedback/CartSkeletonLoader";
 import { withAuth } from "@/components/HOC";
@@ -7,16 +8,26 @@ import { LandingLayout } from "@/components/layouts";
 import { CartItem } from "@/features";
 import CartSummary from "@/features/cart/components/CartSummary";
 import { useCart } from "@/features/cart/hooks";
+import {
+  ProductsLikedCarousel,
+  ProductsViewedCarousel,
+} from "@/features/product";
+import {
+  selectUserLikedProductIds,
+  useToggleLikedProductMutation,
+} from "@/features/user";
+import useToast from "@/hooks/ui/useToast";
+import { Button, TryAsync } from "@/shared";
 import { generateProductPlaceholder } from "@/shared/lib/placeholderImage";
 import {
   formatShippingDate,
   getWorkingDaysFromToday,
 } from "@/shared/lib/utils";
+import { useAppSelector } from "@/store/hooks";
 import { Info, Package, ShoppingCart, X } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo } from "react";
+import {  useMemo } from "react";
 
 const formatVariantName = (item: CartItem) => {
   return item.slug || "Product";
@@ -30,18 +41,24 @@ const Cart = () => {
     isLoading,
     removeItem,
     updateItem,
+    error,
   } = useCart();
+
+  const likedProductIds = useAppSelector(selectUserLikedProductIds);
+  const [toggleLikedProduct] = useToggleLikedProductMutation();
+  const { showToast } = useToast();
 
   // Show skeleton only on initial load (when cart is null and loading)
   const showSkeleton = isLoading && cart === null;
 
   const FREE_SHIPPING_THRESHOLD = 29.9;
 
-  // Calculate dynamic shipping dates (2-3 working days from today)
   const shippingStartDate = getWorkingDaysFromToday(2);
   const shippingEndDate = getWorkingDaysFromToday(3);
   const shippingDateRange = `${formatShippingDate(shippingStartDate)} - ${formatShippingDate(shippingEndDate)}`;
 
+
+ 
   const subtotal = useMemo(() => {
     if (!cartItems.length) return 0;
     return cartItems.reduce(
@@ -57,31 +74,85 @@ const Cart = () => {
     colorVariantId: string,
     sizeVariantId: string
   ) => {
-    try {
-      await removeItem(colorVariantId, sizeVariantId);
-    } catch (error) {
+    const { error } = await TryAsync(
+      async () => await removeItem(colorVariantId, sizeVariantId)
+    );
+
+    if (error) {
+      showToast({
+        message: error.detail || "Failed to remove item",
+        type: "error",
+      });
       console.error("Error removing item:", error);
     }
   };
 
   const handleQuantityChange = async (item: CartItem, newQuantity: number) => {
     if (newQuantity < 1) return;
-    try {
-      await updateItem(
-        item.productId,
-        newQuantity,
-        item.colorVariantId,
-        item.sizeVariantId
-      );
-    } catch (error) {
+
+    const { error } = await TryAsync(
+      async () =>
+        await updateItem(
+          item.productId,
+          newQuantity,
+          item.colorVariantId,
+          item.sizeVariantId
+        )
+    );
+
+    if (error) {
+      showToast({
+        message: error.detail || "Failed to update quantity",
+        type: "error",
+      });
       console.error("Error updating quantity:", error);
     }
+  };
+
+  const handleMoveToWishlist = async (item: CartItem) => {
+    // 1. Add to wishlist
+    if (!likedProductIds.includes(item.productId)) {
+      const { error: wishListError } = await TryAsync(
+        async () =>
+          await toggleLikedProduct({ productIds: [item.productId] }).unwrap()
+      );
+
+      if (wishListError) {
+        showToast({
+          message:
+            wishListError.detail || "Failed to add to wishlist, try again.",
+          type: "error",
+        });
+        return; 
+      }
+    }
+    const { error: removeError } = await TryAsync(
+      async () => await removeItem(item.colorVariantId, item.sizeVariantId)
+    );
+
+    if (removeError) {
+      showToast({
+        message:
+          removeError.detail ||
+          "Added to wishlist but failed to remove from cart",
+        type: "error", // Or warning
+      });
+      return;
+    }
+
+    showToast({ message: "Moved to wish list", type: "success" });
   };
 
   return (
     <LandingLayout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <BreadCrumb />
+
+        {error && (
+          <div className="mb-6">
+            <ApiErrorDisplay error={error} variant="default" />
+          </div>
+        )}
 
         {/* Cart Header */}
         <div className="mt-4 mb-6">
@@ -196,24 +267,28 @@ const Cart = () => {
                     </div>
 
                     {/* Quantity Selector and Move to Wishlist */}
-                    <div className="mt-auto pt-3 flex items-center gap-4">
+                    <div
+                      className="mt-auto pt-3 flex items-center gap-4"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <Dropdown
                         options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => ({
                           label: num.toString(),
                           value: num.toString(),
                         }))}
                         value={item.quantity.toString()}
-                        onChange={(value) =>
-                          handleQuantityChange(item, parseInt(value as string))
-                        }
+                        onChange={(value) => {
+                          handleQuantityChange(item, parseInt(value as string));
+                        }}
                         placeholder="Qty"
                       />
-                      <Link
-                        href="#"
+                      <Button
+                        variant={"plain"}
                         className="text-sm text-gray-700 underline hover:text-gray-900"
+                        onClick={() => handleMoveToWishlist(item)}
                       >
                         Move to wish list
-                      </Link>
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -245,6 +320,8 @@ const Cart = () => {
           </div>
         )}
       </div>
+      <ProductsLikedCarousel direction="ltr" itemSize="medium" />
+      <ProductsViewedCarousel currentProductId="" itemSize="medium" />
     </LandingLayout>
   );
 };

@@ -202,6 +202,7 @@ const CheckoutForm = ({ paymentId, amount }: CheckoutFormProps) => {
             layout: {
               type: "tabs",
               defaultCollapsed: false,
+             
             },
           }}
         />

@@ -29,6 +29,9 @@
   html {
     font-size: 18px;
   }
+  button, a, [role="button"] {
+    @apply cursor-pointer;
+  }
 }
 
 /* Blue palette (default) */

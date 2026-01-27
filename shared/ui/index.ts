@@ -149,7 +149,7 @@ export {
 
 export { Badge, badgeVariants };
 
-export { default as FavoriteIconButton } from "./FavoriteIconButton";
+export { default as FavoriteIconButton } from "../../features/product/components/FavoriteIconButton";
 
 export {
   Dialog,

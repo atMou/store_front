@@ -11,7 +11,7 @@ import { Package, Warehouse } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { Control, FieldErrors } from "react-hook-form";
-import { useFieldArray, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import type { ColorVariantResult, WarehouseResult } from "../types";
 import {
   updateInventoryFormSchema,
@@ -42,7 +42,6 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
   const {
     fields: sizeVariantFields,
     append: appendSizeVariant,
-    update,
     remove: removeSizeVariant,
   } = useFieldArray({
     control,
@@ -122,7 +121,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
 
               {/* Size Dropdown */}
               <div className="mb-4">
-                <SizeDropdown<UpdateInventoryFormSchema>
+                <SizeDropdown
                   control={control}
                   name={
                     `colorVariants.${colorIndex}.sizeVariants.${sizeIndex}.size` as `colorVariants.${number}.sizeVariants.${number}.size`
@@ -135,7 +134,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
               {typedField.size && (
                 <>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <NumberInput<UpdateInventoryFormSchema>
+                    <NumberInput
                       control={control}
                       name={
                         `colorVariants.${colorIndex}.sizeVariants.${sizeIndex}.stock` as `colorVariants.${number}.sizeVariants.${number}.stock`
@@ -146,7 +145,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
                       isInteger
                     />
 
-                    <NumberInput<UpdateInventoryFormSchema>
+                    <NumberInput
                       control={control}
                       name={
                         `colorVariants.${colorIndex}.sizeVariants.${sizeIndex}.low` as `colorVariants.${number}.sizeVariants.${number}.low`
@@ -157,7 +156,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
                       isInteger
                     />
 
-                    <NumberInput<UpdateInventoryFormSchema>
+                    <NumberInput
                       control={control}
                       name={
                         `colorVariants.${colorIndex}.sizeVariants.${sizeIndex}.mid` as `colorVariants.${number}.sizeVariants.${number}.mid`
@@ -168,7 +167,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
                       isInteger
                     />
 
-                    <NumberInput<UpdateInventoryFormSchema>
+                    <NumberInput
                       control={control}
                       name={
                         `colorVariants.${colorIndex}.sizeVariants.${sizeIndex}.high` as `colorVariants.${number}.sizeVariants.${number}.high`
@@ -186,19 +185,22 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
                       <Warehouse size={16} className="text-gray-600" />
                       Warehouses
                     </label>
-                    <DropdownMultiSelect
-                      options={warehouses.map((w) => ({
-                        label: `${w.name} (${w.code})`,
-                        value: w.code,
-                      }))}
-                      value={typedField.warehouses || []}
-                      onChange={(values) => {
-                        update(sizeIndex, {
-                          ...typedField,
-                          warehouses: values,
-                        });
-                      }}
-                      placeholder="Select warehouses..."
+                    <Controller
+                      control={control}
+                      name={
+                        `colorVariants.${colorIndex}.sizeVariants.${sizeIndex}.warehouses` as `colorVariants.${number}.sizeVariants.${number}.warehouses`
+                      }
+                      render={({ field: { value, onChange } }) => (
+                        <DropdownMultiSelect
+                          options={warehouses.map((w) => ({
+                            label: `${w.name} (${w.code})`,
+                            value: w.code,
+                          }))}
+                          value={value || []}
+                          onChange={onChange}
+                          placeholder="Select warehouses..."
+                        />
+                      )}
                     />
                   </div>
 

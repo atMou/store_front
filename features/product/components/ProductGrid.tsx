@@ -1,12 +1,19 @@
 "use client";
 
-import { useProducts } from "../hooks/useProducts";
+import { useAppSelector } from "@/store/hooks";
+import { useInfiniteProducts } from "../hooks/useInfiniteProducts";
+import { selectProductsFilters } from "../slice";
 import ProductCard from "./ProductCard";
 
+
+
 function ProductGrid() {
-  const { products, totalCount, isLoading } = useProducts({
-    pageSize: 24,
-  });
+  const filters = useAppSelector(selectProductsFilters);
+  const { products, totalCount, isLoading, hasNextPage, loadMore, isFetching } =
+    useInfiniteProducts({
+      pageSize: 24,
+      additionalFilters: {include:"colorVariants", ...filters},
+    });
 
   if (isLoading) {
     return (
@@ -64,11 +71,15 @@ function ProductGrid() {
         ))}
       </div>
 
-      {/* Load More or Pagination */}
-      {totalCount && totalCount > products.length && (
+      {/* Load More */}
+      {hasNextPage && (
         <div className="mt-8 text-center">
-          <button className="px-6 py-3 border border-gray-300 hover:border-black transition-colors text-sm font-medium">
-            Load More
+          <button
+            onClick={loadMore}
+            disabled={isFetching}
+            className="px-6 py-3 border border-gray-300 hover:border-black transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isFetching ? "Loading..." : "Load More"}
           </button>
         </div>
       )}

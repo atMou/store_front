@@ -14,16 +14,15 @@ import {
   Youtube,
 } from "lucide-react";
 import Link from "next/link";
+import { HeaderLogo } from "./header";
 
-const FooterLogo = () => (
-  <div className="text-2xl font-bold text-gray-800">FakeLando</div>
-);
+
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white border-t border-gray-200 mt-16">
+    <footer className="bg-white border-t border-gray-200 mt-16 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Trust badges */}
         <motion.div
@@ -33,18 +32,18 @@ const Footer = () => {
           className="grid grid-cols-1 md:grid-cols-3 gap-6 py-12 border-b border-gray-200"
         >
           <div className="flex items-center gap-4">
-            <div className="flex-shrink-0 w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center">
+            <div className="shrink-0 w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center">
               <Truck className="h-6 w-6 text-gray-600" />
             </div>
             <div>
               <h4 className="text-sm font-semibold text-gray-800">
                 Free Shipping
               </h4>
-              <p className="text-sm text-gray-600">On orders over $50</p>
+              <p className="text-sm text-gray-600">On orders over 29.5€</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <div className="flex-shrink-0 w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center">
+            <div className="shrink-0 w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center">
               <Shield className="h-6 w-6 text-gray-600" />
             </div>
             <div>
@@ -55,7 +54,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <div className="flex-shrink-0 w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center">
+            <div className="shrink-0 w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center">
               <Headphones className="h-6 w-6 text-gray-600" />
             </div>
             <div>
@@ -75,7 +74,7 @@ const Footer = () => {
             transition={{ duration: 0.3, delay: 0.05 }}
             className="col-span-1"
           >
-            <FooterLogo />
+            <HeaderLogo />
 
             <p className="text-sm text-gray-600 mt-4 leading-relaxed">
               Your trusted destination for quality products and exceptional
@@ -86,18 +85,18 @@ const Footer = () => {
               <div className="flex items-start gap-2">
                 <MapPin
                   size={16}
-                  className="text-gray-500 mt-0.5 flex-shrink-0"
+                  className="text-gray-500 mt-0.5 shrink-0"
                 />
                 <p className="text-sm text-gray-600">
-                  123 Commerce St, NY 10001
+                 11016 Berlin, Germany 
                 </p>
               </div>
               <div className="flex items-center gap-2">
-                <Phone size={16} className="text-gray-500 flex-shrink-0" />
-                <p className="text-sm text-gray-600">+1 (555) 123-4567</p>
+                <Phone size={16} className="text-gray-500 shrink-0" />
+                <p className="text-sm text-gray-600">+49 30 1234567</p>
               </div>
               <div className="flex items-center gap-2">
-                <Mail size={16} className="text-gray-500 flex-shrink-0" />
+                <Mail size={16} className="text-gray-500 shrink-0" />
                 <p className="text-sm text-gray-600">support@fakelando.com</p>
               </div>
             </div>

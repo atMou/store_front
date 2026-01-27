@@ -7,7 +7,7 @@ export default function MenHome() {
     <>
       <LandingLayout>
         <ProductCarousel
-          filters={{ include: "colorVariants" }}
+          filters={{  include: "colorVariants", category: "Men" }}
         ></ProductCarousel>
       </LandingLayout>
     </>

@@ -9,15 +9,7 @@ interface FormValidationErrorsProps {
   className?: string;
 }
 
-/**
- * FormValidationErrors - Display react-hook-form validation errors
- *
- * @param errors - Form errors from form.formState.errors
- * @param className - Additional CSS classes
- *
- * @example
- * <FormValidationErrors errors={form.formState.errors} />
- */
+
 function FormValidationErrors({
   errors,
   className,

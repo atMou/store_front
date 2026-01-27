@@ -1,3 +1,4 @@
+import HeaderIcon from "@/components/layouts/header/HeaderIcon";
 import { AppRoutes } from "@/constants";
 import { useLogoutMutation } from "@/features/auth/api";
 import { useAuth } from "@/hooks/state";
@@ -38,23 +39,11 @@ function AuthenticationIcon() {
   };
 
   return (
-    <div className="relative inline-block z-100 group">
-      <Button
-        variant="plain"
-        className="
-          px-4 text-gray-800 flex items-center 
-          border-transparent border-2 border-b-0
-          group-hover:border-gray-800
-          group-hover:bg-white
-          relative z-70
-          transition-colors duration-100 rounded-none
-        "
-      >
-        <UserIcon strokeWidth={1} size={20} />
-        <span className="sr-only">User Account</span>
-      </Button>
-
-      <div className="absolute right-0  w-[350px] bg-white border-2 border-black  opacity-0  pointer-events-none group-hover:opacity-100 -translate-y-0.5 group-hover:pointer-events-auto transition-all duration-100 ease-in-out z-50">
+    <HeaderIcon
+      icon={<UserIcon strokeWidth={1} size={20} />}
+      label="User Account"
+    >
+      <div className="absolute right-0  w-[400px] bg-white border-2 border-black  opacity-0  pointer-events-none group-hover:opacity-100 -translate-y-0.5 group-hover:pointer-events-auto transition-all duration-100 ease-in-out z-50">
         {!isAuthenticated && (
           <div className="p-3">
             <Button
@@ -88,7 +77,7 @@ function AuthenticationIcon() {
           ].map((item) => (
             <li
               key={item.label}
-              className="transition-all duration-100 ease-in-out   hover:bg-gray-200 hover:text-gray-900 active:translate-y-px"
+              className="transition-all duration-100 ease-in-out hover:bg-gray-200 hover:text-gray-900 active:translate-y-px"
               role="menuitem"
             >
               <Link
@@ -114,7 +103,7 @@ function AuthenticationIcon() {
           </div>
         )}
       </div>
-    </div>
+    </HeaderIcon>
   );
 }
 
