@@ -8,7 +8,7 @@
 ![SignalR](https://img.shields.io/badge/SignalR-Realtime-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-<video src="public/fakelando.mp4" width="100%" autoplay muted loop playsinline></video>
+<video src="https://asset.cloudinary.com/daxkv13zq/d6903169a10acbfa6b35a616fdeb9144" width="100%" autoplay muted loop playsinline></video>
 
 An e-commerce application inspired by the **Zalando** user experience. Built with a focus on scalability, maintainability, and real-time responsiveness. This platform features dedicated localized storefronts, a comprehensive administration dashboard, and a seamless checkout experience powered by modern web technologies.
 
