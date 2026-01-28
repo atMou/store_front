@@ -47,7 +47,7 @@ const HeaderIcon = ({
           {badgeCount > 0 && (
             <span
               className={cn(
-                "absolute -top-2 -right-2.5 flex justify-center items-center h-4 min-w-[1rem] px-0.5 text-[10px] font-bold text-white bg-red-600 rounded-full",
+                "absolute -top-2 -right-2.5 flex justify-center items-center h-4 min-w-4 px-0.5 text-[10px] font-bold text-white bg-red-600 rounded-full",
                 badgeClassName
               )}
             >
