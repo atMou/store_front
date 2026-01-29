@@ -53,7 +53,6 @@ const CheckoutForm = ({ paymentId, amount }: CheckoutFormProps) => {
       });
 
       if (error) {
-        // Handle payment cancellation by user
         if (
           error.code === "payment_intent_authentication_failure" ||
           error.type === "validation_error" ||
@@ -77,7 +76,7 @@ const CheckoutForm = ({ paymentId, amount }: CheckoutFormProps) => {
           logger.info("Payment already processed, confirming with backend", {
             paymentId,
           });
-          // Payment already succeeded, proceed to backend confirmation
+
           try {
             const response = await confirmPayment({
               paymentId,
@@ -92,7 +91,6 @@ const CheckoutForm = ({ paymentId, amount }: CheckoutFormProps) => {
             router.push(`/success?orderId=${response.orderId}`);
             return;
           } catch (err) {
-            // If backend also confirms it's already processed, redirect anyway
             logger.warn("Backend confirmation error for processed payment", {
               error: err,
             });
@@ -115,9 +113,7 @@ const CheckoutForm = ({ paymentId, amount }: CheckoutFormProps) => {
         return;
       }
 
-      // Handle successful payment
       if (paymentIntent && paymentIntent.status === "succeeded") {
-        // Confirm payment with backend
         logger.info("Payment succeeded, confirming with backend", {
           paymentId,
           paymentIntentId: paymentIntent.id,
@@ -141,7 +137,6 @@ const CheckoutForm = ({ paymentId, amount }: CheckoutFormProps) => {
         return;
       }
 
-      // Handle other payment statuses
       if (paymentIntent) {
         if (paymentIntent.status === "canceled") {
           logger.info("Payment was canceled", {
@@ -168,7 +163,6 @@ const CheckoutForm = ({ paymentId, amount }: CheckoutFormProps) => {
           return;
         }
 
-        // Log unexpected status
         logger.warn("Unexpected payment intent status", {
           status: paymentIntent.status,
           paymentIntentId: paymentIntent.id,
@@ -202,7 +196,6 @@ const CheckoutForm = ({ paymentId, amount }: CheckoutFormProps) => {
             layout: {
               type: "tabs",
               defaultCollapsed: false,
-             
             },
           }}
         />

@@ -29,7 +29,9 @@ function TextBanner({
 
   return (
     <div className={`text-white py-6 ${className}`} style={{ backgroundColor }}>
-      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${alignmentClass}`}>
+      <div
+        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${alignmentClass}`}
+      >
         <h2 className="text-2xl md:text-3xl font-semibold mb-1">{title}</h2>
         <p className="text-lg md:text-xl font-normal mb-3">{subtitle}</p>
         <Link

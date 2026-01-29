@@ -72,9 +72,8 @@ function ProfileSep() {
     formData.append("Street", _data.street || "");
     formData.append("PostalCode", (_data.postalCode || 0).toString());
     formData.append("HouseNumber", (_data.houseNumber || 0).toString());
-    formData.append("RememberMe", "false"); // Default value
+    formData.append("RememberMe", "false");
 
-    // Optional fields - only append if they have values
     if (_data.age) {
       formData.append("Age", _data.age.toString());
     }
@@ -87,7 +86,7 @@ function ProfileSep() {
     if (_data.avatar instanceof File) {
       formData.append("Avatar", _data.avatar);
     }
-  
+
     const { data, error } = await TryAsync(async () => {
       return await register(formData).unwrap();
     });
@@ -350,11 +349,7 @@ function ProfileSep() {
             </>
           </SubmitButton>
 
-          {/* <ErrorDisplay
-            error={formError}
-            onDismiss={() => setFormError(null)}
-            variant="card"
-          /> */}
+          {}
         </div>
       </form>
     </Form>
@@ -362,4 +357,3 @@ function ProfileSep() {
 }
 
 export default ProfileSep;
-

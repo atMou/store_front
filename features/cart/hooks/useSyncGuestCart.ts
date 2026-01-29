@@ -4,9 +4,6 @@ import { useCallback } from "react";
 import { useAddMultipleLineItemsMutation } from "../api";
 import { selectCart } from "../slice";
 
-/**
- * Hook to sync guest cart with backend after user logs in
- */
 export function useSyncGuestCart() {
   const guestCart = useAppSelector(selectCart);
   const [addMultipleItems] = useAddMultipleLineItemsMutation();

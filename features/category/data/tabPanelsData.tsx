@@ -1,7 +1,6 @@
 import {
   AccessoriesIcon,
   BabyIcon,
-  // BackpackIcon,
   BeltFillIcon,
   BoyIcon,
   CasesIcon,
@@ -35,10 +34,8 @@ import {
   TrendingUpIcon,
   TrousersIcon,
   TShirtIcon,
-  // UserCircleIcon,
   UsersIcon,
   WatchIcon,
-  // WindIcon,
   ZapIcon,
 } from "@/shared/ui/icons";
 import {

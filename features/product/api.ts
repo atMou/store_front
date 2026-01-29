@@ -17,7 +17,6 @@ export const productApi = baseApi.injectEndpoints({
 
         Object.entries(params).forEach(([key, value]) => {
           if (value !== undefined && value !== null && value !== "") {
-            // Convert camelCase to PascalCase for backend
             const backendKey = toPascalCase(key);
             queryString.append(backendKey, value.toString());
           }

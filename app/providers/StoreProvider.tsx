@@ -17,18 +17,3 @@ function StoreProvider({ children }: PropsWithChildren) {
 }
 
 export default StoreProvider;
-
-// function CategoryRedirect({ children }: PropsWithChildren) {
-//   const mainCategory = useAppSelector(selectMainCategory);
-//   const router = useRouter();
-
-//   useEffect(() => {
-//     if (mainCategory) {
-//       router.replace(`/${mainCategory.toLowerCase()}-home`);
-//     }else {
-//     router.replace(`/women-home`);
-//     }
-//   }, [mainCategory, router]);
-
-//   return <>{children}</>;
-// }

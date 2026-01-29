@@ -18,7 +18,7 @@ const PaymentFailed = () => {
       transition={{ duration: 0.6 }}
       className="flex flex-col items-center justify-center min-h-screen bg-red-100 p-4"
     >
-      {/* Error Icon */}
+      {}
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
@@ -28,7 +28,7 @@ const PaymentFailed = () => {
         <XCircle size={80} />
       </motion.div>
 
-      {/* Error Message */}
+      {}
       <h1 className="text-center text-3xl font-semibold text-red-700 mb-4">
         Payment Failed
       </h1>
@@ -38,7 +38,7 @@ const PaymentFailed = () => {
         support for assistance.
       </p>
 
-      {/* Helpful Links */}
+      {}
       <div className="flex space-x-6">
         <button
           onClick={() => handleRedirect("/orders")}

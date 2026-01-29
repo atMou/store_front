@@ -21,7 +21,6 @@ import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 import { useUpdateUserMutation } from "../api";
 
-// Schema matching the fields we want to edit + validation
 const editProfileSchema = z.object({
   firstName: z.string().min(2, "First name is too short").optional(),
   lastName: z.string().min(2, "Last name is too short").optional(),
@@ -74,14 +73,13 @@ export const EditProfileModal = ({
     },
   });
 
-  // Update form values when user/address data is available
   useEffect(() => {
     if (user) {
       form.reset({
         firstName: user.firstName || "",
         lastName: user.lastName || "",
         email: user.email || "",
-        phone: user.phone || "", // Note: API usually maps this to Phone
+        phone: user.phone || "",
         age: user.age,
         gender: user.gender as "male" | "female" | "other" | undefined,
         city: mainAddress?.city || "",
@@ -97,7 +95,7 @@ export const EditProfileModal = ({
     if (!user) return;
 
     const formData = new FormData();
-    // Basic Info
+
     if (data.firstName) formData.append("FirstName", data.firstName);
     if (data.lastName) formData.append("LastName", data.lastName);
     if (data.email) formData.append("Email", data.email);
@@ -106,15 +104,14 @@ export const EditProfileModal = ({
     if (data.gender) formData.append("Gender", data.gender);
     if (data.image) formData.append("Image", data.image);
 
-    // Address Info - Nested under 'Address'
     if (data.city) formData.append("Address.City", data.city);
     if (data.street) formData.append("Address.Street", data.street);
     if (data.postalCode)
       formData.append("Address.PostalCode", data.postalCode.toString());
     if (data.houseNumber)
       formData.append("Address.HouseNumber", data.houseNumber.toString());
-    if (mainAddress?.id) formData.append("Address.Id", mainAddress.id); // Often needed for updates
-    // Assuming backend needs isMain=true if we are updating the main address
+    if (mainAddress?.id) formData.append("Address.Id", mainAddress.id);
+
     if (mainAddress) formData.append("Address.IsMain", "true");
     if (data.extraDetails)
       formData.append("Address.ExtraDetails", data.extraDetails);
@@ -124,7 +121,7 @@ export const EditProfileModal = ({
       showToast({
         title: "Success",
         message: "Profile updated successfully",
-        type:   "info",
+        type: "info",
       });
       onOpenChangeAction(false);
     } catch (error) {
@@ -145,8 +142,7 @@ export const EditProfileModal = ({
         </DialogHeader>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 py-4">
-          
-          {/* Personal Information Section */}
+          {}
           <div className="space-y-4">
             <h3 className="text-lg font-medium text-gray-900 border-b pb-2">
               Personal Information
@@ -172,7 +168,6 @@ export const EditProfileModal = ({
                 label="Email"
                 placeholder="john@example.com"
                 type="email"
-                
               />
               <TextField
                 control={form.control}
@@ -187,7 +182,6 @@ export const EditProfileModal = ({
                   name="age"
                   label="Age"
                   placeholder="25"
-
                 />
               </div>
               <div className="flex flex-col space-y-3 pt-1">
@@ -217,7 +211,7 @@ export const EditProfileModal = ({
             </div>
           </div>
 
-          {/* Address Section */}
+          {}
           <div className="space-y-4">
             <h3 className="text-lg font-medium text-gray-900 border-b pb-2">
               Main Address
@@ -235,7 +229,7 @@ export const EditProfileModal = ({
                 name="street"
                 label="Street"
                 placeholder="Broadway"
-                type="text" 
+                type="text"
               />
               <NumberField
                 control={form.control}

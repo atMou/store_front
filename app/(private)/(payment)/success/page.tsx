@@ -16,7 +16,7 @@ const PaymentSucceeded = () => {
       transition={{ duration: 0.6 }}
       className="flex flex-col items-center justify-center min-h-screen bg-linear-to-br from-green-50 to-emerald-100 p-4"
     >
-      {/* Success Icon */}
+      {}
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
@@ -26,7 +26,7 @@ const PaymentSucceeded = () => {
         <CheckCircle size={100} />
       </motion.div>
 
-      {/* Success Message */}
+      {}
       <motion.h1
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -62,7 +62,7 @@ const PaymentSucceeded = () => {
         </motion.div>
       )}
 
-      {/* Helpful Links */}
+      {}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -95,7 +95,7 @@ const PaymentSucceeded = () => {
         </Link>
       </motion.div>
 
-      {/* Email Confirmation Notice */}
+      {}
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

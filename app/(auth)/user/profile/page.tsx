@@ -49,16 +49,16 @@ const UserProfile = () => {
           onOpenChangeAction={setIsEditModalOpen}
         />
         <div className="max-w-4xl mx-auto">
-          {/* Main Profile Card */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="bg-white  border border-gray-200 overflow-hidden"
           >
-            {/* Header */}
+            {}
             <div className="relative h-32 sm:h-40 bg-gray-50 border-b border-gray-200">
-              {/* Avatar */}
+              {}
               <div className="absolute -bottom-8 sm:-bottom-12 left-4 sm:left-8">
                 <div className="relative group">
                   <div className="w-16 h-16 sm:w-24 sm:h-24 border-2 border-white shadow-sm overflow-hidden relative bg-white">
@@ -70,7 +70,7 @@ const UserProfile = () => {
                     />
                   </div>
 
-                  {/* Edit avatar button */}
+                  {}
                   <button
                     onClick={() => setIsAvatarModalOpen(true)}
                     className="absolute -bottom-1 -right-1 w-6 h-6 sm:w-8 sm:h-8 bg-white border border-gray-200 shadow-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer"
@@ -80,7 +80,7 @@ const UserProfile = () => {
                 </div>
               </div>
 
-              {/* Action buttons */}
+              {}
               <div className="absolute top-4 right-4 flex space-x-2">
                 <button className="p-2 bg-white border border-gray-200  text-gray-600 hover:bg-gray-50 transition-colors duration-200">
                   <Settings className="w-4 h-4" />
@@ -91,9 +91,9 @@ const UserProfile = () => {
               </div>
             </div>
 
-            {/* Profile Content */}
+            {}
             <div className="pt-12 sm:pt-16 p-4 sm:p-8">
-              {/* Header section */}
+              {}
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8">
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-1">
@@ -113,9 +113,9 @@ const UserProfile = () => {
                 </button>
               </div>
 
-              {/* User Details Grid */}
+              {}
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {/* Basic Info Card */}
+                {}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -143,7 +143,7 @@ const UserProfile = () => {
                   </div>
                 </motion.div>
 
-                {/* Contact Info Card */}
+                {}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -179,7 +179,7 @@ const UserProfile = () => {
                   </div>
                 </motion.div>
 
-                {/* Role & Status Card */}
+                {}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -215,7 +215,7 @@ const UserProfile = () => {
                   </div>
                 </motion.div>
 
-                {/* Account Info Card */}
+                {}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -245,7 +245,7 @@ const UserProfile = () => {
                   </div>
                 </motion.div>
 
-                {/* Quick Actions Card */}
+                {}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -264,7 +264,7 @@ const UserProfile = () => {
                   </div>
 
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <button 
+                    <button
                       onClick={() => setIsEditModalOpen(true)}
                       className="flex flex-col items-center space-y-2 p-3  bg-white border border-gray-200 hover:bg-gray-50 transition-all duration-200"
                     >

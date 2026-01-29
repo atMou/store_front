@@ -19,7 +19,6 @@ const CarouselBar = () => {
   const [, setApi] = useState<CarouselApi>();
   const mainCategory = useSelector(selectMainCategory);
 
-  // Get the appropriate tab panels based on main category
   const tabPanels =
     mainCategory === "Men"
       ? MenTabPanels
@@ -31,7 +30,6 @@ const CarouselBar = () => {
 
   if (!tabPanels) return null;
 
-  // Extract unique groups from the tabs
   const groups = tabPanels.tabs.map((tab) => tab.group);
 
   return (

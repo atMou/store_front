@@ -61,7 +61,7 @@ const OrdersTableFilters = ({
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-      {/* Filter Toggle Button */}
+      {}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="flex items-center justify-between w-full text-left"
@@ -92,10 +92,10 @@ const OrdersTableFilters = ({
         </svg>
       </button>
 
-      {/* Filters Content */}
+      {}
       {isExpanded && (
         <div className="mt-4 pt-4 border-t border-gray-200 space-y-4">
-          {/* Search */}
+          {}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Search
@@ -110,7 +110,7 @@ const OrdersTableFilters = ({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {/* Order Status */}
+            {}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Order Status
@@ -135,7 +135,7 @@ const OrdersTableFilters = ({
               </Select>
             </div>
 
-            {/* Min Price */}
+            {}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Min Price
@@ -150,7 +150,7 @@ const OrdersTableFilters = ({
               />
             </div>
 
-            {/* Max Price */}
+            {}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Max Price
@@ -165,7 +165,7 @@ const OrdersTableFilters = ({
               />
             </div>
 
-            {/* Date Range */}
+            {}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Date Range
@@ -182,7 +182,7 @@ const OrdersTableFilters = ({
             </div>
           </div>
 
-          {/* Action Buttons */}
+          {}
           {hasActiveFilters && (
             <div className="flex justify-end">
               <Button

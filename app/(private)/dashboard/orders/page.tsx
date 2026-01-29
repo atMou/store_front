@@ -37,20 +37,17 @@ const OrdersPage = () => {
     pageSize: 10,
   });
 
-  // Connect to SignalR for real-time order updates
   const { notificationHub, isConnected } = useNotifications();
 
   useEffect(() => {
     if (!notificationHub || !isConnected) return;
 
-    // Listen for payment status updates
     const handlePaymentStatusUpdate = (data: PaymentStatusNotification) => {
       console.log("[Orders] Payment status updated:", data);
-      // Refetch orders when payment status changes
+
       refetchOrders();
     };
 
-    // Listen for order status updates
     const handleOrderStatusUpdate = (data: OrderStatusNotification) => {
       console.log("[Orders] Order status updated:", data);
       refetchOrders();
@@ -163,7 +160,7 @@ const OrdersPage = () => {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header */}
+      {}
       <div>
         <h1 className="text-2xl font-bold text-gray-900">Orders Management</h1>
         <p className="text-sm text-gray-600 mt-1">
@@ -177,7 +174,7 @@ const OrdersPage = () => {
         </p>
       </div>
 
-      {/* Filters */}
+      {}
       <OrdersTableFilters
         filters={filters}
         onFiltersChange={setFilters}
@@ -193,7 +190,7 @@ const OrdersPage = () => {
         }
       />
 
-      {/* Orders Table */}
+      {}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
         <Table
           data={orders.map((order) => ({ ...order, id: order.orderId }))}

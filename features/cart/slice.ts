@@ -43,7 +43,6 @@ const cartSlice = createSlice({
       state.error = null;
     },
 
-    // Optimistic add item
     optimisticAddItem: (state, action: PayloadAction<CartItem>) => {
       if (!state.cart) {
         return;
@@ -57,18 +56,15 @@ const cartSlice = createSlice({
       );
 
       if (existingItemIndex >= 0) {
-        // Update quantity if item exists
         state.cart.lineItems[existingItemIndex].quantity +=
           action.payload.quantity;
         state.cart.lineItems[existingItemIndex].lineTotal =
           state.cart.lineItems[existingItemIndex].quantity *
           state.cart.lineItems[existingItemIndex].unitPrice;
       } else {
-        // Add new item
         state.cart.lineItems.push(action.payload);
       }
 
-      // Recalculate totals
       state.cart.totalSub = state.cart.lineItems.reduce(
         (sum, item) => sum + item.lineTotal,
         0
@@ -78,7 +74,6 @@ const cartSlice = createSlice({
       state.cart.totalDiscounted = state.cart.total;
     },
 
-    // Optimistic update item quantity
     optimisticUpdateItem: (
       state,
       action: PayloadAction<{
@@ -101,7 +96,6 @@ const cartSlice = createSlice({
         item.quantity = action.payload.quantity;
         item.lineTotal = item.quantity * item.unitPrice;
 
-        // Recalculate totals
         state.cart.totalSub = state.cart.lineItems.reduce(
           (sum, item) => sum + item.lineTotal,
           0
@@ -112,7 +106,6 @@ const cartSlice = createSlice({
       }
     },
 
-    // Optimistic remove item
     optimisticRemoveItem: (
       state,
       action: PayloadAction<{ colorVariantId: string; sizeVariantId: string }>
@@ -127,7 +120,6 @@ const cartSlice = createSlice({
           item.sizeVariantId !== action.payload.sizeVariantId
       );
 
-      // Recalculate totals
       state.cart.totalSub = state.cart.lineItems.reduce(
         (sum, item) => sum + item.lineTotal,
         0
@@ -137,7 +129,6 @@ const cartSlice = createSlice({
       state.cart.totalDiscounted = state.cart.total;
     },
 
-    // Optimistic add coupon
     optimisticAddCoupon: (
       state,
       action: PayloadAction<{ coupon: Coupon; discountAmount: number }>
@@ -153,7 +144,6 @@ const cartSlice = createSlice({
       state.cart.totalDiscounted = state.cart.total;
     },
 
-    // Optimistic remove coupon
     optimisticRemoveCoupon: (
       state,
       action: PayloadAction<{ couponId: string; discountAmount: number }>
@@ -171,12 +161,10 @@ const cartSlice = createSlice({
       state.cart.totalDiscounted = state.cart.total;
     },
 
-    // Set loading state
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
 
-    // Set error
     setError: (
       state,
       action: PayloadAction<{ detail: string; errors: string[] } | null>
@@ -184,7 +172,6 @@ const cartSlice = createSlice({
       state.error = action.payload;
     },
 
-    // Rollback optimistic update (revert to last synced state)
     rollbackOptimisticUpdate: (state, action: PayloadAction<Cart>) => {
       state.cart = action.payload;
       state.error = {

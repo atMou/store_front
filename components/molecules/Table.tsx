@@ -73,7 +73,6 @@ const Table = <T extends { id: string }>({
     new Set(columns.map((col) => col.key))
   );
 
-  // Derive sort state from query params instead of using effect
   const sortInfo = query.sort
     ? (query.sort as string).split(":")
     : [null, "asc"];
@@ -127,7 +126,6 @@ const Table = <T extends { id: string }>({
     const newVisibleColumns = new Set(visibleColumns);
     if (newVisibleColumns.has(columnKey)) {
       if (newVisibleColumns.size > 1) {
-        // Prevent hiding all columns
         newVisibleColumns.delete(columnKey);
       }
     } else {

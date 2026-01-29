@@ -40,3 +40,5 @@ Claude.md
 *.tsbuildinfo
 next-env.d.ts
 .github/copilot-*
+
+.gitignore

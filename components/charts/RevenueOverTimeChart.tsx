@@ -13,8 +13,6 @@ interface RevenueOverTimeChartProps {
 }
 
 const RevenueOverTimeChart: React.FC<RevenueOverTimeChartProps> = () => {
-  // TODO: Replace with actual API call using startDate and endDate props
-  // Fake data for demonstration
   const loading = false;
   const error = null;
 

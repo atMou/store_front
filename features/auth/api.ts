@@ -62,7 +62,6 @@ export const authApi = baseApi.injectEndpoints({
             dispatch(userActions.setAccessToken(data.accessToken));
             dispatch(userActions.setUser(data.user));
 
-            // Merge guest liked products with user account
             dispatch(userActions.mergeLikedProducts());
           }
         } catch {}
@@ -125,7 +124,6 @@ export const authApi = baseApi.injectEndpoints({
             dispatch(userActions.setUser(data.user));
           }
         } catch {
-          // Clear tokens on auth check failure
           dispatch(userActions.clearUser());
           dispatch(userActions.clearTokens());
         }

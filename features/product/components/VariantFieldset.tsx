@@ -39,7 +39,7 @@ export default function VariantFieldset({
         Color Variant {variantIndex + 1}
       </h3>
 
-      {/* Color Selection */}
+      {}
       <div className="max-w-xs">
         <ColorDropdown
           control={control}
@@ -48,7 +48,7 @@ export default function VariantFieldset({
         />
       </div>
 
-      {/* Variant Images */}
+      {}
       <div>
         <label className="block text-xs mb-2">
           Variant Images (Color-specific)
@@ -67,7 +67,7 @@ export default function VariantFieldset({
         />
       </div>
 
-      {/* Info message about inventory management */}
+      {}
       <div className="bg-blue-50 border border-blue-200 rounded p-3 mt-4">
         <p className="text-xs text-blue-700">
           <strong>Note:</strong> Size variants and stock levels are managed

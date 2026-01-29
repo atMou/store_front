@@ -6,11 +6,6 @@ import { motion } from "framer-motion";
 import { ChevronRight, Package } from "lucide-react";
 import Link from "next/link";
 
-/**
- * Orders List Component
- *
- * Usage example showing how to fetch all orders for a user
- */
 const OrdersList = () => {
   const { user } = useAuth();
   const { orders, isLoading, error, refetch } = useOrdersByUserId(

@@ -14,7 +14,7 @@ const CustomLoader = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 flex flex-col items-center justify-center p-6 relative overflow-hidden">
-      {/* Animated background elements */}
+      {}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -46,14 +46,14 @@ const CustomLoader = () => {
         />
       </div>
 
-      {/* Main loading content */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative z-10 text-center max-w-md w-full"
       >
-        {/* Logo/Brand */}
+        {}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -77,7 +77,7 @@ const CustomLoader = () => {
           </div>
         </motion.div>
 
-        {/* Loading spinner */}
+        {}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -98,7 +98,7 @@ const CustomLoader = () => {
           </div>
         </motion.div>
 
-        {/* Loading text */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -113,7 +113,7 @@ const CustomLoader = () => {
           </p>
         </motion.div>
 
-        {/* Loading steps */}
+        {}
         <div className="space-y-3">
           {loadingSteps.map((step, index) => (
             <motion.div
@@ -141,7 +141,7 @@ const CustomLoader = () => {
           ))}
         </div>
 
-        {/* Progress bar */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

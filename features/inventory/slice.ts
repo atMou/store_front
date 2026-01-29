@@ -7,12 +7,10 @@ import {
 } from "@reduxjs/toolkit";
 import { InventoryQueryParams, InventoryResult } from "./types";
 
-// Create entity adapter for inventory
 export const inventoryAdapter = createEntityAdapter<InventoryResult>({
   sortComparer: (a, b) => a.id.localeCompare(b.id),
 });
 
-// Enhanced state with entity adapter
 export interface InventoryState {
   entities: ReturnType<typeof inventoryAdapter.getInitialState>;
   pagination: {
@@ -56,14 +54,12 @@ const inventorySlice = createSlice({
       const { inventory, totalCount, pageNumber, pageSize, filters } =
         action.payload;
 
-      // Reset entities for new filters or first page
       if (
         pageNumber === 1 ||
         JSON.stringify(state.filters) !== JSON.stringify(filters)
       ) {
         state.entities = inventoryAdapter.setAll(state.entities, inventory);
       } else {
-        // Add new inventory for infinite scroll
         inventoryAdapter.addMany(state.entities, inventory);
       }
 
@@ -101,7 +97,7 @@ const inventorySlice = createSlice({
 
     setFilters: (state, action: PayloadAction<InventoryQueryParams>) => {
       state.filters = action.payload;
-      // Reset pagination when filters change
+
       state.pagination.currentPage = 1;
     },
 
@@ -110,13 +106,13 @@ const inventorySlice = createSlice({
       action: PayloadAction<Partial<InventoryQueryParams>>
     ) => {
       state.filters = { ...state.filters, ...action.payload };
-      // Reset pagination when filters change
+
       state.pagination.currentPage = 1;
     },
 
     clearFilters: (state) => {
       state.filters = {};
-      // Reset pagination when filters are cleared
+
       state.pagination.currentPage = 1;
     },
 
@@ -145,7 +141,6 @@ export const {
   resetInventory,
 } = inventorySlice.actions;
 
-// Entity adapter selectors
 const selectInventoryState = (state: RootState) => state.inventory.entities;
 
 export const {
@@ -156,7 +151,6 @@ export const {
   selectTotal: selectInventoryTotal,
 } = inventoryAdapter.getSelectors(selectInventoryState);
 
-// Custom selectors
 export const selectInventoryPagination = (state: RootState) =>
   state.inventory.pagination;
 export const selectInventoryFilters = (state: RootState) =>
@@ -165,11 +159,9 @@ export const selectInventoryLoading = (state: RootState) =>
   state.inventory.loading;
 export const selectInventoryError = (state: RootState) => state.inventory.error;
 
-// Memoized selectors
 export const selectFilteredInventory = createSelector(
   [selectAllInventory, selectInventoryFilters],
   (inventory) => {
-    // Additional client-side filtering if needed
     return inventory;
   }
 );

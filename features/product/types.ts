@@ -122,8 +122,6 @@ export interface Review {
   productId: string;
 }
 
-// Re-export generic PaginatedResult from global types
 export type { PaginatedResult } from "@/types";
 
-// Specific type alias for product paginated results
 export type ProductPaginatedResult = PaginatedResult<Product>;

@@ -11,10 +11,6 @@ interface ErrorDisplayProps {
   variant?: FeedbackVariant;
 }
 
-/**
- * A simple wrapper around FeedbackDisplay for generic error messages.
- * Use ApiErrorDisplay for handling unknown/API errors.
- */
 const ErrorDisplay = ({
   message = "An unexpected error occurred",
   className,

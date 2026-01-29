@@ -1,4 +1,3 @@
-// Molecule component exports
 export { default as ProductFilterBar } from "../../features/product/components/ProductFilterBar";
 export { default as DatePicker } from "./DatePicker";
 export { default as DateRangePicker } from "./DateRangePicker";
@@ -12,5 +11,4 @@ export { default as TableActions } from "./TableActions";
 export { default as TableBody } from "./TableBody";
 export { default as TableHeader } from "./TableHeader";
 
-// Export types
 export type { Column } from "./Table";

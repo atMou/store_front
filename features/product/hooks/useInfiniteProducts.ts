@@ -26,7 +26,7 @@ export function useInfiniteProducts({
   });
 
   const filtersKey = JSON.stringify({ ...additionalFilters });
-  /* eslint-disable react-hooks/exhaustive-deps */
+
   const memoizedFilters = useMemo(
     () => ({ ...additionalFilters }),
     [filtersKey]
@@ -43,7 +43,6 @@ export function useInfiniteProducts({
     }
   );
 
-  // Handle data updates
   useEffect(() => {
     if (!data) return;
 
@@ -57,11 +56,6 @@ export function useInfiniteProducts({
       hasNextPage: data.pageNumber * data.pageSize < data.totalCount,
     });
   }, [data]);
-
-  // useEffect(() => {
-  //   setCurrentPage(1);
-  //   setItems([]);
-  // }, [memoizedFilters]);
 
   const loadNextPage = useCallback(() => {
     if (pagination.hasNextPage && !isLoading && !isFetching) {

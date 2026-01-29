@@ -86,7 +86,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
   const total = cart?.total ?? subtotal + shippingFee;
 
   const handleAddCouponToCart = async (couponCode: string) => {
-    setAddCouponError(null); // Clear previous errors
+    setAddCouponError(null);
     const { error } = await TryAsync(async () => {
       await addCouponToCart({ cartId, couponCode }).unwrap();
       showToast({
@@ -152,12 +152,12 @@ const CartSummary: React.FC<CartSummaryProps> = ({
       transition={{ duration: 0.1, ease: "easeInOut" }}
       className="  p-6 border border-gray-200 sticky top-6"
     >
-      {/* Vouchers and Gift Cards */}
+      {}
       <button
         onClick={() => {
           setShowVouchers(!showVouchers);
           if (!showVouchers) {
-            setAddCouponError(null); // Clear errors when opening vouchers
+            setAddCouponError(null);
           }
         }}
         className="w-full flex items-center justify-between py-3   mb-4"
@@ -205,7 +205,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         </div>
       )}
 
-      {/* Available Coupons */}
+      {}
       {isAuthenticated &&
         pagiatedResults &&
         pagiatedResults.items.length > 0 && (
@@ -280,7 +280,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         </div>
       )}
 
-      {/* Applied Coupons */}
+      {}
       {cart?.coupons && cart.coupons.length > 0 && (
         <div className="mb-4 pb-4 border-b border-gray-300">
           <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
@@ -318,7 +318,6 @@ const CartSummary: React.FC<CartSummaryProps> = ({
                     </div>
                   </div>
                   <button
-                    // onClick={() => handleRemoveCoupon(coupon.id)}
                     className="text-red-600 hover:text-red-800 transition-colors shrink-0"
                     title="Remove coupon"
                   >
@@ -338,7 +337,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         </div>
       )}
 
-      {/* Order Summary */}
+      {}
       <div className="space-y-1 mb-4">
         <PriceDisplay
           label="Subtotal"
@@ -355,7 +354,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
             labelClassName="text-green-700"
             amountClassName="text-green-700"
           />
-        ): null}
+        ) : null}
         <PriceDisplay
           label="Tax"
           amount={cart?.tax ?? 0}
@@ -383,7 +382,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         )}
       </div>
 
-      {/* Total */}
+      {}
       <PriceDisplay
         label="Total"
         amount={total}
@@ -393,7 +392,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         showBorder
       />
 
-      {/* Points Badge */}
+      {}
       <div className="flex items-center gap-2 mb-4">
         <div className="flex items-center gap-1 px-2 py-1 bg-white border border-gray-300 rounded">
           <span className="text-xs font-medium">P</span>
@@ -401,7 +400,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         </div>
       </div>
 
-      {/* Checkout Button */}
+      {}
       {isAuthenticated ? (
         <button
           disabled={totalItems === 0}
@@ -419,7 +418,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         </Link>
       )}
 
-      {/* Payment Methods */}
+      {}
       <div>
         <p className="text-xs text-gray-600 mb-3">We accept</p>
         <div className="flex items-center gap-3">

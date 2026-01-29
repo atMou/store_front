@@ -3,7 +3,7 @@ import StoreProvider from "@/app/providers/StoreProvider";
 import Toast from "@/components/feedback/Toast";
 import { NotificationProvider } from "@/features/notifications";
 import type { Metadata } from "next";
-// import { Geist, Geist_Mono } from "next/font/google";
+
 import localFont from "next/font/local";
 
 const roboto = localFont({
@@ -36,7 +36,7 @@ export default function RootLayout({
       >
         <StoreProvider>
           <NotificationProvider>
-            {/* <TopLoadingBar /> */}
+            {}
             {children}
             <Toast />
           </NotificationProvider>

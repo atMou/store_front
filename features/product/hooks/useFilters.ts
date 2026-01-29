@@ -10,10 +10,6 @@ import {
 } from "../slice";
 import { FilterValues } from "../types";
 
-/**
- * Hook for managing product filters through Redux
- * Note: URL sync is handled by useFilterSync hook in MainLayout
- */
 export function useFilters() {
   const dispatch = useAppDispatch();
   const filters = useAppSelector(selectProductsFilters);

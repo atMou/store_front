@@ -26,16 +26,15 @@ interface OrderTrackingDetailsProps {
   order: Order;
 }
 
-// Standardize status steps for the progress bar
 const PROGRESS_STEPS = ["PENDING", "PROCESSING", "SHIPPED", "DELIVERED"];
 
 const normalizeStatus = (status: string) => status?.toUpperCase() || "PENDING";
 
 const getStepIndex = (status: string) => {
   const s = normalizeStatus(status);
-  // Map intermediate or alternative statuses to the main steps
-  if (s === "IN_TRANSIT") return 2; // Map to SHIPPED
-  if (s === "PLACED") return 0; // Map to PENDING
+
+  if (s === "IN_TRANSIT") return 2;
+  if (s === "PLACED") return 0;
 
   const index = PROGRESS_STEPS.indexOf(s);
   return index === -1 ? 0 : index;
@@ -44,7 +43,6 @@ const getStepIndex = (status: string) => {
 const OrderTrackingDetails = ({ order }: OrderTrackingDetailsProps) => {
   const formatPrice = useFormatPrice();
 
-  // --- Status Logic ---
   const currentStatus = normalizeStatus(order.orderStatus);
 
   const getStatusColor = (status: string) => {
@@ -97,7 +95,7 @@ const OrderTrackingDetails = ({ order }: OrderTrackingDetailsProps) => {
     const s = normalizeStatus(status);
     if (s === "IN_TRANSIT") return "In Transit";
     if (s === "CANCELLED") return "Canceled";
-    // Capitalize first letter, rest lowercase
+
     return s.charAt(0) + s.slice(1).toLowerCase();
   };
 
@@ -119,7 +117,6 @@ const OrderTrackingDetails = ({ order }: OrderTrackingDetailsProps) => {
 
   const activeStepLimit = isTerminalFailure ? 1 : currentStepIndex;
 
-  // --- Summary Logic ---
   const subtotal = order.subtotal;
   const discount = order.discount;
   const tax = order.tax;
@@ -135,7 +132,7 @@ const OrderTrackingDetails = ({ order }: OrderTrackingDetailsProps) => {
 
   return (
     <div className="space-y-6">
-      {/* 1. ORDER STATUS (From OrderStatus.tsx) */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -161,7 +158,7 @@ const OrderTrackingDetails = ({ order }: OrderTrackingDetailsProps) => {
           </div>
         </div>
 
-        {/* Status Progress Bar */}
+        {}
         <div className="relative px-4">
           <div className="absolute top-5 left-4 right-4 h-1 bg-gray-100 rounded-full overflow-hidden z-0">
             <motion.div
@@ -213,9 +210,9 @@ const OrderTrackingDetails = ({ order }: OrderTrackingDetailsProps) => {
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Main Content: Items and Address */}
+        {}
         <div className="lg:col-span-2 space-y-6">
-          {/* 2. ORDER ITEMS (From OrderItems.tsx) */}
+          {}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -293,7 +290,7 @@ const OrderTrackingDetails = ({ order }: OrderTrackingDetailsProps) => {
             </div>
           </motion.div>
 
-          {/* 3. SHIPPING ADDRESS (From ShippingAddressCard.tsx) */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -331,7 +328,7 @@ const OrderTrackingDetails = ({ order }: OrderTrackingDetailsProps) => {
         </div>
 
         <div className="lg:col-span-1">
-          {/* 4. ORDER SUMMARY (From OrderSummary.tsx) */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

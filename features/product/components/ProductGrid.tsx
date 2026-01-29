@@ -5,14 +5,12 @@ import { useInfiniteProducts } from "../hooks/useInfiniteProducts";
 import { selectProductsFilters } from "../slice";
 import ProductCard from "./ProductCard";
 
-
-
 function ProductGrid() {
   const filters = useAppSelector(selectProductsFilters);
   const { products, totalCount, isLoading, hasNextPage, loadMore, isFetching } =
     useInfiniteProducts({
       pageSize: 24,
-      additionalFilters: {include:"colorVariants", ...filters},
+      additionalFilters: { include: "colorVariants", ...filters },
     });
 
   if (isLoading) {
@@ -31,7 +29,7 @@ function ProductGrid() {
 
   return (
     <div className="w-full">
-      {/* Item Count */}
+      {}
       <div className="flex items-center gap-2 py-4 text-sm text-gray-600">
         <span className="font-medium">
           {totalCount?.toLocaleString() || products.length.toLocaleString()}{" "}
@@ -62,7 +60,7 @@ function ProductGrid() {
         </button>
       </div>
 
-      {/* Product Grid - 3 Columns */}
+      {}
       <div className="grid grid-cols-3 gap-4">
         {products.map((product) => (
           <div key={product.id} className="w-full">
@@ -71,7 +69,7 @@ function ProductGrid() {
         ))}
       </div>
 
-      {/* Load More */}
+      {}
       {hasNextPage && (
         <div className="mt-8 text-center">
           <button

@@ -1,12 +1,10 @@
 import { z } from "zod";
 
-// Update Attribute validation schema
 const updateAttributeSchema = z.object({
   name: z.string().min(1, "Attribute name is required"),
   description: z.string().min(1, "Attribute description is required"),
 });
 
-// Update Material detail validation schema
 const updateMaterialDetailSchema = z.object({
   material: z.string().min(1, "Material is required"),
   percentage: z
@@ -16,7 +14,6 @@ const updateMaterialDetailSchema = z.object({
   detail: z.string().min(1, "Detail is required"),
 });
 
-// Update Size Variant validation schema (for new variants only)
 const updateSizeVariantSchema = z
   .object({
     sizeVariantId: z.string().optional(),
@@ -58,7 +55,6 @@ const updateSizeVariantSchema = z
     }
   );
 
-// Update Variant Image validation schema
 const updateVariantImageSchema = z.object({
   productImageId: z.string(),
   url: z.string().url("Invalid image URL"),
@@ -68,7 +64,6 @@ const updateVariantImageSchema = z.object({
   variantId: z.string(),
 });
 
-// Update Product Image validation schema
 const updateProductImageSchema = z.object({
   productImageId: z.string(),
   url: z.string().url("Invalid image URL"),
@@ -78,7 +73,6 @@ const updateProductImageSchema = z.object({
   productId: z.string(),
 });
 
-// Update Variant validation schema (contains color, images, and size variants)
 const updateVariantSchema = z
   .object({
     variantId: z.string().optional(),
@@ -94,7 +88,6 @@ const updateVariantSchema = z
   })
   .refine(
     (data) => {
-      // Variant must have at least one image (existing non-deleted or new)
       const activeImageDtos = (data.imageDtos || []).filter(
         (img) => !img.isDeleted
       );
@@ -109,8 +102,6 @@ const updateVariantSchema = z
   )
   .refine(
     (data) => {
-      // At least one image should be marked as main (either new File or existing imageDtos)
-      // Exclude deleted images from the check
       const activeImageDtos = (data.imageDtos || []).filter(
         (img) => !img.isDeleted
       );
@@ -119,15 +110,12 @@ const updateVariantSchema = z
       );
       const hasMainInNew = data.isMain?.some((val) => val === true);
 
-      // If there are existing non-deleted images with a main image, validation passes
       if (hasMainInExisting) return true;
 
-      // If there are new images, at least one must be marked as main
       if (data.images && data.images.length > 0) {
         return hasMainInNew;
       }
 
-      // If no images at all, validation passes
       return (
         activeImageDtos.length === 0 &&
         (!data.images || data.images.length === 0)
@@ -140,7 +128,6 @@ const updateVariantSchema = z
   )
   .refine(
     (data) => {
-      // For new variants (no variantId), require at least one size variant
       if (!data.variantId && !data.isDeleted) {
         return data.sizeVariants && data.sizeVariants.length > 0;
       }
@@ -153,7 +140,6 @@ const updateVariantSchema = z
   )
   .refine(
     (data) => {
-      // Check for duplicate sizes within the same variant
       if (data.sizeVariants && data.sizeVariants.length > 0) {
         const activeSizes = data.sizeVariants
           .filter((sv) => !sv.isDeleted)
@@ -169,7 +155,6 @@ const updateVariantSchema = z
     }
   );
 
-// Update Product form validation schema
 export const updateProductFormSchema = z
   .object({
     productId: z.string().min(1, "Product ID is required"),
@@ -216,7 +201,6 @@ export const updateProductFormSchema = z
   })
   .refine(
     (data) => {
-      // If newPrice exists, it should be less than price
       if (data.newPrice !== undefined && data.newPrice !== null) {
         return data.newPrice < data.price;
       }
@@ -229,7 +213,6 @@ export const updateProductFormSchema = z
   )
   .refine(
     (data) => {
-      // Product must have at least one image (existing non-deleted or new)
       const activeImageDtos = data.imageDtos.filter((img) => !img.isDeleted);
       const hasImages =
         activeImageDtos.length > 0 || (data.images && data.images.length > 0);
@@ -242,23 +225,18 @@ export const updateProductFormSchema = z
   )
   .refine(
     (data) => {
-      // At least one image should be marked as main (either new File or existing imageDtos)
-      // Exclude deleted images from the check
       const activeImageDtos = data.imageDtos.filter((img) => !img.isDeleted);
       const hasMainInExisting = activeImageDtos.some(
         (img) => img.isMain === true
       );
       const hasMainInNew = data.isMain?.some((val) => val === true);
 
-      // If there are existing non-deleted images with a main image, validation passes
       if (hasMainInExisting) return true;
 
-      // If there are new images, at least one must be marked as main
       if (data.images && data.images.length > 0) {
         return hasMainInNew;
       }
 
-      // If no images at all, validation passes
       return (
         activeImageDtos.length === 0 &&
         (!data.images || data.images.length === 0)
@@ -271,7 +249,6 @@ export const updateProductFormSchema = z
   )
   .refine(
     (data) => {
-      // Check for duplicate attribute names in detailsAttributes
       const attributeNames = data.detailsAttributes.map((attr) =>
         attr.name.toLowerCase().trim()
       );
@@ -285,7 +262,6 @@ export const updateProductFormSchema = z
   )
   .refine(
     (data) => {
-      // Check for duplicate attribute names in sizeFitAttributes
       const attributeNames = data.sizeFitAttributes.map((attr) =>
         attr.name.toLowerCase().trim()
       );
@@ -299,7 +275,6 @@ export const updateProductFormSchema = z
   )
   .refine(
     (data) => {
-      // Check for duplicate materials in materialDetails
       const materials = data.materialDetails.map((mat) =>
         mat.material.toLowerCase().trim()
       );
@@ -312,7 +287,6 @@ export const updateProductFormSchema = z
     }
   )
   .superRefine((data, ctx) => {
-    // Check for duplicate colors across variants
     const activeVariants = data.variants.filter((v) => !v.isDeleted);
     const colors = activeVariants.map((v) => v.color.toLowerCase().trim());
     const uniqueColors = new Set(colors);
@@ -325,7 +299,6 @@ export const updateProductFormSchema = z
       });
     }
 
-    // Each variant must have at least one image (existing non-deleted or new)
     data.variants.forEach((variant, index) => {
       if (variant.isDeleted) return;
 
@@ -361,7 +334,6 @@ export type UpdateVariantImageFormSchema = z.infer<
   typeof updateVariantImageSchema
 >;
 
-// Export individual schemas if needed
 export {
   updateAttributeSchema,
   updateMaterialDetailSchema,

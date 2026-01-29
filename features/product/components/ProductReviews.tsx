@@ -13,7 +13,7 @@ import {
   reviewSchema,
 } from "@/features/product/validations/ReviewValidation";
 import { useAuth } from "@/hooks";
-import { logger } from "@/shared/lib/logger"; // Keep existing imports
+import { logger } from "@/shared/lib/logger";
 import { generatePlaceholderImage } from "@/shared/lib/placeholderImage";
 import { cn, formatRelativeTime } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
@@ -96,7 +96,7 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
         Customer Reviews ({reviews.length})
       </h2>
 
-      {/* Rating Summary */}
+      {}
       {reviews.length > 0 && (
         <div className=" p-6 mb-8 flex flex-col md:flex-row items-center gap-8 border border-gray-100">
           <div className="text-center min-w-[120px]">
@@ -113,7 +113,7 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
         </div>
       )}
 
-      {/* Review Form */}
+      {}
       {user && canWriteReview && (
         <div className="mb-10 bg-gray-50/50 p-6 rounded-xl border border-gray-100">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">
@@ -180,7 +180,7 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
         </div>
       )}
 
-      {/* Reviews List */}
+      {}
       <div className="space-y-6">
         {reviews.length === 0 ? (
           <div className="text-center py-12  border border-dashed border-gray-200">

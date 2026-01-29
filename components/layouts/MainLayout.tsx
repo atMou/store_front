@@ -3,7 +3,10 @@
 import CategoryBreadcrumb from "@/components/feedback/CategoryBreadcrumb";
 import Header from "@/components/layouts/header/Header";
 import { COLORS, SIZES } from "@/constants";
-import { mainCategoryActions, selectSidebarSubCategory } from "@/features/category";
+import {
+  mainCategoryActions,
+  selectSidebarSubCategory,
+} from "@/features/category";
 import CategorySidebar from "@/features/category/components/CategorySidebar";
 import TabPanelDropdown from "@/features/category/components/TabPanelDropdown";
 import {
@@ -14,7 +17,7 @@ import {
 import ProductFilterBar from "@/features/product/components/ProductFilterBar";
 import { FilterValues } from "@/features/product/types";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import {  useEffect } from "react";
+import { useEffect } from "react";
 import { SubHeader } from "./header";
 
 interface CategoryLayoutProps {
@@ -31,7 +34,7 @@ export default function MainLayout({
 }: CategoryLayoutProps) {
   const dispatch = useAppDispatch();
 
- const subCategory = useAppSelector(selectSidebarSubCategory);
+  const subCategory = useAppSelector(selectSidebarSubCategory);
 
   const { filters, setFilters, updateFilters } = useFilters();
   const { data: brands = [] } = useGetBrandsQuery();

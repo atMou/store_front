@@ -1,4 +1,3 @@
-// SignalR Notification Hub Client
 import { logger } from "@/shared/lib/logger";
 import * as signalR from "@microsoft/signalr";
 import {
@@ -93,7 +92,6 @@ export class NotificationHubClient {
           error: errorMessage,
         });
       }
-      // Silently fail - app works in offline mode
     }
   }
 
@@ -147,7 +145,6 @@ export class NotificationHubClient {
     );
   }
 
-  // Event listeners
   onShipmentStatusUpdate(
     callback: (notification: ShipmentStatusNotification) => void
   ): void {
@@ -162,11 +159,10 @@ export class NotificationHubClient {
 
   onStockAlert(callback: (notification: StockAlertNotification) => void): void {
     logger.debug("Registering onStockAlert listener");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const handler = (rawNotification: any) => {
       logger.info("🔔 RAW Stock Alert Received from Hub:", rawNotification);
 
-      // Normalize keys to camelCase to handle PascalCase from backend
       const notification: StockAlertNotification = {
         productId: rawNotification.productId || rawNotification.ProductId,
         slug: rawNotification.slug || rawNotification.Slug,
@@ -188,7 +184,6 @@ export class NotificationHubClient {
       callback(notification);
     };
 
-    // Register for multiple event names
     this.connection.on("ReceiveStockAlert", handler);
     this.connection.on("StockAlert", handler);
     this.connection.on("ReceiveStockUpdate", handler);
@@ -212,7 +207,6 @@ export class NotificationHubClient {
     this.connection.on("ReceiveNewProductNotification", callback);
   }
 
-  // Remove event listeners
   offShipmentStatusUpdate(): void {
     this.connection.off("ReceiveShipmentStatusUpdate");
   }
@@ -239,7 +233,6 @@ export class NotificationHubClient {
     this.connection.off("ReceiveNewProductNotification");
   }
 
-  // Hub method invocations
   async subscribeToOrder(orderId: string): Promise<void> {
     await this.ensureConnected();
     await this.connection.invoke("SubscribeToOrder", orderId);

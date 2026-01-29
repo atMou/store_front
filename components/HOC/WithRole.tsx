@@ -2,7 +2,6 @@
 import { Role, RoleName } from "../../features/auth/types";
 import { useAuth } from "../../hooks/state/useAuth";
 
-// HOC that returns null if user doesn't have required roles
 export function WithRole<P extends Record<string, unknown>>(
   Component: React.ComponentType<P>,
   requiredRoles: RoleName[],

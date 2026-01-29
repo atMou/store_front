@@ -10,12 +10,6 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
 
-/**
- * Payment Page Component
- *
- * This page handles the actual payment process after order review.
- * It receives payment intent data from the order-review page.
- */
 const PaymentPageContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -27,7 +21,6 @@ const PaymentPageContent = () => {
   const amountParam = searchParams.get("amount");
 
   useEffect(() => {
-    // If no payment intent data, redirect back to order review
     if (!clientSecret || !paymentIntentId || !amountParam) {
       router.push("/order-review");
     }
@@ -35,7 +28,6 @@ const PaymentPageContent = () => {
 
   const amount = amountParam ? parseFloat(amountParam) : 0;
 
-  // Format amount to Euro
   const formattedTotal = new Intl.NumberFormat("en-IE", {
     style: "currency",
     currency: "EUR",
@@ -75,10 +67,10 @@ const PaymentPageContent = () => {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-white">
-      {/* Left Side: Order Summary */}
+      {}
       <div className="w-full lg:w-1/2 bg-gray-50 p-6 lg:p-16 border-r border-gray-200 order-2 lg:order-1">
         <div className="max-w-lg mx-auto lg:ml-auto lg:mr-0">
-          {/* Header / Back Button */}
+          {}
           <button
             onClick={() => router.back()}
             className="flex items-center text-gray-400 hover:text-gray-600 transition-colors mb-8 text-sm font-medium"
@@ -102,7 +94,7 @@ const PaymentPageContent = () => {
             </h1>
           </div>
 
-          {/* Cart Items */}
+          {}
           <div className="space-y-6 mb-8">
             {cart?.lineItems.map((item) => (
               <div
@@ -177,10 +169,10 @@ const PaymentPageContent = () => {
         </div>
       </div>
 
-      {/* Right Side: Payment Form */}
+      {}
       <div className="w-full lg:w-1/2 p-6 lg:p-16 order-1 lg:order-2 flex flex-col">
         <div className="max-w-md mx-auto w-full lg:mr-auto lg:ml-0">
-          {/* Apple Pay Button Simulation (Visual only, usually PaymentElement handles this) */}
+          {}
           <div className="mb-8">
             <button className="w-full bg-black text-white h-12 rounded flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors font-medium">
               <Apple size={20} className="mb-0.5" />
@@ -196,7 +188,7 @@ const PaymentPageContent = () => {
             </div>
           </div>
 
-          {/* Checkout Form */}
+          {}
           <StripeProvider clientSecret={clientSecret}>
             <CheckoutForm
               paymentId={paymentId!}

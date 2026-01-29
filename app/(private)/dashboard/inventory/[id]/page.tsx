@@ -97,7 +97,7 @@ const UpdateInventoryPage = () => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      {/* Header */}
+      {}
       <div className="mb-6">
         <button
           onClick={() => router.push("/dashboard/inventory")}
@@ -112,7 +112,7 @@ const UpdateInventoryPage = () => {
         </p>
       </div>
 
-      {/* Form */}
+      {}
       <UpdateInventoryForm
         inventory={inventory}
         onSubmit={handleSubmit}

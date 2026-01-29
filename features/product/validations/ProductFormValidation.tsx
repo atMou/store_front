@@ -1,12 +1,10 @@
 import { z } from "zod";
 
-// Attribute validation schema
 const attributeSchema = z.object({
   name: z.string().min(1, "Attribute name is required"),
   description: z.string().min(1, "Attribute description is required"),
 });
 
-// Material detail validation schema
 const materialDetailSchema = z.object({
   material: z.string().min(1, "Material is required"),
   percentage: z
@@ -16,7 +14,6 @@ const materialDetailSchema = z.object({
   detail: z.string().min(1, "Detail is required"),
 });
 
-// Variant validation schema (contains color and images only - sizes moved to inventory)
 const variantSchema = z
   .object({
     images: z
@@ -28,7 +25,6 @@ const variantSchema = z
   })
   .refine(
     (data) => {
-      // At least one image should be marked as main
       return (
         data.isMain.length === 0 || data.isMain.some((val) => val === true)
       );
@@ -39,7 +35,6 @@ const variantSchema = z
     }
   );
 
-// Product form validation schema
 export const productFormSchema = z
   .object({
     slug: z
@@ -99,7 +94,6 @@ export const productFormSchema = z
       .min(1, "At least one variant is required")
       .refine(
         (variants) => {
-          // Check for duplicate colors across variants
           const colors = variants.map((v) => v.color.toLowerCase().trim());
           const uniqueColors = new Set(colors);
           return colors.length === uniqueColors.size;
@@ -112,7 +106,6 @@ export const productFormSchema = z
   })
   .refine(
     (data) => {
-      // If newPrice is provided, it must be less than price
       if (data.newPrice !== null && data.newPrice !== undefined) {
         return data.newPrice < data.price;
       }
@@ -125,7 +118,6 @@ export const productFormSchema = z
   )
   .refine(
     (data) => {
-      // At least one image should be marked as main
       return (
         data.isMain.length === 0 || data.isMain.some((val) => val === true)
       );
@@ -137,7 +129,6 @@ export const productFormSchema = z
   )
   .refine(
     (data) => {
-      // Check for duplicate attribute names in detailsAttributes
       const attributeNames = data.detailsAttributes.map((attr) =>
         attr.name.toLowerCase().trim()
       );
@@ -151,7 +142,6 @@ export const productFormSchema = z
   )
   .refine(
     (data) => {
-      // Check for duplicate attribute names in sizeFitAttributes
       const attributeNames = data.sizeFitAttributes.map((attr) =>
         attr.name.toLowerCase().trim()
       );
@@ -165,7 +155,6 @@ export const productFormSchema = z
   )
   .refine(
     (data) => {
-      // Check for duplicate materials in materialDetails
       const materials = data.materialDetails.map((mat) =>
         mat.material.toLowerCase().trim()
       );
@@ -178,12 +167,11 @@ export const productFormSchema = z
     }
   );
 
-// Infer the type from the schema
 export type ProductFormSchema = z.output<typeof productFormSchema>;
 export type ProductFormInput = z.input<typeof productFormSchema>;
 export type VariantFormSchema = z.infer<typeof variantSchema>;
-// export type SizeVariantFormSchema = z.infer<typeof sizeVariantSchema>;
+
 export type AttributeFormSchema = z.infer<typeof attributeSchema>;
 export type MaterialDetailSchema = z.infer<typeof materialDetailSchema>;
-// Export individual schemas if needed
+
 export { attributeSchema, materialDetailSchema, variantSchema };

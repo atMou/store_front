@@ -4,7 +4,6 @@ import { ArrowUpDown, Check, FileText } from "lucide-react";
 import React from "react";
 import LoadingDots from "../feedback/LoadingDots";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getNestedValue = (obj: any, key: string): any => {
   return key
     .split(".")

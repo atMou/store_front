@@ -59,10 +59,8 @@ export const orderSlice = createSlice({
   },
 });
 
-// Actions
 export const { actions: orderActions } = orderSlice;
 
-// Selectors
 export const selectCurrentOrder = (state: RootState) =>
   state.order.currentOrder;
 export const selectMyOrders = (state: RootState) => state.order.myOrders;
@@ -70,5 +68,4 @@ export const selectAllOrders = (state: RootState) => state.order.allOrders;
 export const selectOrderLoading = (state: RootState) => state.order.isLoading;
 export const selectOrderError = (state: RootState) => state.order.error;
 
-// Reducer
 export const { reducer: orderReducer } = orderSlice;

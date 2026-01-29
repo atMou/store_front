@@ -16,5 +16,5 @@ export interface User {
   roles: Role[];
   permissions: string[];
   likedProductIds: string[];
-  productSubscriptions: string[]; // Format: "{productId}_{color}_{size}"
+  productSubscriptions: string[];
 }

@@ -60,8 +60,6 @@ const NotificationItem = ({
     { skip: !isStockAlert || !stockData?.productId }
   );
 
-  // Determine image: Priority 1: Notification Data, Priority 2: Fetched Product
-  // Product images are an array of objects { url: string }, so we access [0]?.url
   const imageUrl = stockData?.imageUrl || product?.images?.[0]?.url;
   const productName = stockData?.brand || product?.slug || "Product";
 
@@ -236,7 +234,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
         </div>
       </div>
 
-      {/* Notifications List */}
+      {}
       <div className="max-h-[400px] overflow-y-auto px-6 py-4">
         {notifications.length === 0 ? (
           <div className="flex flex-col items-center space-y-2">

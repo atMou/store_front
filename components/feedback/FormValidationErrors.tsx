@@ -9,7 +9,6 @@ interface FormValidationErrorsProps {
   className?: string;
 }
 
-
 function FormValidationErrors({
   errors,
   className,

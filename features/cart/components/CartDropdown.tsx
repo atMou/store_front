@@ -48,7 +48,7 @@ function CartDropdown({ cart, isLoading }: CartDropdownProps) {
       await toggleLikedProduct({ productIds: [productId] }).unwrap();
     });
 
-         removeItem(colorVariantId, sizeVariantId);
+    removeItem(colorVariantId, sizeVariantId);
   };
 
   if (isLoading) {
@@ -100,19 +100,19 @@ function CartDropdown({ cart, isLoading }: CartDropdownProps) {
 
   return (
     <div className="absolute right-0 mt-0 w-[450px] opacity-0 bg-white border-2 border-gray-800 shadow-xl  -translate-y-0.5 pointer-events-none group-hover:opacity-100  group-hover:pointer-events-auto transition-all duration-200 ease-in-out z-50">
-      {/* Header */}
+      {}
       <div className="border-b border-gray-200 px-6 py-4">
         <h2 className="text-xl font-bold text-center">Your bag</h2>
       </div>
 
-      {/* Cart Items */}
+      {}
       <div className="max-h-[400px] overflow-y-auto px-3 py-2">
         {cart.lineItems.map((item) => (
           <div
             key={item.productId}
             className="flex gap-2 mb-4 pb-4 border-b border-gray-100 last:border-b-0"
           >
-            {/* Product Image */}
+            {}
             <div className="relative w-20 h-24 shrink-0 bg-gray-100">
               <Image
                 src={item.imageUrl}
@@ -124,7 +124,7 @@ function CartDropdown({ cart, isLoading }: CartDropdownProps) {
               />
             </div>
 
-            {/* Product Details */}
+            {}
             <div className="flex-1 min-w-0">
               <div className="flex justify-between items-start mb-2">
                 <div className="flex-1 pr-2">
@@ -183,9 +183,9 @@ function CartDropdown({ cart, isLoading }: CartDropdownProps) {
         ))}
       </div>
 
-      {/* Footer */}
+      {}
       <div className="border-t border-gray-200 px-6 py-5 bg-gray-50">
-        {/* Free Shipping Notice */}
+        {}
         {!qualifiesForFreeShipping && needsMoreForFreeShipping > 0 && (
           <div className="flex items-start gap-3 mb-5 p-3 bg-gray-100 rounded">
             <div className="w-5 h-5 rounded-full border-2 border-gray-900 flex items-center justify-center shrink-0 mt-0.5">
@@ -198,7 +198,7 @@ function CartDropdown({ cart, isLoading }: CartDropdownProps) {
           </div>
         )}
 
-        {/* Delivery & Total */}
+        {}
         <div className="space-y-3 mb-5">
           <div className="flex justify-between text-base">
             <span className="font-medium">Delivery</span>
@@ -224,7 +224,7 @@ function CartDropdown({ cart, isLoading }: CartDropdownProps) {
           </div>
         </div>
 
-        {/* Go to bag button */}
+        {}
         <Link href="/cart">
           <Button
             variant="plain"

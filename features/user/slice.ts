@@ -4,7 +4,7 @@ interface UserState {
   user: User | undefined;
   accessToken?: string;
   error: string | null;
-  guestLikedProductIds: string[]; // For non-authenticated users
+  guestLikedProductIds: string[];
 }
 const intialState: UserState = {
   user: undefined,
@@ -29,7 +29,6 @@ const userSlice = createSlice({
       state.user = undefined;
       state.accessToken = undefined;
       state.error = null;
-      // Keep guestLikedProductIds for guest users
     },
     setAccessToken(state, action: PayloadAction<string>) {
       state.accessToken = action.payload;
@@ -43,7 +42,6 @@ const userSlice = createSlice({
       const productId = action.payload;
 
       if (state.user) {
-        // Authenticated user
         const likedProducts = state.user.likedProductIds || [];
         const index = likedProducts.indexOf(productId);
 
@@ -55,7 +53,6 @@ const userSlice = createSlice({
           state.user.likedProductIds = [...likedProducts, productId];
         }
       } else {
-        // Guest user - ensure array exists (for redux-persist compatibility)
         if (!state.guestLikedProductIds) {
           state.guestLikedProductIds = [];
         }
@@ -75,14 +72,13 @@ const userSlice = createSlice({
     },
 
     mergeLikedProducts(state) {
-      // Merge guest liked products with user liked products when user logs in
       if (state.user && state.guestLikedProductIds.length > 0) {
         const userLikedProducts = state.user.likedProductIds || [];
         const mergedLikedProducts = [
           ...new Set([...userLikedProducts, ...state.guestLikedProductIds]),
         ];
         state.user.likedProductIds = mergedLikedProducts;
-        state.guestLikedProductIds = []; // Clear guest liked products
+        state.guestLikedProductIds = [];
       }
     },
 
@@ -98,12 +94,10 @@ const userSlice = createSlice({
       const index = subscriptions.indexOf(subscriptionKey);
 
       if (index > -1) {
-        // Unsubscribe
         state.user.productSubscriptions = subscriptions.filter(
           (key) => key !== subscriptionKey
         );
       } else {
-        // Subscribe
         state.user.productSubscriptions = [...subscriptions, subscriptionKey];
       }
     },
@@ -137,7 +131,6 @@ export const selectAccessToken = (state: { user: UserState }) =>
   state.user.accessToken;
 export const selectUserError = (state: { user: UserState }) => state.user.error;
 
-// Product subscription selectors
 export const selectProductSubscriptions = (state: { user: UserState }) =>
   state.user.user?.productSubscriptions || [];
 

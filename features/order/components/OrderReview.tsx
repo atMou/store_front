@@ -191,7 +191,6 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
       type: "success",
     });
 
-    // Reset selected address if it was the deleted one
     if (selectedAddress?.id === addressId) {
       setSelectedAddress(null);
     }
@@ -251,7 +250,6 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
     }
   };
 
-  // Handle error/empty state
   if (!order || !order.orderItems || order.orderItems.length === 0) {
     return (
       <EmptyState
@@ -267,7 +265,7 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
+        {}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             Review Your Order
@@ -278,9 +276,9 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Column - Order Items */}
+          {}
           <div className="lg:col-span-2 space-y-6">
-            {/* Order Items */}
+            {}
             <div className="bg-white  shadow-sm border border-gray-100 overflow-hidden">
               <SectionHeader
                 icon={<ShoppingCart size={20} className="text-gray-600" />}
@@ -307,7 +305,7 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
                     className="p-6 hover:bg-gray-50 transition-colors"
                   >
                     <div className="flex gap-5">
-                      {/* Product Image */}
+                      {}
                       <div className="relative w-24 h-24 shrink-0 bg-gray-100  overflow-hidden border border-gray-200">
                         <Image
                           src={
@@ -320,7 +318,7 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
                         />
                       </div>
 
-                      {/* Product Details */}
+                      {}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex-1">
@@ -378,7 +376,7 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
                             </div>
                           </div>
 
-                          {/* Item Total */}
+                          {}
                           <div className="text-right">
                             <p className="text-sm font-medium text-gray-500 mb-1">
                               Item Total
@@ -395,7 +393,7 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
               </div>
             </div>
 
-            {/* Delivery Address Management */}
+            {}
             <div className="bg-white shadow-sm border border-gray-100 overflow-hidden">
               <SectionHeader
                 icon={<MapPin size={20} className="text-gray-600" />}
@@ -403,7 +401,7 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
                 containerClassName="bg-white border-b border-gray-100"
               />
               <div className="p-6 space-y-6">
-                {/* Current Address Selection */}
+                {}
 
                 {user &&
                   user.addresses &&
@@ -486,7 +484,7 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
                   </div>
                 )}
 
-                {/* New Address Form */}
+                {}
                 <div className="space-y-4">
                   <div
                     onClick={() => setShowNewAddressForm((prev) => !prev)}
@@ -599,7 +597,7 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
               </div>
             </div>
 
-            {/* Applied Coupons */}
+            {}
             {order?.couponIds && order.couponIds.length > 0 && (
               <div className="bg-white  shadow-sm border border-gray-100 overflow-hidden">
                 <SectionHeader
@@ -630,7 +628,7 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
             )}
           </div>
 
-          {/* Right Column - Order Summary & Payment */}
+          {}
           <div className="lg:col-span-1">
             <div className="bg-white  shadow-sm border border-gray-100 overflow-hidden sticky top-6">
               <SectionHeader
@@ -675,7 +673,7 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
                   />
                 </div>
 
-                {/* Proceed to Payment Button */}
+                {}
                 <button
                   onClick={handleProceedToPayment}
                   disabled={isProcessing || isCreatingIntent}
@@ -698,7 +696,7 @@ const OrderReview = ({ cartId }: OrderReviewProps) => {
                   By proceeding, you agree to our terms and conditions
                 </p>
 
-                {/* Security Info */}
+                {}
                 <div className="mt-6 pt-6 border-t">
                   <div className="flex items-start gap-3">
                     <AlertCircle

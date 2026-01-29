@@ -21,7 +21,6 @@ const rawBaseQuery = fetchBaseQuery({
   mode: "cors",
   timeout: 60000,
   prepareHeaders: (headers, { getState }) => {
-    // Get token from Redux store (persisted by redux-persist)
     const token = (getState() as RootState).user.accessToken;
 
     if (token) {
@@ -36,7 +35,6 @@ const rawBaseQuery = fetchBaseQuery({
   },
 });
 
-// Mutex to prevent multiple simultaneous refresh attempts
 let isRefreshing = false;
 let refreshPromise: Promise<boolean> | null = null;
 
@@ -53,7 +51,6 @@ const baseQueryWithReauth: BaseQueryFn<
       return await rawBaseQuery(args, api, extraOptions);
     }
 
-    // Start refresh process
     isRefreshing = true;
     refreshPromise = (async () => {
       try {
@@ -77,13 +74,11 @@ const baseQueryWithReauth: BaseQueryFn<
           }
         }
 
-        // Refresh failed - clear all auth state
         api.dispatch(userActions.clearUser());
         api.dispatch(userActions.clearTokens());
         api.dispatch(notificationActions.clearAllNotifications());
         return false;
       } catch {
-        // Network error during refresh - clear auth state
         api.dispatch(userActions.clearUser());
         api.dispatch(userActions.clearTokens());
         api.dispatch(notificationActions.clearAllNotifications());

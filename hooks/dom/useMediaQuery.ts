@@ -18,7 +18,6 @@ export function useMediaQuery(query: string): boolean {
       setMatches(event.matches);
     };
 
-    // Use modern addEventListener if available, otherwise fall back to deprecated addListener
     if (media.addEventListener) {
       media.addEventListener("change", handleChange);
     }

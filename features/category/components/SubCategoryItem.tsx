@@ -24,7 +24,6 @@ const SubCategoryItem = ({
   const mainCategory = useAppSelector(selectMainCategory);
 
   const handleClick = () => {
-    // Set the filters in Redux
     dispatch(setFilters(filters));
     dispatch(subCategoryActions.setSidebarSubCategory(filters.sub || ""));
     router.push(`/${mainCategory.toLowerCase()}-${filters.sub?.toLowerCase()}`);

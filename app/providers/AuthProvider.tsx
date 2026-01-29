@@ -20,7 +20,6 @@ export default function AuthProvider({
   useEffect(() => {
     const initUser = async () => {
       if (isAuthenticated && user?.id) {
-        // Load Cart if available
         if (user.cartId) {
           const { data: cart, error } = await TryAsync(
             async () =>
@@ -43,7 +42,6 @@ export default function AuthProvider({
           }
         }
 
-        // Load User Orders
         const { error: orderError } = await TryAsync(
           async () => await triggerGetOrders({ userId: user.id }).unwrap()
         );
@@ -57,8 +55,6 @@ export default function AuthProvider({
     };
 
     initUser();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, user?.cartId, user?.id]);
 
   return <>{children}</>;

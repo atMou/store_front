@@ -1,4 +1,3 @@
-// Order feature types
 import { Address } from "@/types";
 
 export type { Address };
@@ -65,7 +64,6 @@ export interface PaginatedOrders {
   hasPreviousPage: boolean;
 }
 
-// Order status types
 export type OrderStatus =
   | "Pending"
   | "Processing"
@@ -81,7 +79,6 @@ export type PaymentStatus =
   | "Failed"
   | "Cancelled";
 
-// SignalR real-time event types
 export interface PaymentStatusUpdateEvent {
   orderId: string;
   paymentStatus: string;

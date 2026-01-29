@@ -26,9 +26,7 @@ export function useFilterSync() {
         ) {
           const num = Number(value);
           if (!isNaN(num)) (urlFilters as Record<string, unknown>)[key] = num;
-        }
-        // Handle strings
-        else {
+        } else {
           (urlFilters as Record<string, unknown>)[key] = value;
         }
       });
@@ -39,14 +37,11 @@ export function useFilterSync() {
 
       isInitialMount.current = false;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Only on mount
+  }, []);
 
-  // When filters change: Update URL
   useEffect(() => {
-    if (isInitialMount.current) return; // Skip initial mount
+    if (isInitialMount.current) return;
 
-    // Convert filters to simple key-value pairs for URL
     const urlParams: Record<string, string | number | boolean | null> = {};
 
     Object.entries(filters).forEach(([key, value]) => {
@@ -61,7 +56,6 @@ export function useFilterSync() {
         return;
       }
 
-      // Add valid values
       if (
         typeof value === "string" ||
         typeof value === "number" ||
@@ -72,6 +66,5 @@ export function useFilterSync() {
     });
 
     updateQuery(urlParams);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters]); // Only depend on filters, not updateQuery
+  }, [filters]);
 }

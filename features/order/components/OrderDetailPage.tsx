@@ -60,7 +60,7 @@ const OrderDetailPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -82,7 +82,7 @@ const OrderDetailPage = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Order Items */}
+          {}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -133,7 +133,7 @@ const OrderDetailPage = () => {
               </div>
             </div>
 
-            {/* Notes */}
+            {}
             {order.notes && (
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <h2 className="text-lg font-semibold text-gray-900 mb-4">
@@ -144,14 +144,14 @@ const OrderDetailPage = () => {
             )}
           </motion.div>
 
-          {/* Order Summary & Details */}
+          {}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
             className="lg:col-span-1 space-y-6"
           >
-            {/* Order Summary */}
+            {}
             <div className="bg-white rounded-lg shadow-sm p-6">
               <div className="flex items-center gap-2 mb-4">
                 <CreditCard size={20} className="text-gray-600" />
@@ -186,7 +186,7 @@ const OrderDetailPage = () => {
               </div>
             </div>
 
-            {/* Shipping Address */}
+            {}
             <div className="bg-white rounded-lg shadow-sm p-6">
               <div className="flex items-center gap-2 mb-4">
                 <MapPin size={20} className="text-gray-600" />
@@ -211,7 +211,7 @@ const OrderDetailPage = () => {
               </div>
             </div>
 
-            {/* Contact Info */}
+            {}
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">
                 Contact Information
@@ -228,7 +228,7 @@ const OrderDetailPage = () => {
               </div>
             </div>
 
-            {/* Applied Coupons */}
+            {}
             {order.couponIds && order.couponIds.length > 0 && (
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <div className="flex items-center gap-2 mb-4">
@@ -252,7 +252,7 @@ const OrderDetailPage = () => {
               </div>
             )}
 
-            {/* IDs */}
+            {}
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">
                 Additional Information

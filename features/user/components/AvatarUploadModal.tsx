@@ -47,7 +47,7 @@ export const AvatarUploadModal = ({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChangeAction   }>
+    <Dialog open={open} onOpenChange={onOpenChangeAction}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Update Profile Picture</DialogTitle>

@@ -29,14 +29,14 @@ export default function DashboardSidebar() {
   return (
     <aside className="w-64 bg-white border-r border-black shrink-0 hidden md:block">
       <div className="flex flex-col h-full">
-        {/* Logo */}
+        {}
         <div className="px-5 py-5 border-b border-black">
           <h1 className="text-xl font-bold text-black">
             <LayoutDashboard className="inline-block w-6 h-6 mr-2" /> Dashboard
           </h1>
         </div>
 
-        {/* Navigation */}
+        {}
         <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           {navigation.map((item) => {
             const isActive =
@@ -63,7 +63,7 @@ export default function DashboardSidebar() {
           })}
         </nav>
 
-        {/* Footer */}
+        {}
         <div className="px-4 py-2 border-t border-black">
           <div className="text-xs text-gray-700">
             <p>© 2025 Store Admin</p>

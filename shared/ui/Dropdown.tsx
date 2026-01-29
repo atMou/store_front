@@ -2,7 +2,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Loader2, X } from "lucide-react";
-// import useClickOutside from "@/app/hooks/dom/useClickOutside";
 
 interface DropdownOption {
   label: string;
@@ -39,8 +38,6 @@ const Dropdown: React.FC<DropdownProps> = ({
       setDropdownWidth(buttonRef.current.offsetWidth);
     }
   }, [isOpen]);
-
-  // useClickOutside(dropdownRef, () => setIsOpen(false));
 
   const handleSelect = (selectedValue: string) => {
     onChange(selectedValue);

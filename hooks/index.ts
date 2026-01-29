@@ -1,4 +1,3 @@
-// Hook exports
 export * from "./dom/useClickOutside";
 export * from "./dom/useEventListener";
 export * from "./dom/useMediaQuery";

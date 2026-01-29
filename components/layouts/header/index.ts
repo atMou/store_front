@@ -1,4 +1,3 @@
-// Header component exports
 export { default as AuthenticationIcon } from "../../../features/auth/components/AuthenticationIcon";
 export { default as CartDropdown } from "../../../features/cart/components/CartDropdown";
 export { default as LikedProductsDropdown } from "../../../features/product/components/LikedProductsDropdown";

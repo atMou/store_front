@@ -38,7 +38,6 @@ const PasswordResetWithToken = () => {
       setMessage("Password reset successful! You can now log in.");
       setIsError(false);
     } catch {
-      // setMessage(err?.data?.message || "Something went wrong");
       setIsError(true);
     }
   };

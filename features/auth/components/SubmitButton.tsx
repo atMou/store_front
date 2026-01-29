@@ -18,10 +18,7 @@ function SubmitButton<T extends FieldValues>({
       type={type}
       className="w-full h-10 bg-black hover:bg-gray-800 text-white font-semibold rounded-none transition-colors"
       disabled={
-        formState.isSubmitting ||
-        !formState.isValid ||
-        // formState.isSubmitted ||
-        formState.isLoading
+        formState.isSubmitting || !formState.isValid || formState.isLoading
       }
     >
       {formState.isLoading || formState.isSubmitting ? (

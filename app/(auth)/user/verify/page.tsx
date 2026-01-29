@@ -10,14 +10,14 @@ function EmailVerificationPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white px-4 py-12">
       <div className="w-full max-w-sm">
-        {/* Logo */}
+        {}
         <div className="flex justify-center mb-10">
           <div className="w-14 h-14 bg-orange-500 rounded-full flex items-center justify-center shadow-sm overflow-hidden">
             <div className="w-0 h-0 border-t-10 border-t-transparent border-l-16 border-l-white border-b-10 border-b-transparent ml-0.5 animate-[slideInSpin_1s_ease-in-out]"></div>
           </div>
         </div>
 
-        {/* Title */}
+        {}
         <div className="text-center mb-8">
           <h1 className="text-2xl font-semibold text-gray-900 mb-2">
             Verify your email
@@ -27,9 +27,9 @@ function EmailVerificationPage() {
           </p>
         </div>
 
-        {/* Form */}
+        {}
         <div className="space-y-5">
-          {/* Email Input */}
+          {}
           <div>
             <label
               htmlFor="code"
@@ -51,14 +51,14 @@ function EmailVerificationPage() {
             />
           </div>
 
-          {/* Continue Button */}
+          {}
           <Button
             className={`w-full h-11 bg-black  hover:text-black hover:bg-gray-300  hover:border hover:border-black  font-bold`}
           >
             Verify Email
           </Button>
 
-          {/* Terms */}
+          {}
           <p className="text-xs text-center text-gray-600 pt-1">
             Didn&apos;t receive the code?{" "}
             <Link
@@ -69,7 +69,7 @@ function EmailVerificationPage() {
             </Link>
           </p>
 
-          {/* Divider */}
+          {}
           <div className="relative py-4">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-200"></div>
@@ -110,7 +110,7 @@ function EmailVerificationPage() {
             </Button>
           </div>
 
-          {/* Footer Links */}
+          {}
           <div className="flex justify-center gap-6 text-xs text-gray-600 pt-6">
             <Link href="#" className="hover:text-gray-900 hover:underline">
               Legal notice

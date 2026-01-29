@@ -2,7 +2,6 @@
 import { PermissionName } from "../../features/auth/types";
 import { useAuth } from "../../hooks/state/useAuth";
 
-// HOC that returns null if user doesn't have required permissions
 export function WithPermission<P extends Record<string, unknown>>(
   Component: React.ComponentType<P>,
   requiredPermissions: PermissionName[],

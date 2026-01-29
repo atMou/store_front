@@ -103,10 +103,7 @@ class Logger {
 
     this.formatMessage("error", message, errorMetadata);
 
-    // In production, send errors to monitoring service
     if (!this.config.isDevelopment && error instanceof Error) {
-      // Example: Sentry.captureException(error);
-      // Example: LogRocket.captureException(error);
     }
   }
 

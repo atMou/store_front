@@ -130,7 +130,6 @@ export const cartApi = baseApi.injectEndpoints({
         const state = getState() as RootState;
         const previousCart = state.cart.cart;
 
-        // Optimistic update
         dispatch(
           cartActions.optimisticUpdateItem({
             colorVariantId,
@@ -144,7 +143,6 @@ export const cartApi = baseApi.injectEndpoints({
           console.log("[Cart API] updateLineItem result:", data);
           dispatch(cartActions.setCart(data));
         } catch (error) {
-          // Rollback on error
           if (previousCart) {
             dispatch(cartActions.rollbackOptimisticUpdate(previousCart));
           }
@@ -162,7 +160,6 @@ export const cartApi = baseApi.injectEndpoints({
         credentials: "include",
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled, getState }) {
-        // Store previous state for rollback
         const state = getState() as RootState;
         const previousCart = state.cart.cart;
 
@@ -171,7 +168,6 @@ export const cartApi = baseApi.injectEndpoints({
           console.log("[Cart API] deleteLineItem result:", data);
           dispatch(cartActions.setCart(data));
         } catch (error) {
-          // Rollback on error
           if (previousCart) {
             dispatch(cartActions.rollbackOptimisticUpdate(previousCart));
           }

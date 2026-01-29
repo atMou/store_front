@@ -188,7 +188,6 @@ function Dropdown({
             <div
               key={`${option.value}-${index}`}
               onClick={(e) => {
-                // Don't select if clicking inside a child element (like button)
                 if ((e.target as HTMLElement).closest("button")) {
                   return;
                 }

@@ -37,13 +37,11 @@ export const userApi = baseApi.injectEndpoints({
         try {
           await queryFulfilled;
         } catch {
-          // Rollback on error by toggling again
           productIds.forEach((productId) => {
             dispatch(userActions.toggleLikedProductId(productId));
           });
         }
       },
-      // invalidatesTags: ["User"],
     }),
     checkEmailExists: builder.query<void, { email: string }>({
       query: ({ email }) => ({
@@ -72,7 +70,6 @@ export const userApi = baseApi.injectEndpoints({
           const { data } = await queryFulfilled;
           dispatch(userActions.setUser(data));
           dispatch(userActions.clearError());
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (err) {
           dispatch(userActions.setError("Failed to fetch user data"));
           dispatch(userActions.clearUser());
@@ -99,7 +96,7 @@ export const userApi = baseApi.injectEndpoints({
         body: request,
         credentials: "include",
       }),
-      // invalidatesTags: ["Order"],
+
       onQueryStarted: async (arg, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
@@ -108,8 +105,6 @@ export const userApi = baseApi.injectEndpoints({
           dispatch(userActions.clearError());
         } catch (err) {
           console.error("Failed to add address:", err);
-          // Don't rethrow - let the component handle the error
-          // Rethrowing can trigger unnecessary auth state clearing
         }
       },
     }),
@@ -142,7 +137,6 @@ export const userApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      // invalidatesTags: ["User"],
     }),
 
     deleteUser: builder.mutation({

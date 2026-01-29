@@ -40,7 +40,6 @@ const Sponsored: React.FC<BannerProps> = ({
   textColor,
   children,
   padding = "none",
-
 }) => {
   const backgroundClassName = backgroundColor?.startsWith("bg-")
     ? backgroundColor
@@ -101,7 +100,7 @@ const Sponsored: React.FC<BannerProps> = ({
             <p
               className={`text-xs mb-2 flex items-center space-x-1.5 ${textColorClass} ${justifyClass}`}
             >
-              <span  >Sponsored</span> <InfoIcon size="10" />
+              <span>Sponsored</span> <InfoIcon size="10" />
             </p>
           )}
           {title && (

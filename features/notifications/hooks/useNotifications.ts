@@ -32,12 +32,10 @@ interface UseNotificationsOptions {
 export const useNotifications = (options: UseNotificationsOptions = {}) => {
   const { maxNotifications = 50, onNotificationReceived } = options;
 
-  // Redux state management
   const dispatch = useAppDispatch();
   const notifications = useAppSelector(selectNotifications);
   const unreadCount = useAppSelector(selectUnreadCount);
 
-  // SignalR Connection Management
   const accessToken = useAppSelector(selectAccessToken);
   const [notificationHub, setNotificationHub] =
     useState<NotificationHubClient | null>(null);
@@ -49,7 +47,6 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
   const isConnectingRef = useRef(false);
   const isMountedRef = useRef(true);
 
-  // Initialize SignalR Connection
   useEffect(() => {
     isMountedRef.current = true;
 
@@ -121,7 +118,6 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
 
         const errorMessage = error?.message || "Unknown error";
 
-        // Log backend unavailable only as debug, not error
         if (
           errorMessage.includes("connection was stopped during negotiation") ||
           errorMessage.includes("Failed to start the connection")
@@ -140,7 +136,6 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     return cleanup;
   }, [accessToken]);
 
-  // Clear notifications when user logs out
   useEffect(() => {
     if (!accessToken) {
       dispatch(notificationActions.clearAllNotifications());
@@ -148,7 +143,6 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     }
   }, [accessToken, dispatch]);
 
-  // Add notification helper
   const addNotification = useCallback(
     (notification: Notification) => {
       dispatch(notificationActions.addNotification(notification));
@@ -158,7 +152,6 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     [dispatch, maxNotifications, onNotificationReceived]
   );
 
-  // Handle shipment status updates
   useEffect(() => {
     if (!notificationHub || !isConnected) return;
 
@@ -188,7 +181,6 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     };
   }, [notificationHub, isConnected, addNotification]);
 
-  // Handle order status updates
   useEffect(() => {
     if (!notificationHub || !isConnected) return;
 
@@ -218,7 +210,6 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     };
   }, [notificationHub, isConnected, addNotification]);
 
-  // Handle stock alerts
   useEffect(() => {
     if (!notificationHub || !isConnected) return;
 
@@ -249,12 +240,9 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
 
     notificationHub.onStockAlert(handleStockAlert);
 
-    return () => {
-      // notificationHub.offStockAlert();
-    };
+    return () => {};
   }, [notificationHub, isConnected, addNotification]);
 
-  // Handle payment updates
   useEffect(() => {
     if (!notificationHub || !isConnected) return;
 
@@ -284,7 +272,6 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     };
   }, [notificationHub, isConnected, addNotification]);
 
-  // Handle generic notifications
   useEffect(() => {
     if (!notificationHub || !isConnected) return;
 
@@ -311,7 +298,6 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     };
   }, [notificationHub, isConnected, addNotification]);
 
-  // Handle new product arrival notifications
   useEffect(() => {
     if (!notificationHub || !isConnected) return;
 
@@ -340,7 +326,6 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     };
   }, [notificationHub, isConnected, addNotification]);
 
-  // Mark notification as read
   const markAsRead = useCallback(
     (notificationId: string) => {
       dispatch(notificationActions.markAsRead(notificationId));
@@ -348,12 +333,10 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     [dispatch]
   );
 
-  // Mark all as read
   const markAllAsRead = useCallback(() => {
     dispatch(notificationActions.markAllAsRead());
   }, [dispatch]);
 
-  // Clear notification
   const clearNotification = useCallback(
     (notificationId: string) => {
       dispatch(notificationActions.clearNotification(notificationId));
@@ -361,12 +344,10 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     [dispatch]
   );
 
-  // Clear all notifications
   const clearAll = useCallback(() => {
     dispatch(notificationActions.clearAllNotifications());
   }, [dispatch]);
 
-  // Subscribe to order updates
   const subscribeToOrder = useCallback(
     async (orderId: string) => {
       if (!notificationHub || !isConnected) return;
@@ -388,7 +369,6 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     [notificationHub, isConnected]
   );
 
-  // Unsubscribe from order updates
   const unsubscribeFromOrder = useCallback(
     async (orderId: string) => {
       if (!notificationHub || !isConnected) return;
@@ -414,7 +394,6 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     [notificationHub, isConnected]
   );
 
-  // Subscribe to shipment updates
   const subscribeToShipment = useCallback(
     async (shipmentId: string) => {
       if (!notificationHub || !isConnected) return;
@@ -440,7 +419,6 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     [notificationHub, isConnected]
   );
 
-  // Unsubscribe from shipment updates
   const unsubscribeFromShipment = useCallback(
     async (shipmentId: string) => {
       if (!notificationHub || !isConnected) return;
@@ -541,7 +519,6 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
     [notificationHub, isConnected]
   );
 
-  // Unsubscribe from product stock alerts
   const unsubscribeFromProduct = useCallback(
     async (productId: string, colorCode: string, sizeCode: string) => {
       const hookStartTime = Date.now();
@@ -618,22 +595,18 @@ export const useNotifications = (options: UseNotificationsOptions = {}) => {
   );
 
   return {
-    // Connection state
     notificationHub,
     isConnected,
     connectionError,
 
-    // Notifications
     notifications,
     unreadCount,
 
-    // Actions
     markAsRead,
     markAllAsRead,
     clearNotification,
     clearAll,
 
-    // Subscriptions
     subscribeToOrder,
     unsubscribeFromOrder,
     subscribeToShipment,

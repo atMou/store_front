@@ -1,4 +1,3 @@
-// "use client";
 import LandingLayout from "@/components/layouts/LandingLayout";
 import { ProductCarousel, TextBanner } from "@/components/layouts/section";
 import SponsorCarousel from "@/components/layouts/section/SponsorCarousel";
@@ -13,13 +12,17 @@ export default function WomenHome() {
           direction="ltr"
           title="By Zara"
           itemSize="medium"
-          filters={{ category: "Women", sub:"Clothing", brand: "Zara",  include: "colorVariants" }}
+          filters={{
+            category: "Women",
+            sub: "Clothing",
+            brand: "Zara",
+            include: "colorVariants",
+          }}
           showFollowButton={true}
           isFollowing={false}
           bgColor="#7c3aed"
         ></ProductCarousel>
 
-        
         <Sponsored
           imageSrc="/promo.webp"
           imageAlt="Women's Fashion Collection"
@@ -33,16 +36,19 @@ export default function WomenHome() {
           padding="top"
         />
 
-         <ProductCarousel
+        <ProductCarousel
           direction="rtl"
           title="By Louis Vuitton"
           itemSize="medium"
-          filters={{ category: "Women", sub:"Clothing", brand: "Louis Vuitton",  include: "colorVariants" }}
+          filters={{
+            category: "Women",
+            sub: "Clothing",
+            brand: "Louis Vuitton",
+            include: "colorVariants",
+          }}
           showFollowButton={true}
           isFollowing={false}
-
         ></ProductCarousel>
-
 
         <ProductCarousel
           direction="rtl"

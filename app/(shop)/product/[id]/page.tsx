@@ -86,7 +86,6 @@ export default function ProductPage() {
       );
 
       if (existingItem) {
-        // Update quantity of existing item
         const result = await updateItem(
           product!.id,
           existingItem.quantity + 1,
@@ -109,7 +108,6 @@ export default function ProductPage() {
           });
         }
       } else {
-        // Add new line item
         const result = await addItem({
           productId: product!.id,
           colorVariantId: selectedColorVariantId,
@@ -189,7 +187,6 @@ export default function ProductPage() {
 
   const variants = product.colorVariants || [];
 
-  // Get all available sizes and their stock status for the selected color
   const selectedVariant = variants[selectedColor];
   const availableSizeCodes = new Set(
     selectedVariant?.sizeVariants
@@ -197,13 +194,11 @@ export default function ProductPage() {
       .map((sv) => sv.size.code) || []
   );
 
-  // Use SIZES constant and mark them as available or not based on selected color
   const allSizes = SIZES.map((sizeCode) => ({
     code: sizeCode,
     isAvailable: availableSizeCodes.has(sizeCode),
   }));
 
-  // Use selected variant images if available, else product images
   const images =
     variants[selectedColor]?.images?.length > 0
       ? variants[selectedColor].images
@@ -213,7 +208,6 @@ export default function ProductPage() {
     ? Math.round(((product.price - product.newPrice) / product.price) * 100)
     : null;
 
-  // Calculate overall stock level based on average of available sizes
   const getOverallStockStatus = () => {
     const availableVariants =
       selectedVariant?.sizeVariants?.filter((sv) => sv.stock > 0) || [];
@@ -228,7 +222,6 @@ export default function ProductPage() {
     };
 
     const totalScore = availableVariants.reduce((acc, sv) => {
-      // Normalize string to match keys (e.g. "LowStock", "Low Stock", "lowstock")
       const level =
         Object.keys(stockLevels).find(
           (key) =>
@@ -261,9 +254,9 @@ export default function ProductPage() {
     <LandingLayout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 ">
         <div className="flex flex-col md:flex-row ">
-          {/* Left: Image Gallery */}
+          {}
           <div className="flex gap-4 md:w-1/2">
-            {/* Thumbnails */}
+            {}
             <div className="flex flex-col gap-2">
               {images.map((img, idx) => (
                 <button
@@ -286,7 +279,7 @@ export default function ProductPage() {
               ))}
             </div>
 
-            {/* Main Image */}
+            {}
             <div className="relative flex-1 max-w-[500px] max-h-[700px] bg-gray-50">
               {images[selectedImage] && (
                 <Image
@@ -297,7 +290,6 @@ export default function ProductPage() {
                   sizes="(max-width: 768px) 100vw, 420px"
                   quality={95}
                   loading="lazy"
-                  // priority
                 />
               )}
               {discount && (
@@ -308,20 +300,18 @@ export default function ProductPage() {
             </div>
           </div>
 
-          {/* Right: Product Details */}
+          {}
           <div className="md:w-1/2">
-            {/* Brand & Title */}
+            {}
             <a
               href="#"
               className="text-lg font-semibold underline hover:no-underline"
             >
               {product.brand}
             </a>
-            <h1 className="text-xl font-bold mt-1 mb-2">
-              {product.slug}
-            </h1>
+            <h1 className="text-xl font-bold mt-1 mb-2">{product.slug}</h1>
 
-            {/* Price */}
+            {}
             <div className="flex items-baseline gap-2 mb-1">
               <span className="text-2xl font-bold text-red-600">
                 €{product.newPrice ?? product.price}
@@ -343,7 +333,7 @@ export default function ProductPage() {
               </span>
             </div>
 
-            {/* Color Selector (as variant thumbnails) */}
+            {}
             <div className="mb-6">
               <div className="flex items-center justify-between mb-3">
                 <div className="text-sm">
@@ -366,7 +356,7 @@ export default function ProductPage() {
                         onClick={() => {
                           setSelectedColor(idx);
                           setSelectedImage(0);
-                          setSize(""); // Reset size when changing color
+                          setSize("");
                         }}
                         className={`group relative w-16 h-20  overflow-hidden transition-all duration-200 ${
                           selectedColor === idx
@@ -409,7 +399,7 @@ export default function ProductPage() {
               </div>
             </div>
 
-            {/* Size Selector */}
+            {}
             <div className="mb-4">
               <Dropdown
                 onChange={(value) =>
@@ -477,7 +467,7 @@ export default function ProductPage() {
               />
             </div>
 
-            {/* Add to Bag & Favorite */}
+            {}
             <div className="flex gap-2 mb-4">
               <button
                 onClick={addToBag}
@@ -502,7 +492,7 @@ export default function ProductPage() {
               />
             </div>
 
-            {/* Popular Item Notice */}
+            {}
             {product.status.isBestSeller && (
               <div className="flex items-center  gap-2 text-sm text-gray-600 mb-6 p-3 bg-gray-50 rounded">
                 <Heart size={16} />
@@ -512,7 +502,7 @@ export default function ProductPage() {
               </div>
             )}
 
-            {/* Rating */}
+            {}
             <div className="mb-6">
               <div className="flex items-center gap-3">
                 <Rating rating={product.rating?.value || 0} />
@@ -521,25 +511,10 @@ export default function ProductPage() {
                   {product.totalReviews || 0} reviews)
                 </span>
               </div>
-              {/* {isLoadingCanWriteReview && (
-                <div className="mt-2 text-sm text-gray-500">Checking...</div>
-              )}
-              {canWriteReview && !isLoadingCanWriteReview && (
-                <a
-                  href={`#write-review`}
-                  className="text-sm underline mt-2 inline-block hover:no-underline"
-                >
-                  Write a review
-                </a>
-              )}
-              {canWriteReviewError && !isLoadingCanWriteReview && (
-                <div className="mt-2 text-sm text-gray-500">
-                  Unable to determine review eligibility.
-                </div>
-              )} */}
+              {}
             </div>
 
-            {/* Delivery Info */}
+            {}
             <div className="border border-gray-200 rounded mb-6">
               <div className="p-4 border-b border-gray-200">
                 <div className="text-sm">
@@ -571,7 +546,7 @@ export default function ProductPage() {
               </div>
             </div>
 
-            {/* At a Glance */}
+            {}
             {product.detailsAttributes &&
               product.detailsAttributes.length > 0 && (
                 <div className="mb-6">
@@ -596,7 +571,7 @@ export default function ProductPage() {
                 </div>
               )}
 
-            {/* Accordion Sections */}
+            {}
             <div className="border-t border-gray-200">
               {["Material & care", "Details", "Size & fit"].map((section) => (
                 <div key={section} className="border-b border-gray-200">
@@ -630,7 +605,7 @@ export default function ProductPage() {
               ))}
             </div>
 
-            {/* Brand Follow */}
+            {}
             <div className="flex items-center justify-between py-4 border-b border-gray-200">
               <span className="font-semibold">{product.brand}</span>
               <button className="px-4 py-2 border border-gray-300 rounded text-sm font-medium hover:border-black transition-colors">

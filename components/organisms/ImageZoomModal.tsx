@@ -44,7 +44,6 @@ const ImageZoomModal: React.FC<ImageZoomModalProps> = ({
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-    // Inverse the position for the zoom effect
     setPosition({ x: 100 - x, y: 100 - y });
   };
 
@@ -60,7 +59,7 @@ const ImageZoomModal: React.FC<ImageZoomModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
-      {/* Close button */}
+      {}
       <button
         onClick={onClose}
         className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-10"
@@ -69,7 +68,7 @@ const ImageZoomModal: React.FC<ImageZoomModalProps> = ({
         <X size={24} />
       </button>
 
-      {/* Image container */}
+      {}
       <div className="relative w-full h-full max-w-6xl max-h-[90vh] m-4">
         <div
           ref={containerRef}
@@ -100,7 +99,7 @@ const ImageZoomModal: React.FC<ImageZoomModalProps> = ({
           </div>
         </div>
 
-        {/* Instructions */}
+        {}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-4 py-2 rounded-full text-sm">
           {isZooming ? "Move mouse to explore" : "Hover to zoom"}
         </div>

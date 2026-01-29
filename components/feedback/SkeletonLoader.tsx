@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const SkeletonLoader: React.FC = () => {
-  const skeletonItems = Array(10).fill(0); // Adjust number of skeleton items as needed
+  const skeletonItems = Array(10).fill(0);
 
   return (
     <section className="py-6 sm:py-8 lg:py-12">

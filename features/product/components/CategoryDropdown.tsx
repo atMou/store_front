@@ -25,12 +25,10 @@ function CategoryDropdown<T extends FieldValues>({
   const subValue = useWatch({ control, name: subCategory });
   const typeValue = useWatch({ control, name: type });
 
-  // Main categories - all unique main values
   const mainOptions = [
     ...new Set(categories.map((cat) => cat.main).filter(Boolean)),
   ].map((main) => ({ value: main, label: main }));
 
-  // Sub categories - filtered by selected main
   const subOptions = mainValue
     ? [
         ...new Set(
@@ -42,7 +40,6 @@ function CategoryDropdown<T extends FieldValues>({
       ].map((sub) => ({ value: sub, label: sub }))
     : [];
 
-  // Product types - from the matching category
   const selectedCategory = categories.find(
     (cat) => cat.main === mainValue && cat.sub === subValue
   );
@@ -53,7 +50,6 @@ function CategoryDropdown<T extends FieldValues>({
       }))
     : [];
 
-  // Sub types - from the matching product type
   const selectedProductType = selectedCategory?.productTypes.find(
     (pt) => pt.type === typeValue
   );
@@ -63,7 +59,7 @@ function CategoryDropdown<T extends FieldValues>({
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      {/* Main Category Dropdown */}
+      {}
       <DropdownControl
         control={control}
         name={category}
@@ -75,7 +71,7 @@ function CategoryDropdown<T extends FieldValues>({
         Icon={Box}
       />
 
-      {/* Sub Category Dropdown */}
+      {}
       <DropdownControl
         control={control}
         name={subCategory}

@@ -12,10 +12,6 @@ export type CategoryResponse = {
   productTypes: ProductType[];
 };
 
-// Helper to create composite identifier from main and sub
-// export const getCategoryIdentifier = (category: CategoryResponse) =>
-//   `${category.main}-${category.sub}`.toLowerCase().replace(/\s+/g, "-");
-
 const categoriesApi = baseApi.injectEndpoints({
   overrideExisting: true,
   endpoints: (builder) => ({

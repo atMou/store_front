@@ -1,4 +1,3 @@
-// Feedback component exports
 export { default as ApiErrorDisplay } from "./ApiErrorDisplay";
 export { default as BreadCrumb } from "./BreadCrumb";
 export { default as CartSkeletonLoader } from "./CartSkeletonLoader";

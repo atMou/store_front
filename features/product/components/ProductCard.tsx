@@ -38,7 +38,6 @@ function getSizesToShow(
       .filter((sv) => sv.stock > 0)
       .map((sv) => sv.size) as Size[];
 
-    // Remove duplicates based on size code
     const uniqueSizes = sizes.filter(
       (size, index, self) =>
         index === self.findIndex((s) => s.code === size.code)
@@ -147,7 +146,7 @@ function ProductCard({
           buttonSize={30}
           iconSize={18}
         />
-        {/* Sizes hover overlay */}
+        {}
         <div
           className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 
         py-1 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"
@@ -155,7 +154,7 @@ function ProductCard({
           <div className="flex gap-1 flex-wrap mb-1">
             <SizesOverlay sizes={getSizesToShow(product, hoveredVariantIdx)} />
           </div>
-          {/* Variant thumbnails */}
+          {}
           {Array.isArray(product.colorVariants) &&
             product.colorVariants.length > 0 && (
               <div className="flex gap-1 overflow-x-auto pb-1 scrollbar-hide">
@@ -199,8 +198,10 @@ function ProductCard({
         </div>
       </CardContent>
 
-      {/* Product Info */}
-      <CardFooter className={cn("flex flex-col p-3 ", hasBackground ? "bg-white" : "")}>
+      {}
+      <CardFooter
+        className={cn("flex flex-col p-3 ", hasBackground ? "bg-white" : "")}
+      >
         <CardTitle
           className={cn(
             "text-black truncate w-full",

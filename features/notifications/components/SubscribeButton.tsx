@@ -36,7 +36,6 @@ const SubscribeButton = ({
     e.preventDefault();
     console.log("SubscribeButton clicked");
 
-    // Ensure clean inputs for group names
     const cleanColor = colorCode.trim();
     const cleanSize = sizeCode.trim();
 
@@ -100,7 +99,6 @@ const SubscribeButton = ({
       logger.debug("Calling onSuccess with message", { message });
       onSuccess?.(message);
     } catch (error) {
-      // Rollback on error
       dispatch(
         userActions.toggleProductSubscription({
           productId,

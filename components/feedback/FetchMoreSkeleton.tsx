@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const FetchMoreSkeleton: React.FC = () => {
-  const skeletonItems = Array(3).fill(0); // Show 3 skeleton cards for "Show More"
+  const skeletonItems = Array(3).fill(0);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">

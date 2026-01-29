@@ -65,7 +65,6 @@ const SubCategorySlice = createSlice({
 export const { actions: subCategoryActions } = SubCategorySlice;
 export const { reducer: subCategoryReducer } = SubCategorySlice;
 
-// Base selectors
 export const selectCarouselSubCategory = (state: RootState): string | null =>
   state.subCategory?.carouselSubCategory;
 

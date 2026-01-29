@@ -1,4 +1,3 @@
-// Cart feature types
 import { Address } from "@/types";
 
 export type CouponStatus =

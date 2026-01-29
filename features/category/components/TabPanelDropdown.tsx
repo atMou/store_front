@@ -1,11 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/store";
-import {
-  KidsTabPanels,
-  MenTabPanels,
-  // NoneTabPanels,
-  TabPanel,
-  WomenTabPanels,
-} from "../data";
+import { KidsTabPanels, MenTabPanels, TabPanel, WomenTabPanels } from "../data";
 import {
   selectCarouselSubCategory,
   selectIsOpen,

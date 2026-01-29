@@ -14,7 +14,6 @@ export type ApiErrorResponse = {
   };
 };
 
-// Generic paginated result type used across features
 export interface PaginatedResult<T = unknown> {
   items: T[];
   totalCount: number;

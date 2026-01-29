@@ -27,7 +27,7 @@ import { useAppSelector } from "@/store/hooks";
 import { Info, Package, ShoppingCart, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import {  useMemo } from "react";
+import { useMemo } from "react";
 
 const formatVariantName = (item: CartItem) => {
   return item.slug || "Product";
@@ -48,7 +48,6 @@ const Cart = () => {
   const [toggleLikedProduct] = useToggleLikedProductMutation();
   const { showToast } = useToast();
 
-  // Show skeleton only on initial load (when cart is null and loading)
   const showSkeleton = isLoading && cart === null;
 
   const FREE_SHIPPING_THRESHOLD = 29.9;
@@ -57,8 +56,6 @@ const Cart = () => {
   const shippingEndDate = getWorkingDaysFromToday(3);
   const shippingDateRange = `${formatShippingDate(shippingStartDate)} - ${formatShippingDate(shippingEndDate)}`;
 
-
- 
   const subtotal = useMemo(() => {
     if (!cartItems.length) return 0;
     return cartItems.reduce(
@@ -110,7 +107,6 @@ const Cart = () => {
   };
 
   const handleMoveToWishlist = async (item: CartItem) => {
-    // 1. Add to wishlist
     if (!likedProductIds.includes(item.productId)) {
       const { error: wishListError } = await TryAsync(
         async () =>
@@ -123,7 +119,7 @@ const Cart = () => {
             wishListError.detail || "Failed to add to wishlist, try again.",
           type: "error",
         });
-        return; 
+        return;
       }
     }
     const { error: removeError } = await TryAsync(
@@ -135,7 +131,7 @@ const Cart = () => {
         message:
           removeError.detail ||
           "Added to wishlist but failed to remove from cart",
-        type: "error", // Or warning
+        type: "error",
       });
       return;
     }
@@ -154,7 +150,7 @@ const Cart = () => {
           </div>
         )}
 
-        {/* Cart Header */}
+        {}
         <div className="mt-4 mb-6">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
             Your bag ({cartItems.length} item{cartItems.length !== 1 ? "s" : ""}
@@ -162,7 +158,7 @@ const Cart = () => {
           </h1>
         </div>
 
-        {/* Cart Content */}
+        {}
         {showSkeleton ? (
           <CartSkeletonLoader />
         ) : cartItems.length === 0 ? (
@@ -172,9 +168,9 @@ const Cart = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Left Column - Cart Items */}
+            {}
             <div className="lg:col-span-2 space-y-4">
-              {/* Free Shipping Banner */}
+              {}
               {subtotal < FREE_SHIPPING_THRESHOLD && (
                 <div className="bg-orange-50 border border-orange-200  p-4 flex items-start gap-3">
                   <Info className="w-5 h-5 text-orange-600 shrink-0 mt-0.5" />
@@ -188,7 +184,7 @@ const Cart = () => {
                 </div>
               )}
 
-              {/* Parcel Shipping Info */}
+              {}
               <div className="bg-white border border-gray-200  p-4 flex items-center gap-3">
                 <Package className="w-5 h-5 text-gray-700 shrink-0" />
                 <div>
@@ -199,14 +195,14 @@ const Cart = () => {
                 </div>
               </div>
 
-              {/* Cart Items */}
+              {}
               {cartItems.map((item: CartItem) => (
                 <div
                   key={`${item.productId}-${item.colorVariantId}-${item.sizeVariantId}`}
                   className="bg-white border border-gray-200  p-4 flex gap-4 cursor-pointer"
                   onClick={() => routeToProduct(item.productId)}
                 >
-                  {/* Product Image */}
+                  {}
                   <div className="w-24 h-32 sm:w-28 sm:h-36 bg-gray-100 rounded flex items-center justify-center overflow-hidden shrink-0">
                     <Image
                       src={
@@ -224,7 +220,7 @@ const Cart = () => {
                     />
                   </div>
 
-                  {/* Product Details */}
+                  {}
                   <div className="flex-1 flex flex-col">
                     <div className="flex justify-between gap-4">
                       <div className="flex-1">
@@ -252,7 +248,7 @@ const Cart = () => {
                         </div>
                       </div>
 
-                      {/* Remove Button */}
+                      {}
                       <button
                         onClick={() =>
                           handleRemoveFromCart(
@@ -266,7 +262,7 @@ const Cart = () => {
                       </button>
                     </div>
 
-                    {/* Quantity Selector and Move to Wishlist */}
+                    {}
                     <div
                       className="mt-auto pt-3 flex items-center gap-4"
                       onClick={(e) => e.stopPropagation()}
@@ -294,7 +290,7 @@ const Cart = () => {
                 </div>
               ))}
 
-              {/* Items not reserved notice */}
+              {}
               <div className="flex items-start gap-2 text-sm text-gray-600 pt-2">
                 <Info className="w-4 h-4 shrink-0 mt-0.5" />
                 <p>Items placed in this bag are not reserved.</p>
@@ -308,7 +304,7 @@ const Cart = () => {
               </div>
             </div>
 
-            {/* Right Column - Cart Summary */}
+            {}
             <div className="lg:col-span-1">
               <CartSummary
                 subtotal={subtotal}

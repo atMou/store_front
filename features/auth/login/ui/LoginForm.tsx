@@ -51,8 +51,6 @@ function LoginForm() {
   const [loginMutation, { error: loginError, isError: isLoginError }] =
     useLoginMutation();
 
-  // const [triggerGetCartByUserId] = useLazyGetCartByUserIdQuery();
-
   const [isPasswordShowen, setIsPasswordShow] = useState(false);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);

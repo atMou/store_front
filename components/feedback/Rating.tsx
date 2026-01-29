@@ -15,14 +15,12 @@ const Rating: React.FC<RatingProps> = ({ rating }) => {
     <div className="flex">
       {Array.from({ length: 5 }, (_, index) => {
         if (index < fullStars) {
-          // Full star
           return (
             <span key={index} className="text-yellow-500 text-[21px]">
               ★
             </span>
           );
         } else if (index === fullStars && hasPartialStar) {
-          // Partial star
           return (
             <span key={index} className="relative text-[21px]">
               <span className="text-gray-300">★</span>
@@ -35,7 +33,6 @@ const Rating: React.FC<RatingProps> = ({ rating }) => {
             </span>
           );
         } else {
-          // Empty star
           return (
             <span key={index} className="text-gray-300 text-[21px]">
               ★

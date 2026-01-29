@@ -19,7 +19,7 @@ import Dropdown from "../atoms/Dropdown";
 
 interface DateRangePickerProps {
   label?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   control: Control<any>;
   startName: string;
   endName: string;
@@ -39,7 +39,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
   );
   const [isOpen, setIsOpen] = useState(false);
   const [direction, setDirection] = useState(1);
-  const [selecting, setSelecting] = useState<"start" | "end">("start"); // Track which date is being selected
+  const [selecting, setSelecting] = useState<"start" | "end">("start");
   const pickerRef = useRef<HTMLDivElement>(null);
 
   const daysOfWeek = [
@@ -82,13 +82,12 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
 
     if (selecting === "start") {
       startField.onChange(date);
-      // If the end date is before the new start date, clear it
+
       if (endField.value && isBefore(endField.value, date)) {
         endField.onChange(null);
       }
       setSelecting("end");
     } else {
-      // Ensure end date is not before start date
       if (startField.value && isBefore(date, startField.value)) {
         endField.onChange(startField.value);
         startField.onChange(date);
@@ -96,7 +95,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
         endField.onChange(date);
       }
       setSelecting("start");
-      setIsOpen(false); // Close the picker after selecting the end date
+      setIsOpen(false);
     }
   };
 
@@ -137,7 +136,6 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Format the display value for the input
   const displayValue = () => {
     if (!startField.value && !endField.value) {
       return label || "Select date range";

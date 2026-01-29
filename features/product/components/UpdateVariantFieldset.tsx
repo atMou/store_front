@@ -95,7 +95,7 @@ export default function UpdateVariantFieldset({
         Color Variant {variantIndex + 1}
       </h3>
 
-      {/* Color Selection */}
+      {}
       <div className="max-w-xs">
         <ColorDropdown
           control={control}
@@ -104,7 +104,7 @@ export default function UpdateVariantFieldset({
         />
       </div>
 
-      {/* Existing Variant Images */}
+      {}
       {variantImageDtos.filter((img) => !img.isDeleted).length > 0 && (
         <div>
           <label className="block text-xs mb-2 font-medium">
@@ -138,7 +138,7 @@ export default function UpdateVariantFieldset({
         </div>
       )}
 
-      {/* New Variant Images */}
+      {}
       <div>
         <label className="block text-xs mb-2">
           Add New Images (Color-specific)
@@ -159,9 +159,8 @@ export default function UpdateVariantFieldset({
         />
       </div>
 
-      {/* Size Variants Section */}
+      {}
       {isNewVariant ? (
-        // New variant: Full size management
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <label className="block text-xs font-medium">Size Variants</label>
@@ -251,7 +250,6 @@ export default function UpdateVariantFieldset({
           )}
         </div>
       ) : (
-        // Existing variant: Display-only size info
         variant?.sizeVariants &&
         variant.sizeVariants.length > 0 && (
           <div className="space-y-2">

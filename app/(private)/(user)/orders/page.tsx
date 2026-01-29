@@ -6,12 +6,6 @@ import Header from "@/components/layouts/header/Header";
 import { OrdersList } from "@/features/order/components";
 import { Suspense } from "react";
 
-/**
- * User Orders Page
- *
- * Displays all orders for the authenticated user using the OrdersList component from order feature.
- * Route: /orders
- */
 const UserOrdersPage = () => {
   return (
     <>

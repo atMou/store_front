@@ -77,7 +77,6 @@ export type VerificationCodeRequest = {
   code: string;
 };
 
-// Permission enum matching backend
 export enum PermissionCode {
   BrowseProducts = 1,
   AddToCart = 2,
@@ -102,13 +101,6 @@ export enum PermissionCode {
   ViewDashboard = 21,
 }
 
-// export type Permission = {
-//   code: number;
-//   name: string;
-//   description: string;
-// };
-
-// Role enum matching backend
 export enum RoleCode {
   Default = 0,
   Customer = 1,

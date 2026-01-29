@@ -28,7 +28,7 @@ const OrderFilters: React.FC<OrderFiltersProps> = ({
 
   return (
     <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4 sm:mb-6 p-3 sm:p-4 bg-gray-50 rounded-lg">
-      {/* Status Filter */}
+      {}
       <div className="flex items-center space-x-2">
         <Filter size={14} className="sm:w-4 sm:h-4 text-gray-500" />
         <select
@@ -44,7 +44,7 @@ const OrderFilters: React.FC<OrderFiltersProps> = ({
         </select>
       </div>
 
-      {/* Sort Order */}
+      {}
       <div className="flex items-center space-x-2">
         <button
           onClick={() =>

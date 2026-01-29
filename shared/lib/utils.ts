@@ -24,7 +24,7 @@ export const getWorkingDaysFromToday = (days: number) => {
 
   while (addedDays < days) {
     result.setDate(result.getDate() + 1);
-    // Skip weekends (0 = Sunday, 6 = Saturday)
+
     if (result.getDay() !== 0 && result.getDay() !== 6) {
       addedDays++;
     }

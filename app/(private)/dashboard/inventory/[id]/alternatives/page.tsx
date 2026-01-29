@@ -23,14 +23,12 @@ export default function AddAlternativesPage() {
     new Set()
   );
 
-  // Get the main product to determine category filters
   const { data: mainProduct, isLoading: isLoadingMain } =
     useGetProductByIdQuery({
       id: productId,
       include: "variants",
     });
 
-  // Fetch products with same category, subcategory, and type
   const { data: productsData, isLoading: isLoadingProducts } =
     useGetAllProductsQuery(
       {
@@ -117,7 +115,7 @@ export default function AddAlternativesPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Header */}
+      {}
       <div className="mb-8">
         <button
           onClick={() => router.push("/dashboard/inventory")}
@@ -170,7 +168,7 @@ export default function AddAlternativesPage() {
         </div>
       </div>
 
-      {/* Product Grid */}
+      {}
       {isLoadingProducts ? (
         <div className="flex items-center justify-center py-20">
           <Loader2 className="w-8 h-8 animate-spin text-gray-600" />

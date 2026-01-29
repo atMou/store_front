@@ -28,57 +28,24 @@ interface ActionProps {
 }
 
 export interface FeedbackDisplayProps {
-  /**
-   * The error object to parse. If provided, mode defaults to "error"
-   */
   error?: unknown;
 
-  /**
-   * Override title. For errors, auto-generated if not provided.
-   */
   title?: string;
 
-  /**
-   * Override message. For errors, auto-generated if not provided.
-   */
   message?: string;
 
-  /**
-   * Visual style of the component
-   * @default "card" for empty mode, "banner" for error mode
-   */
   variant?: FeedbackVariant;
 
-  /**
-   * Semantic mode
-   * @default "error" if error prop is present, "empty" otherwise
-   */
   mode?: FeedbackMode;
 
-  /**
-   * Custom icon to override default mode icon. Pass null to hide icon.
-   */
   icon?: LucideIcon | null;
 
-  /**
-   * Action button configuration
-   */
   action?: ActionProps;
 
-  /**
-   * Dismiss handler
-   */
   onDismiss?: () => void;
 
-  /**
-   * Additional classes
-   */
   className?: string;
 
-  /**
-   * Whether to show detailed error list for API errors
-   * @default true
-   */
   showDetails?: boolean;
 }
 
@@ -90,7 +57,7 @@ const MODES = {
       icon: "text-red-600",
       title: "text-red-800",
       text: "text-red-700",
-      border: "border-red-500", // For left-border variants
+      border: "border-red-500",
       button: "bg-red-600 hover:bg-red-700 text-white",
     },
   },
@@ -178,27 +145,22 @@ export default function FeedbackDisplay({
   className,
   showDetails = true,
 }: FeedbackDisplayProps) {
-  // Determine effective mode
   const mode: FeedbackMode = modeProp || (error ? "error" : "empty");
 
-  // Parse error if present
   let errorTitle = "";
   let errorDetail = "";
   let errorMessages: string[] = [];
 
   if (mode === "error" && error) {
     const parsed = getErrors(error);
-    errorTitle = "Error"; // Default title as getErrors doesn't return title
+    errorTitle = "Error";
     errorDetail = parsed.detail;
     errorMessages = parsed.errors || [];
   }
 
-  // Determine effective variant
-  // If variant is "full-page", use it. Otherwise calculate default based on mode.
   const effectiveVariant: FeedbackVariant =
     variant || (mode === "error" ? "banner" : "card");
 
-  // Determine final content
   const title =
     titleProp ||
     errorTitle ||
@@ -206,19 +168,13 @@ export default function FeedbackDisplay({
   const message = messageProp || errorDetail;
   const details = mode === "error" ? errorMessages : [];
 
-  // Get mode styles
   const styles = MODES[mode];
-  // Determine Icon:
-  // If IconProp is null, no icon.
-  // If IconProp is undefined, use default.
-  // If IconProp is provided, use it.
+
   const Icon = IconProp === null ? null : IconProp || styles.icon;
 
   if (!error && mode === "error" && !titleProp && !messageProp) {
-    return null; // Don't render empty error state if no content provided
+    return null;
   }
-
-  // Render Logic based on Variant
 
   if (effectiveVariant === "inline") {
     return (
@@ -231,7 +187,7 @@ export default function FeedbackDisplay({
       >
         {(title || message) && (
           <div className="flex items-center gap-2 font-medium">
-            {/* Small icon for inline */}
+            {}
             {Icon && (
               <Icon size={16} className={cn("shrink-0", styles.styles.icon)} />
             )}
@@ -250,7 +206,6 @@ export default function FeedbackDisplay({
   }
 
   if (effectiveVariant === "compact") {
-    // Like ApiErrorDisplay compact - minimal UI
     return (
       <div className={cn("text-sm space-y-1", styles.styles.text, className)}>
         <div className="flex items-center gap-2 font-medium">

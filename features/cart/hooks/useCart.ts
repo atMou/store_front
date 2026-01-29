@@ -29,7 +29,6 @@ export function useCart() {
   const isLoading = useAppSelector(selectCartLoading);
   const error = useAppSelector(selectCartError);
 
-  // Mutations
   const [addLineItemMutation, { isLoading: isAdding }] =
     useAddLineItemMutation();
   const [updateLineItemMutation, { isLoading: isUpdating }] =
@@ -85,10 +84,6 @@ export function useCart() {
     ]
   );
 
-  /**
-   * Update item quantity with optimistic update
-   * @returns Object with success status and optional error details
-   */
   const updateItem = useCallback(
     async (
       productId: string,
@@ -96,7 +91,6 @@ export function useCart() {
       colorVariantId: string,
       sizeVariantId: string
     ) => {
-      // Require authentication for cart operations
       if (!isAuthenticated || !cart?.cartId) {
         return {
           success: false,
@@ -130,7 +124,6 @@ export function useCart() {
 
   const removeItem = useCallback(
     async (colorVariantId: string, sizeVariantId: string) => {
-      // Require authentication for cart operations
       if (!isAuthenticated || !cart?.cartId) {
         return {
           success: false,
@@ -141,22 +134,17 @@ export function useCart() {
         };
       }
 
-      const { error } = await TryAsync(() =>
-
-        {
-           console.log("Removing from cart:", {
+      const { error } = await TryAsync(() => {
+        console.log("Removing from cart:", {
           colorVariantId,
           sizeVariantId,
         });
-         return deleteLineItemMutation({
+        return deleteLineItemMutation({
           cartId: cart.cartId,
           colorVariantId,
           sizeVariantId,
-        }).unwrap()
-        }
-       
-      
-      );
+        }).unwrap();
+      });
 
       if (error) {
         return {

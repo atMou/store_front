@@ -21,7 +21,6 @@ export default function CategorySidebar() {
     return parts.length > 1 ? Capitalize(parts[1]) : null;
   }, [pathname]);
 
-  // Find the sidebar data for the current category and subcategory
   const currentSidebarData = sidebarData.find(
     (category) =>
       category.sub === (subcategoryFromPath() || "") &&

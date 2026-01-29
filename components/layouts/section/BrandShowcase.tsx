@@ -98,7 +98,7 @@ function BrandSlideContent({ slide }: { slide: BrandSlide }) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {/* Left: Brand Info */}
+      {}
       <div className="flex flex-col justify-center">
         <h2 className="text-3xl font-bold mb-1">{slide.brandName}</h2>
         <h3 className="text-2xl font-bold mb-4">{slide.tagline}</h3>
@@ -111,7 +111,7 @@ function BrandSlideContent({ slide }: { slide: BrandSlide }) {
         </Link>
       </div>
 
-      {/* Center: Hero Images */}
+      {}
       <div className="flex gap-2">
         {slide.heroImages.slice(0, 2).map((img, idx) => (
           <div key={idx} className="flex-1 aspect-3/4 relative">
@@ -125,12 +125,12 @@ function BrandSlideContent({ slide }: { slide: BrandSlide }) {
         ))}
       </div>
 
-      {/* Right: Pagination - Placeholder */}
+      {}
       <div className="flex items-start justify-end">
         <div className="text-sm text-gray-500">Brand Showcase</div>
       </div>
 
-      {/* Products Grid */}
+      {}
       <div className="col-span-full">
         {isLoading ? (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
@@ -172,7 +172,7 @@ export default function BrandSection({ slides }: BrandSectionProps) {
           ))}
         </CarouselContent>
 
-        {/* Carousel Navigation */}
+        {}
         <div className="flex items-center justify-end gap-2 mt-4">
           <CarouselPrevious className="static translate-y-0 w-8 h-8" />
           <span className="text-sm">
@@ -182,7 +182,7 @@ export default function BrandSection({ slides }: BrandSectionProps) {
         </div>
       </Carousel>
 
-      {/* Bottom Section */}
+      {}
       <div className="mt-16">
         <h2 className="text-3xl font-bold">Forgetting someone?</h2>
         <p className="text-2xl">There&apos;s a gift for everyone</p>

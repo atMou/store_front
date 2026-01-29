@@ -16,7 +16,6 @@ export interface SidebarCategory {
   types: SidebarType[];
 }
 
-// Men Clothing Sidebar Data
 const menClothingSidebar: SidebarCategory = {
   main: "Men",
   sub: "Clothing",

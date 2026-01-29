@@ -38,7 +38,6 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
   warehouses,
   onRemoveColor,
 }) => {
-  // Use field array for size variants within this color
   const {
     fields: sizeVariantFields,
     append: appendSizeVariant,
@@ -62,7 +61,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
 
   return (
     <div className="mb-6 border border-gray-200 rounded-lg overflow-hidden">
-      {/* Color Header */}
+      {}
       <div className="bg-gray-100 px-6 py-3 border-b border-gray-200">
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-semibold flex items-center gap-2">
@@ -90,7 +89,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
         </div>
       </div>
 
-      {/* Size Variants for this Color */}
+      {}
       <div className="p-6 space-y-4 bg-white">
         {sizeVariantFields.map((sizeVariantField, sizeIndex) => {
           const typedField = sizeVariantField as UpdateInventorySizeSchema & {
@@ -119,7 +118,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
                 </button>
               </div>
 
-              {/* Size Dropdown */}
+              {}
               <div className="mb-4">
                 <SizeDropdown
                   control={control}
@@ -130,7 +129,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
                 />
               </div>
 
-              {/* Stock Fields Grid */}
+              {}
               {typedField.size && (
                 <>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -179,7 +178,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
                     />
                   </div>
 
-                  {/* Warehouses Multiselect */}
+                  {}
                   <div className="mt-4">
                     <label className="flex items-center gap-2 text-sm mb-2">
                       <Warehouse size={16} className="text-gray-600" />
@@ -204,7 +203,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
                     />
                   </div>
 
-                  {/* Current Stock Info Display */}
+                  {}
                   {inventorySize && (
                     <div className="mt-4 p-3 bg-blue-50 border border-blue-100 rounded text-sm">
                       <div className="grid grid-cols-3 gap-3">
@@ -238,7 +237,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
                 </>
               )}
 
-              {/* Field-level errors */}
+              {}
               {errors.colorVariants?.[colorIndex]?.sizeVariants?.[
                 sizeIndex
               ] && (
@@ -250,7 +249,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
                       size row.
                     </p>
                   )}
-                  {/* Show generic message if it's not the hidden ID that's failing (or if there are multiple failures) */}
+                  {}
                   {!errors.colorVariants?.[colorIndex]?.sizeVariants?.[
                     sizeIndex
                   ]?.sizeVariantId && (
@@ -262,7 +261,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
           );
         })}
 
-        {/* Add Size Button */}
+        {}
         <button
           type="button"
           onClick={addSizeVariant}
@@ -272,7 +271,7 @@ const ColorVariantSection: React.FC<ColorVariantSectionProps> = ({
         </button>
       </div>
 
-      {/* Color-level errors */}
+      {}
       {errors.colorVariants?.[colorIndex] && (
         <div className="px-6 pb-4 bg-white">
           <p className="text-sm text-red-600">
@@ -317,14 +316,12 @@ const UpdateInventoryForm: React.FC<UpdateInventoryFormProps> = ({
     formState: { errors },
   } = form;
 
-  // Use field array for managing color variants dynamically
   const { fields: colorVariantFields, remove: removeColorVariant } =
     useFieldArray({
       control,
       name: "colorVariants",
     });
 
-  // Populate form with inventory data when it loads
   useEffect(() => {
     if (inventory && !initialValues) {
       const formData: UpdateInventoryFormSchema = {
@@ -348,7 +345,7 @@ const UpdateInventoryForm: React.FC<UpdateInventoryFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {/* Product Info Header */}
+      {}
       <div className="p-6 border border-gray-200 rounded-lg bg-gray-50">
         <div className="flex items-start gap-4 mb-4">
           {inventory.imageUrl ? (
@@ -396,7 +393,7 @@ const UpdateInventoryForm: React.FC<UpdateInventoryFormProps> = ({
           </div>
         </div>
 
-        {/* Stock Summary */}
+        {}
         <div className="mt-4 pt-4 border-t border-gray-300">
           <h4 className="text-sm font-medium text-gray-600 mb-2 flex items-center gap-2">
             <Warehouse size={16} />
@@ -429,7 +426,7 @@ const UpdateInventoryForm: React.FC<UpdateInventoryFormProps> = ({
         </div>
       </div>
 
-      {/* Color Variants Section */}
+      {}
       <div>
         <div className="flex items-center justify-between mb-4">
           <label className="block text-sm">
@@ -456,7 +453,7 @@ const UpdateInventoryForm: React.FC<UpdateInventoryFormProps> = ({
           );
         })}
 
-        {/* Form-level errors */}
+        {}
         {errors.colorVariants && !Array.isArray(errors.colorVariants) && (
           <p className="text-sm text-red-600 mt-2">
             {errors.colorVariants.message}
@@ -464,10 +461,10 @@ const UpdateInventoryForm: React.FC<UpdateInventoryFormProps> = ({
         )}
       </div>
 
-      {/* Error Display */}
+      {}
       <FormValidationErrors errors={form.formState.errors} />
 
-      {/* Submit Button */}
+      {}
       <button
         type="submit"
         disabled={isLoading}
@@ -476,7 +473,7 @@ const UpdateInventoryForm: React.FC<UpdateInventoryFormProps> = ({
         {isLoading ? "Updating Inventory..." : "Update Inventory"}
       </button>
 
-      {/* Image Zoom Modal */}
+      {}
       <ImageZoomModal
         isOpen={isImageModalOpen}
         onClose={() => setIsImageModalOpen(false)}

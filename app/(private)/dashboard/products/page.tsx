@@ -92,7 +92,6 @@ const ProductsDashboard = () => {
   };
 
   const handleEditProduct = (product: Product) => {
-    // Transform Product to UpdateProductFormSchema
     const updateData: UpdateProductFormSchema = {
       productId: product.id,
       slug: product.slug,

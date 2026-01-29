@@ -3,7 +3,7 @@ import React from "react";
 const OrderCardSkeleton = () => {
   return (
     <div className="bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-200 overflow-hidden animate-pulse">
-      {/* Header */}
+      {}
       <div className="p-3 sm:p-4 lg:p-6 border-b border-gray-100">
         <div className="flex items-start justify-between mb-2 sm:mb-4">
           <div className="flex-1">
@@ -20,7 +20,7 @@ const OrderCardSkeleton = () => {
         </div>
       </div>
 
-      {/* Content */}
+      {}
       <div className="p-3 sm:p-4 lg:p-6">
         <div className="grid grid-cols-2 gap-2 sm:gap-4 mb-3 sm:mb-4">
           <div className="flex items-center space-x-1 sm:space-x-2">
@@ -39,7 +39,7 @@ const OrderCardSkeleton = () => {
           </div>
         </div>
 
-        {/* Order Items Preview */}
+        {}
         <div className="mb-3 sm:mb-4">
           <div className="h-2 sm:h-3 bg-gray-300 rounded w-8 sm:w-12 mb-1 sm:mb-2"></div>
           <div className="space-y-1">
@@ -54,7 +54,7 @@ const OrderCardSkeleton = () => {
           </div>
         </div>
 
-        {/* Action Button */}
+        {}
         <div className="h-8 sm:h-12 bg-gray-300 rounded-lg"></div>
       </div>
     </div>

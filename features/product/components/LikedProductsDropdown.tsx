@@ -80,19 +80,19 @@ function LikedProductsDropdown() {
 
   return (
     <div className="absolute right-0 -mt-[1.8px] w-[350px] bg-white border-2 border-gray-800 shadow-xl opacity-0 -translate-y-0.5 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-50 ease-in z-50">
-      {/* Header */}
+      {}
       <div className="border-b border-gray-200 px-6 py-4">
         <h2 className="text-xl font-bold text-center">Your wish list</h2>
       </div>
 
-      {/* Liked Items */}
+      {}
       <div className="max-h-[400px] overflow-y-auto px-4 py-4">
         {likedProducts.map((item) => (
           <div
             key={item.id}
             className="flex gap-3 mb-4 pb-4 border-b border-gray-100 last:border-b-0"
           >
-            {/* Product Image */}
+            {}
             <div className="relative w-20 h-24 shrink-0 bg-gray-100">
               <Image
                 src={item.images?.[0]?.url || "/placeholder.png"}
@@ -103,7 +103,7 @@ function LikedProductsDropdown() {
               />
             </div>
 
-            {/* Product Details */}
+            {}
             <div className="flex-1 min-w-0">
               <div className="flex justify-between items-start mb-2">
                 <div className="flex-1 pr-2">
@@ -138,7 +138,7 @@ function LikedProductsDropdown() {
                 </button>
               </div>
 
-              {/* Color and Size */}
+              {}
               {(item.colors?.length > 0 || item.sizes?.length > 0) && (
                 <div className="text-sm text-gray-700 mb-2 space-y-1">
                   {item.colors?.[0] && <p>Colour: {item.colors[0].name}</p>}
@@ -146,7 +146,7 @@ function LikedProductsDropdown() {
                 </div>
               )}
 
-              {/* Move to bag */}
+              {}
               <button
                 className="text-sm underline hover:no-underline text-gray-900 font-normal cursor-pointer"
                 onClick={() => handleMoveToCart(item.id)}
@@ -158,9 +158,9 @@ function LikedProductsDropdown() {
         ))}
       </div>
 
-      {/* Footer */}
+      {}
       <div className="border-t border-gray-200 px-6 py-5 bg-gray-50">
-        {/* Info Notice */}
+        {}
         <div className="flex items-start gap-3 mb-5 p-3 bg-gray-100 rounded">
           <div className="w-5 h-5 rounded-full border-2 border-gray-900 flex items-center justify-center shrink-0 mt-0.5">
             <span className="text-xs font-bold">i</span>
@@ -171,7 +171,7 @@ function LikedProductsDropdown() {
           </p>
         </div>
 
-        {/* View all button */}
+        {}
         <Link href="/wishlist">
           <Button
             variant="plain"

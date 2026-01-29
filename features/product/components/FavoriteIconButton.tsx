@@ -36,12 +36,10 @@ export default function FavoriteIconButton({
     e.stopPropagation();
 
     if (!isAuthenticated) {
-      // Guest user - only update local state
       dispatch(userActions.toggleLikedProductId(productId));
       return;
     }
 
-    // Authenticated user - sync with backend
     const result = await toggleLikedProduct({ productIds: [productId] });
 
     if (result.error) {

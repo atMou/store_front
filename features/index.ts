@@ -1,4 +1,3 @@
-// Features exports
 export * from "./cart";
 export * from "./category";
 export * from "./inventory";

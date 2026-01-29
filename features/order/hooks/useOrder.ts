@@ -46,9 +46,6 @@ export function useOrder() {
   };
 }
 
-/**
- * Hook to fetch a single order by ID
- */
 export function useOrderById(orderId: string | null, skip = false) {
   const { data, isLoading, error, refetch } = useGetOrderByIdQuery(
     { orderId: orderId! },
@@ -77,9 +74,6 @@ export function useOrdersByUserId(userId: string | null, skip = false) {
   };
 }
 
-/**
- * Hook to fetch an order by cart ID
- */
 export function useOrderByCartId(cartId: string | null, skip = false) {
   const { data, isLoading, error, refetch } = useGetOrderByCartIdQuery(
     { cartId: cartId! },

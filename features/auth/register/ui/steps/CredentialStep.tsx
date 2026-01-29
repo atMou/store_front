@@ -155,7 +155,7 @@ function CredentialStep() {
                   </InputGroupAddon>
                 </InputGroup>
 
-                {/* ✅ Always show if invalid */}
+                {}
                 {fieldState.error && fieldState.isDirty && (
                   <p className="-m-2 text-xs pl-2 text-red-600">
                     {fieldState.error.message}
@@ -200,13 +200,7 @@ function CredentialStep() {
             }
           </SubmitButton>
           <div className="flex justify-end">
-            {/* <ArrowLink
-              direction="left"
-              leftText="Back"
-              onClickLeft={() =>
-                dispatch(registerActions.setStep(FormSteps.PROFILE))
-              }
-            /> */}
+            {}
             <ArrowLink
               direction="right"
               rightText="Next"

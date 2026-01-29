@@ -18,7 +18,6 @@ const OrderTrackingContent = () => {
     useNotificationContext();
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  // Auto-subscribe to order notifications if order is not delivered/cancelled
   useEffect(() => {
     if (order && isConnected) {
       const shouldAutoSubscribe = ![
@@ -84,7 +83,7 @@ const OrderTrackingContent = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      {/* Notification Toggle */}
+      {}
       {canSubscribe && (
         <div className="mb-6 flex justify-end">
           <button

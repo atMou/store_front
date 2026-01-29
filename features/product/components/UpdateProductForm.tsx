@@ -31,8 +31,6 @@ interface UpdateProductFormProps {
 const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
   initialData,
 }) => {
-  // const [updateProduct, { isLoading, error }] = useUpdateProductMutation();
-
   const form = useForm<UpdateProductFormSchema>({
     resolver: zodResolver(updateProductFormSchema),
     defaultValues: initialData,
@@ -83,11 +81,10 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
 
   const handleRemoveVariant = (index: number) => {
     const variant = formVariants[index];
-    // If variant has ID (existing), mark as deleted
+
     if (variant.variantId) {
       setValue(`variants.${index}.isDeleted`, true, { shouldValidate: true });
     } else {
-      // If no ID (new), remove from array
       const updatedVariants = formVariants.filter((_, i) => i !== index);
       setValue("variants", updatedVariants, {
         shouldValidate: true,
@@ -112,14 +109,6 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
 
   const onSubmit = async (data: UpdateProductFormSchema) => {
     console.log("Submitting update with data:", data);
-    // try {
-    //   const formData = buildUpdateProductFormData(data);
-
-    //   await updateProduct({ data: formData }).unwrap();
-    //   console.log("Product updated successfully");
-    // } catch (err) {
-    //   console.log("Error updating product:", err);
-    // }
   };
   return (
     <form
@@ -168,7 +157,7 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
         rows={4}
       />
 
-      {/* Product Attributes */}
+      {}
       <AttributeInputs
         control={control}
         name="detailsAttributes"
@@ -176,7 +165,7 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
         error={errors.detailsAttributes?.message}
       />
 
-      {/* Size & Fit Attributes */}
+      {}
       <AttributeInputs
         control={control}
         name="sizeFitAttributes"
@@ -184,14 +173,14 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
         error={errors.sizeFitAttributes?.message}
       />
 
-      {/* Material Details */}
+      {}
       <MaterialDetailInputs
         control={control}
         name="materialDetails"
         error={errors.materialDetails?.message}
       />
 
-      {/* Existing Product Images */}
+      {}
       {formImageDtos.filter((img) => !img.isDeleted).length > 0 && (
         <div>
           <label className="block text-xs mb-2">
@@ -253,7 +242,7 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
         </div>
       )}
 
-      {/* New Product Images Upload */}
+      {}
       <div>
         <ImageUploader
           control={control}
@@ -266,10 +255,10 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
         />
       </div>
 
-      {/* Product Flags */}
+      {}
       <ProductFlagsCheckboxes control={control} />
 
-      {/* Variants */}
+      {}
       <div>
         <div className="flex items-center justify-between mb-4">
           <label className="block text-xs">
@@ -338,7 +327,7 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
         )}
       </div>
 
-      {/* Form Validation Errors */}
+      {}
       <FormValidationErrors errors={form.formState.errors} />
 
       <button

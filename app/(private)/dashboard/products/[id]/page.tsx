@@ -97,7 +97,7 @@ const ManageProduct = () => {
           </button>
         </motion.div>
 
-        {/* Product Header */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -160,9 +160,9 @@ const ManageProduct = () => {
           </div>
         </motion.div>
 
-        {/* Product Details Grid */}
+        {}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Left Column */}
+          {}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -215,7 +215,7 @@ const ManageProduct = () => {
             </div>
           </motion.div>
 
-          {/* Right Column - Variants */}
+          {}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -273,7 +273,7 @@ const ManageProduct = () => {
           </motion.div>
         </div>
 
-        {/* Status Badges */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -307,7 +307,7 @@ const ManageProduct = () => {
           </div>
         </motion.div>
 
-        {/* Product Images Gallery */}
+        {}
         {product.images && product.images.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -341,7 +341,7 @@ const ManageProduct = () => {
           </motion.div>
         )}
 
-        {/* Details Attributes */}
+        {}
         {product.detailsAttributes && product.detailsAttributes.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -368,7 +368,7 @@ const ManageProduct = () => {
           </motion.div>
         )}
 
-        {/* Size & Fit Attributes */}
+        {}
         {product.sizeFitAttributes && product.sizeFitAttributes.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -395,7 +395,7 @@ const ManageProduct = () => {
           </motion.div>
         )}
 
-        {/* Material Details */}
+        {}
         {product.materialDetails && product.materialDetails.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -424,7 +424,7 @@ const ManageProduct = () => {
           </motion.div>
         )}
 
-        {/* Available Colors & Sizes Summary */}
+        {}
         {(product.colors || product.sizes) && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -480,7 +480,7 @@ const ManageProduct = () => {
           </motion.div>
         )}
 
-        {/* Alternatives */}
+        {}
         {product.alternatives && product.alternatives.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -521,7 +521,7 @@ const ManageProduct = () => {
           </motion.div>
         )}
 
-        {/* Reviews */}
+        {}
         {product.reviews && product.reviews.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}

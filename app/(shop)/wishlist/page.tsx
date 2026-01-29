@@ -12,11 +12,13 @@ import { Heart } from "lucide-react";
 import Link from "next/link";
 
 export default function WishlistPage() {
-
-  const { products : productsData, isLoading , error} = useInfiniteLikedProducts({
+  const {
+    products: productsData,
+    isLoading,
+    error,
+  } = useInfiniteLikedProducts({
     include: "variants",
   });
-
 
   const products = productsData || [];
   const showSkeleton = isLoading && products.length > 0;

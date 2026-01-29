@@ -5,11 +5,10 @@ import { motion } from "framer-motion";
 import React from "react";
 
 interface LoadingDotsProps {
-  /** Size of the dots: 'sm' | 'md' | 'lg' */
   size?: "sm" | "md" | "lg";
-  /** Color of the dots */
+
   color?: string;
-  /** Custom className for the container */
+
   className?: string;
 }
 

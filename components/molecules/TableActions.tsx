@@ -95,7 +95,7 @@ const TableActions = <T extends { id: string }>({
           value={Array.from(visibleColumns)}
           onChange={(values) => {
             const newValues = Array.isArray(values) ? values : [values];
-            // Toggle columns based on changes
+
             const currentSet = new Set(visibleColumns);
             const newSet = new Set(newValues);
 

@@ -1,15 +1,10 @@
 import Image from "next/image";
-import {
-  KidsGroupedItems,
-  MenGroupedItems,
-  // NoneGroupedItems,
-  WomenGroupedItems,
-} from "..";
+import { KidsGroupedItems, MenGroupedItems, WomenGroupedItems } from "..";
 import SubCategoryList from "./SubCategoryList";
 
 interface TabPanelProps {
   data: MenGroupedItems | WomenGroupedItems | KidsGroupedItems;
-  // | NoneGroupedItems;
+
   imageUrl?: string;
 }
 

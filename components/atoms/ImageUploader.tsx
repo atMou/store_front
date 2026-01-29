@@ -22,8 +22,8 @@ interface ImageUploaderProps<T extends FieldValues = FieldValues> {
   maxFiles?: number;
   disabled?: boolean;
   multiple?: boolean;
-  showMainSelector?: boolean; // New prop to enable main image selection
-  isMainFieldName?: Path<T>; // Field name for isMain array
+  showMainSelector?: boolean;
+  isMainFieldName?: Path<T>;
   variant?: "default" | "compact";
 }
 
@@ -45,7 +45,6 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
   const [mainImageIndex, setMainImageIndex] = useState<number>(0);
   const effectiveMaxFiles = multiple ? maxFiles : 1;
 
-  // Cleanup blob URLs on unmount
   useEffect(() => {
     return () => {
       previews.forEach((preview) => {
@@ -59,14 +58,12 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
       if (!files.length) return;
 
       if (!multiple) {
-        // Single file mode - replace existing
         const file = files[0];
         const newPreview = {
           url: URL.createObjectURL(file),
           file,
         };
 
-        // Revoke old preview URL if exists
         if (previews.length > 0) {
           URL.revokeObjectURL(previews[0].url);
         }
@@ -76,7 +73,6 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
           shouldValidate: false,
         });
 
-        // Set as main if selector is enabled
         if (showMainSelector) {
           setValue(
             isMainFieldName,
@@ -88,18 +84,15 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
           setMainImageIndex(0);
         }
       } else {
-        // Multiple files mode
         const currentFiles = previews.map((p) => p.file);
         const updatedFiles = [...currentFiles];
         const updatedPreviews = [...previews];
 
         files.forEach((file) => {
-          // Check if file already exists by name and size
           const existingIndex = updatedFiles.findIndex(
             (f) => f?.name === file.name && f?.size === file.size
           );
           if (existingIndex !== -1) {
-            // Overwrite existing
             URL.revokeObjectURL(updatedPreviews[existingIndex].url);
             updatedFiles[existingIndex] = file;
             updatedPreviews[existingIndex] = {
@@ -107,7 +100,6 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
               file,
             };
           } else if (updatedFiles.length < effectiveMaxFiles) {
-            // Add new
             updatedFiles.push(file);
             updatedPreviews.push({
               url: URL.createObjectURL(file),
@@ -121,7 +113,6 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
           shouldValidate: false,
         });
 
-        // Update isMain array if selector is enabled
         if (showMainSelector) {
           const currentMainIndex = mainImageIndex;
           const isMainArray = updatedFiles.map(
@@ -153,7 +144,7 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const files = Array.from(e.target.files || []);
       processFiles(files);
-      // Clear the input
+
       e.target.value = "";
     },
     [processFiles]
@@ -164,7 +155,6 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
       const updatedPreviews = [...previews];
       const removedPreview = updatedPreviews.splice(index, 1)[0];
 
-      // Revoke blob URL
       URL.revokeObjectURL(removedPreview.url);
 
       setPreviews(updatedPreviews);
@@ -185,17 +175,13 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
           shouldValidate: false,
         });
 
-        // Update isMain array when image is removed
         if (showMainSelector) {
           let newMainIndex = mainImageIndex;
 
-          // If removed image was main, set first image as main
           if (index === mainImageIndex) {
             newMainIndex = 0;
             setMainImageIndex(0);
-          }
-          // If removed image was before main, decrement main index
-          else if (index < mainImageIndex) {
+          } else if (index < mainImageIndex) {
             newMainIndex = mainImageIndex - 1;
             setMainImageIndex(newMainIndex);
           }
@@ -230,7 +216,6 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
 
       setMainImageIndex(index);
 
-      // Create boolean array with only selected index as true
       const isMainArray = previews.map((_, i) => i === index);
       setValue(
         isMainFieldName,
@@ -285,7 +270,7 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
         )}
       </label>
 
-      {/* Image Previews */}
+      {}
       <ImagePreview
         previews={previews.map((p, idx) => ({
           ...p,
@@ -312,7 +297,6 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
             shouldValidate: false,
           });
 
-          // Update main image index if needed
           if (showMainSelector) {
             const newMainIndex = newOrder.findIndex((item) => item.isMain);
             if (newMainIndex !== -1) {
@@ -330,7 +314,7 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
         onSelectMain={handleMainImageSelect}
       />
 
-      {/* File Input */}
+      {}
       <Controller
         name={name}
         control={control}
@@ -389,7 +373,7 @@ const ImageUploader = <T extends FieldValues = FieldValues>({
         )}
       />
 
-      {/* Error Message */}
+      {}
       {errorMessage && (
         <p className="text-red-500 text-sm flex items-center gap-1">
           <span className="text-red-500">⚠</span>

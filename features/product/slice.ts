@@ -7,7 +7,6 @@ import {
 } from "@reduxjs/toolkit";
 import { FilterValues, Product } from "./types";
 
-// Create entity adapter for products
 export const productsAdapter = createEntityAdapter<Product>({
   sortComparer: (a, b) => a.slug.localeCompare(b.slug),
 });
@@ -55,14 +54,12 @@ const productsSlice = createSlice({
       const { products, totalCount, pageNumber, pageSize, filters } =
         action.payload;
 
-      // Reset entities for new filters or first page
       if (
         pageNumber === 1 ||
         JSON.stringify(state.filters) !== JSON.stringify(filters)
       ) {
         state.entities = productsAdapter.setAll(state.entities, products);
       } else {
-        // Add new products for infinite scroll
         productsAdapter.addMany(state.entities, products);
       }
 
@@ -100,19 +97,19 @@ const productsSlice = createSlice({
 
     setFilters: (state, action: PayloadAction<FilterValues>) => {
       state.filters = action.payload;
-      // Reset pagination when filters change
+
       state.pagination.currentPage = 1;
     },
 
     updateFilters: (state, action: PayloadAction<Partial<FilterValues>>) => {
       state.filters = { ...state.filters, ...action.payload };
-      // Reset pagination when filters change
+
       state.pagination.currentPage = 1;
     },
 
     clearFilters: (state) => {
       state.filters = {};
-      // Reset pagination when filters are cleared
+
       state.pagination.currentPage = 1;
     },
 
@@ -141,7 +138,6 @@ export const {
   resetProducts,
 } = productsSlice.actions;
 
-// Entity adapter selectors
 const selectProductsState = (state: RootState) => state.products.entities;
 
 export const {
@@ -152,7 +148,6 @@ export const {
   selectTotal: selectProductsTotal,
 } = productsAdapter.getSelectors(selectProductsState);
 
-// Custom selectors
 export const selectProductsPagination = (state: RootState) =>
   state.products.pagination;
 export const selectProductsFilters = (state: RootState) =>
@@ -161,7 +156,6 @@ export const selectProductsLoading = (state: RootState) =>
   state.products.loading;
 export const selectProductsError = (state: RootState) => state.products.error;
 
-// Memoized selectors
 export const selectFilteredProducts = createSelector(
   [selectAllProducts, selectProductsFilters],
   (products) => {
@@ -222,7 +216,6 @@ export const { addViewedProduct, removeViewedProduct, clearViewedProducts } =
 
 export const viewedProductsReducer = viewedProductsSlice.reducer;
 
-// Selectors
 export const selectViewedProducts = (state: RootState) =>
   state.viewedProducts.products;
 

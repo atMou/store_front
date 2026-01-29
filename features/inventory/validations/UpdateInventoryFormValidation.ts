@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-// Update Inventory Size Command schema - matches backend UpdateInventorySizeCommand
 const updateInventorySizeSchema = z
   .object({
     sizeVariantId: z.union([
@@ -45,13 +44,11 @@ const updateInventorySizeSchema = z
     }
   );
 
-// Update Inventory Color Command schema - matches backend UpdateInventoryColorCommand
 const updateInventoryColorSchema = z.object({
   colorVariantId: z.string().uuid("Invalid color variant ID"),
   sizeVariants: z.array(updateInventorySizeSchema),
 });
 
-// Update Inventory Command schema - matches backend UpdateInventoryCommand
 export const updateInventoryFormSchema = z.object({
   id: z.string().uuid("Invalid inventory ID"),
   colorVariants: z
@@ -59,7 +56,6 @@ export const updateInventoryFormSchema = z.object({
     .min(1, "At least one color variant is required"),
 });
 
-// Type exports
 export type UpdateInventoryFormSchema = z.infer<
   typeof updateInventoryFormSchema
 >;

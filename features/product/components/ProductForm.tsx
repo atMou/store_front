@@ -90,7 +90,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
     onSubmit(formData);
   };
 
-  // Debug: Log validation errors
   console.log("Form Errors:", errors);
 
   return (
@@ -99,7 +98,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
       onSubmit={handleSubmit(handleFormSubmit)}
       className="space-y-4"
     >
-      {/* Responsive grid: sm=1, md=2, lg=3, xl+=4 columns */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-start">
         <TextInput
           control={control}
@@ -140,7 +139,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
           />
         </div>
       </div>
-      {/* Description next to Image Uploader from md and above */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
         <TextAreaInput
           control={control}
@@ -162,7 +161,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
         />
       </div>
 
-      {/* Separate grid for expandable sections - they grow independently */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
         <AttributeInputs
           control={control}
@@ -196,7 +195,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
           <label className="block text-xs">Product Variants</label>
         </div>
 
-        {/* Variant forms array */}
+        {}
         {variants.length > 0 && (
           <div className="space-y-6">
             {variants.map((variant, variantIndex) => (
@@ -212,7 +211,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
           </div>
         )}
 
-        {/* Add button: full width on sm/md, 2 columns on lg+ */}
+        {}
         <div className="lg:col-span-2">
           <AddButton onClick={handleAddVariant} tooltipText="Add Variant" />
         </div>

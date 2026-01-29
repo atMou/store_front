@@ -1,11 +1,9 @@
 import { COLORS } from "@/constants";
 
-// Generate a placeholder image URL with random background color and text
 export const generatePlaceholderImage = (
   text: string,
   size: number = 200
 ): string => {
-  // Extract first letter of each word for initials
   const initials = text
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase())
@@ -14,7 +12,6 @@ export const generatePlaceholderImage = (
 
   const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)].hex;
 
-  // Create a simple SVG placeholder
   const svg = `
     <svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
       <rect width="100%" height="100%" fill="${randomColor}"/>
@@ -27,7 +24,6 @@ export const generatePlaceholderImage = (
     </svg>
   `;
 
-  // Convert SVG to data URL
   const dataUrl = `data:image/svg+xml;base64,${btoa(svg)}`;
   return dataUrl;
 };

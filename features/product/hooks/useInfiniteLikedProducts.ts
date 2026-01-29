@@ -15,7 +15,6 @@ export function useInfiniteLikedProducts({
   pageSize = 20,
   include = "variants",
 }: UseInfiniteLikedProductsOptions) {
-
   const likedProductIds = useAppSelector(selectUserLikedProductIds);
 
   const productIdsKey = likedProductIds.join(",");
@@ -26,7 +25,7 @@ export function useInfiniteLikedProducts({
   useEffect(() => {
     if (pageState.idsKey !== productIdsKey) {
       setPageState({ currentPage: 1, idsKey: productIdsKey });
-      setAccumulatedProducts([]); // Reset products immediately when IDs change
+      setAccumulatedProducts([]);
     }
   }, [productIdsKey, pageState.idsKey]);
 
@@ -43,14 +42,12 @@ export function useInfiniteLikedProducts({
     }
   );
 
-  // Accumulate products from all pages
   const [accumulatedProducts, setAccumulatedProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     if (!data?.items) return;
 
     if (pageState.currentPage === 1) {
-      // Always update on first page to reflect removals/changes
       setAccumulatedProducts(data.items);
     } else {
       const existingIds = new Set(accumulatedProducts.map((p) => p.id));
@@ -59,22 +56,18 @@ export function useInfiniteLikedProducts({
         setAccumulatedProducts((prev) => [...prev, ...newProducts]);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, pageState.currentPage]);
 
-  // Calculate pagination info
   const hasNextPage = data
     ? pageState.currentPage < Math.ceil(data.totalCount / data.pageSize)
     : false;
 
-  // Load next page function
   const loadNextPage = useCallback(() => {
     if (hasNextPage && !isLoading && !isFetching) {
       setPageState((prev) => ({ ...prev, currentPage: prev.currentPage + 1 }));
     }
   }, [hasNextPage, isLoading, isFetching]);
 
-  // Load more function for infinite scroll (alias for loadNextPage)
   const loadMore = useCallback(() => {
     loadNextPage();
   }, [loadNextPage]);

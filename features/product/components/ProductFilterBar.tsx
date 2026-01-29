@@ -95,11 +95,9 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
       const containerRect = ref.current.getBoundingClientRect();
       const viewportWidth = window.innerWidth;
 
-      // Check if dropdown would overflow on the right
-      const wouldOverflowRight = containerRect.left + 240 > viewportWidth; // 240px is min-w-60
+      const wouldOverflowRight = containerRect.left + 240 > viewportWidth;
       setAlignRight(wouldOverflowRight);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   const displayText =
@@ -206,7 +204,6 @@ interface FilterBarProps {
   sizeOptions?: FilterOption[];
   brandOptions?: FilterOption[];
   colourOptions?: FilterOption[];
-  // onShowAllFilters?: () => void;
 }
 
 const ProductFilterBar: React.FC<FilterBarProps> = ({
@@ -215,14 +212,12 @@ const ProductFilterBar: React.FC<FilterBarProps> = ({
   sizeOptions = [],
   brandOptions = [],
   colourOptions = [],
-  // onShowAllFilters = () => {},
 }) => {
   const [minPrice, setMinPrice] = useState(filters?.minPrice ?? 0);
   const [maxPrice, setMaxPrice] = useState(filters?.maxPrice ?? 500);
   const [showAllFilters, setShowAllFilters] = useState(false);
   const subCategory = useAppSelector(selectSidebarSubCategory);
 
-  // Material options based on sub category
   const materialOptions = useMemo(() => {
     const sub = subCategory?.toLowerCase() || filters?.sub?.toLowerCase() || "";
 
@@ -325,13 +320,12 @@ const ProductFilterBar: React.FC<FilterBarProps> = ({
 
   const handleSpecialFiltersChange = (values: string[]) => {
     const newFilters = { ...filters };
-    // Reset all special filters
+
     newFilters.isFeatured = undefined;
     newFilters.isTrending = undefined;
     newFilters.isBestSeller = undefined;
     newFilters.isNew = undefined;
 
-    // Set selected filters to true
     values.forEach((value) => {
       if (value === "featured") newFilters.isFeatured = true;
       if (value === "trending") newFilters.isTrending = true;
@@ -387,7 +381,7 @@ const ProductFilterBar: React.FC<FilterBarProps> = ({
         isSingleSelect
       />
 
-      { subCategory === "Clothing" &&  sizeOptions.length > 0 && (
+      {subCategory === "Clothing" && sizeOptions.length > 0 && (
         <FilterDropdown
           placeholder="Size"
           options={sizeOptions}
@@ -418,7 +412,7 @@ const ProductFilterBar: React.FC<FilterBarProps> = ({
         />
       )}
 
-      {subCategory === "Clothing" &&   materialOptions.length > 0 && (
+      {subCategory === "Clothing" && materialOptions.length > 0 && (
         <FilterDropdown
           placeholder="Material"
           options={materialOptions}

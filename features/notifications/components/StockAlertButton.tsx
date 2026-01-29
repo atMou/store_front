@@ -18,7 +18,6 @@ export default function StockAlertButton({
 
   const handleToggleAlert = async () => {
     if (isSubscribed) {
-      // Use defaults for color/size if not provided, assuming generic subscription
       await unsubscribeFromProduct(productId, "", "");
       setIsSubscribed(false);
       alert("You will no longer receive stock alerts for this product");

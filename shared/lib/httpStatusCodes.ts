@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// utils/apiErrorHandler.ts
-
 export const HttpStatusCode = {
   OK: 200,
   CREATED: 201,
@@ -20,9 +17,6 @@ export const HttpStatusCode = {
   GATEWAY_TIMEOUT: 504,
 } as const;
 
-/**
- * Standard .NET ProblemDetails (RFC 7807)
- */
 export interface ProblemDetails {
   type?: string;
   title?: string;
@@ -45,7 +39,7 @@ export interface ParsedApiError {
   title: string;
   detail: string;
   messages: string[];
-  fieldErrors?: Record<string, string[]>; // Optional: for form libraries (react-hook-form, zod, etc.)
+  fieldErrors?: Record<string, string[]>;
 }
 
 function isRtkQueryError(error: unknown): error is {
@@ -60,9 +54,6 @@ function isRtkQueryError(error: unknown): error is {
   );
 }
 
-/**
- * Type guard for ProblemDetails
- */
 function isProblemDetails(data: unknown): data is ProblemDetails {
   return (
     typeof data === "object" &&
@@ -71,9 +62,6 @@ function isProblemDetails(data: unknown): data is ProblemDetails {
   );
 }
 
-/**
- * Type guard for validation errors array
- */
 function isMissingFieldsErrors(data: unknown): data is MissingFieldsErrors {
   return (
     Array.isArray(data) &&
@@ -88,11 +76,7 @@ function isMissingFieldsErrors(data: unknown): data is MissingFieldsErrors {
   );
 }
 
-/**
- * Main error parser – robust and handles all your .NET error cases
- */
 export function parseApiError(error: unknown): ParsedApiError {
-  // Defaults
   let status = HttpStatusCode.INTERNAL_SERVER_ERROR as number;
   let title = "An error occurred";
   let detail = "Please try again later.";
@@ -100,13 +84,11 @@ export function parseApiError(error: unknown): ParsedApiError {
   const fieldErrors: Record<string, string[]> = {};
 
   try {
-    // Normalize RTK Query error shape
     if (isRtkQueryError(error)) {
       status = error.status;
       error = error.data;
     }
 
-    // Unwrap common `{ error: ... }` wrapper
     if (error && typeof error === "object" && "error" in (error as any)) {
       const inner = (error as any).error;
       if (typeof inner === "string") {
@@ -120,7 +102,6 @@ export function parseApiError(error: unknown): ParsedApiError {
       }
     }
 
-    // If it's already ProblemDetails
     if (isProblemDetails(error)) {
       status = error.status ?? status;
       title = error.title ?? title;
@@ -139,9 +120,7 @@ export function parseApiError(error: unknown): ParsedApiError {
       if (messages.length === 0 && error.detail) {
         messages = [error.detail];
       }
-    }
-    // Simple { detail, errors } object
-    else if (
+    } else if (
       error &&
       typeof error === "object" &&
       ("detail" in (error as any) ||
@@ -157,18 +136,14 @@ export function parseApiError(error: unknown): ParsedApiError {
       } else if (detail) {
         messages = [detail];
       }
-    }
-    // Validation array [{ field, errors }]
-    else if (isMissingFieldsErrors(error)) {
+    } else if (isMissingFieldsErrors(error)) {
       error.forEach(({ field, errors: fieldMsgs }) => {
         fieldErrors[field] = fieldMsgs;
         messages.push(...fieldMsgs);
       });
       title = "Missing or invalid fields";
       detail = "Please check the form and try again.";
-    }
-    // JS Error
-    else if (error instanceof Error) {
+    } else if (error instanceof Error) {
       messages = [error.message];
       title = "Network Error";
       detail = "Failed to connect to the server.";
@@ -177,7 +152,6 @@ export function parseApiError(error: unknown): ParsedApiError {
     if (messages.length === 0) {
       messages = ["An unexpected error occurred. Please try again."];
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     messages = ["An unexpected error occurred. Please try again."];
     title = "Parse Error";

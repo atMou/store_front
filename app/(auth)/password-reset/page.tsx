@@ -19,21 +19,19 @@ const PasswordReset = () => {
       console.log("res: ", res);
 
       if (res.data.error) {
-        // API returned an error -> show error message
         setErrorMessage(res.data.error.message || "Something went wrong");
-        setSuccessMessage(""); // Clear success message in case of error
+        setSuccessMessage("");
       } else {
-        // API call succeeded -> show success message
         setSuccessMessage(
           "Check your email for a link to reset your password. If it doesn’t appear within a few minutes, check your spam folder."
         );
-        setErrorMessage(""); // Clear error message
-        reset(); // Reset form
+        setErrorMessage("");
+        reset();
       }
     } catch (err) {
       console.log("error: ", err);
       setErrorMessage("Something went wrong, please try again.");
-      setSuccessMessage(""); // Clear success message on error
+      setSuccessMessage("");
     }
   };
 

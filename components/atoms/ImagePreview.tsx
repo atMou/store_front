@@ -78,7 +78,6 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
         return;
       }
 
-      // Reorder previews
       const newPreviews = [...previews];
       const [draggedItem] = newPreviews.splice(draggedIndex, 1);
       newPreviews.splice(dropIndex, 0, draggedItem);
@@ -132,7 +131,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
               sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16vw"
             />
 
-            {/* Main Image Radio Button */}
+            {}
             {showMainSelector && (
               <label className="absolute top-1 left-1 flex items-center gap-1 bg-white/90 px-2 py-1 rounded cursor-pointer z-10 shadow-sm">
                 <input
@@ -148,7 +147,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
               </label>
             )}
 
-            {/* Remove Button */}
+            {}
             <button
               type="button"
               onClick={() => onRemove(index)}
@@ -159,7 +158,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
               <Trash2 size={14} />
             </button>
 
-            {/* Status indicator */}
+            {}
             {isMain && (
               <div className="absolute bottom-1 left-1 bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded">
                 {statusLabel ? statusLabel(index, isMain) : "Main"}

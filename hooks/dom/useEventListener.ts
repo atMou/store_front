@@ -6,17 +6,13 @@ function useEventListener<K extends keyof WindowEventMap>(
   callback: (event: WindowEventMap[K]) => void,
   element?: HTMLElement | Window | Document
 ) {
-  // * Store the callback in a ref to avoid creating a new function on every render
   const callbackRef = useRef(callback);
 
-  // * Update the ref's value if the callback changes
   useEffect(() => {
     callbackRef.current = callback;
   }, [callback]);
 
-  // * Attach the event listener
   useEffect(() => {
-    // If no element is provided, use `window` dynamically inside the client
     const targetElement = element ?? window;
 
     if (!targetElement) return;

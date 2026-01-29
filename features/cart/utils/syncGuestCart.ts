@@ -1,12 +1,6 @@
 import { logger } from "@/shared/lib/logger";
 import { Cart, CartItem } from "../types";
 
-/**
- * Sync guest cart items with backend after user logs in
- * @param guestCart - The guest cart from local state
- * @param syncToBackend - Function to sync items to backend
- * @returns Promise that resolves when sync is complete
- */
 export async function syncGuestCartWithBackend(
   guestCart: Cart | null,
   syncToBackend: (items: CartItem[]) => Promise<Cart>

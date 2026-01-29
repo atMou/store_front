@@ -16,15 +16,13 @@ import {
 import Link from "next/link";
 import { HeaderLogo } from "./header";
 
-
-
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-white border-t border-gray-200 mt-16 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Trust badges */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -67,7 +65,7 @@ const Footer = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 py-12">
-          {/* Logo and description */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -83,13 +81,8 @@ const Footer = () => {
 
             <div className="mt-6 space-y-3">
               <div className="flex items-start gap-2">
-                <MapPin
-                  size={16}
-                  className="text-gray-500 mt-0.5 shrink-0"
-                />
-                <p className="text-sm text-gray-600">
-                 11016 Berlin, Germany 
-                </p>
+                <MapPin size={16} className="text-gray-500 mt-0.5 shrink-0" />
+                <p className="text-sm text-gray-600">11016 Berlin, Germany</p>
               </div>
               <div className="flex items-center gap-2">
                 <Phone size={16} className="text-gray-500 shrink-0" />
@@ -102,7 +95,7 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Company */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -147,7 +140,7 @@ const Footer = () => {
             </ul>
           </motion.div>
 
-          {/* Support */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -192,7 +185,7 @@ const Footer = () => {
             </ul>
           </motion.div>
 
-          {/* Social & Newsletter */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -256,7 +249,7 @@ const Footer = () => {
           </motion.div>
         </div>
 
-        {/* Bottom bar */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}

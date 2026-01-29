@@ -8,7 +8,6 @@ export {
   type UpdateProductFormSchema,
 } from "../validations/UpdateProductFormValidation";
 
-// Component exports
 export { default as AttributeInputs } from "./AttributeInputs";
 export { default as BrandDropdown } from "./BrandDropdown";
 export { default as CategoryDropdown } from "./CategoryDropdown";
